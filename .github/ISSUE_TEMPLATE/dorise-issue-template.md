@@ -1,3 +1,12 @@
+---
+name: dorise-issue-template
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 ## 🐲 Description
 
 기존 로컬라이저블 파일로 관리하던 지역화 변수들을
