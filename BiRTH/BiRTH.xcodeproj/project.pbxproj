@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		93AC00382CE740A600FCF402 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */; };
+		93AC00392CE740A600FCF402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AC002F2CE740A600FCF402 /* Assets.xcassets */; };
+		93AC003B2CE740A600FCF402 /* BiRTH.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */; };
+		93AC003C2CE740A600FCF402 /* BiRTHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00322CE740A600FCF402 /* BiRTHApp.swift */; };
+		93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00332CE740A600FCF402 /* ContentView.swift */; };
+		93AC003E2CE740A600FCF402 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00352CE740A600FCF402 /* Persistence.swift */; };
+		93AC00402CE740CB00FCF402 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC003F2CE740CB00FCF402 /* TestView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		9E960C3A2CE7387800D40B10 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,30 +34,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		93AC002F2CE740A600FCF402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		93AC00302CE740A600FCF402 /* BiRTH.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BiRTH.entitlements; sourceTree = "<group>"; };
+		93AC00322CE740A600FCF402 /* BiRTHApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiRTHApp.swift; sourceTree = "<group>"; };
+		93AC00332CE740A600FCF402 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		93AC00342CE740A600FCF402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93AC00352CE740A600FCF402 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BiRTH.xcdatamodel; sourceTree = "<group>"; };
+		93AC003F2CE740CB00FCF402 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		9E960C222CE7387600D40B10 /* BiRTH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiRTH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C392CE7387800D40B10 /* BiRTHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C432CE7387800D40B10 /* BiRTHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9E960C4B2CE7387800D40B10 /* Exceptions for "BiRTH" folder in "BiRTH" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 9E960C212CE7387600D40B10 /* BiRTH */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		9E960C242CE7387600D40B10 /* BiRTH */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				9E960C4B2CE7387800D40B10 /* Exceptions for "BiRTH" folder in "BiRTH" target */,
-			);
-			path = BiRTH;
-			sourceTree = "<group>";
-		};
 		9E960C3C2CE7387800D40B10 /* BiRTHTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BiRTHTests;
@@ -85,10 +86,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		93AC002E2CE740A600FCF402 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		93AC00362CE740A600FCF402 /* BiRTH */ = {
+			isa = PBXGroup;
+			children = (
+				93AC002E2CE740A600FCF402 /* Preview Content */,
+				93AC002F2CE740A600FCF402 /* Assets.xcassets */,
+				93AC00302CE740A600FCF402 /* BiRTH.entitlements */,
+				93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */,
+				93AC00322CE740A600FCF402 /* BiRTHApp.swift */,
+				93AC00332CE740A600FCF402 /* ContentView.swift */,
+				93AC00342CE740A600FCF402 /* Info.plist */,
+				93AC00352CE740A600FCF402 /* Persistence.swift */,
+				93AC003F2CE740CB00FCF402 /* TestView.swift */,
+			);
+			path = BiRTH;
+			sourceTree = "<group>";
+		};
 		9E960C192CE7387600D40B10 = {
 			isa = PBXGroup;
 			children = (
-				9E960C242CE7387600D40B10 /* BiRTH */,
+				93AC00362CE740A600FCF402 /* BiRTH */,
 				9E960C3C2CE7387800D40B10 /* BiRTHTests */,
 				9E960C462CE7387800D40B10 /* BiRTHUITests */,
 				9E960C232CE7387600D40B10 /* Products */,
@@ -119,9 +144,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				9E960C242CE7387600D40B10 /* BiRTH */,
 			);
 			name = BiRTH;
 			packageProductDependencies = (
@@ -225,6 +247,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93AC00382CE740A600FCF402 /* Preview Assets.xcassets in Resources */,
+				93AC00392CE740A600FCF402 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +273,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93AC003B2CE740A600FCF402 /* BiRTH.xcdatamodeld in Sources */,
+				93AC00402CE740CB00FCF402 /* TestView.swift in Sources */,
+				93AC003C2CE740A600FCF402 /* BiRTHApp.swift in Sources */,
+				93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */,
+				93AC003E2CE740A600FCF402 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +604,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */,
+			);
+			currentVersion = 93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */;
+			path = BiRTH.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9E960C1A2CE7387600D40B10 /* Project object */;
 }
