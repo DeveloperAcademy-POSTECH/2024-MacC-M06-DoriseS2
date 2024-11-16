@@ -8,13 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		93AC00382CE740A600FCF402 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */; };
-		93AC00392CE740A600FCF402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AC002F2CE740A600FCF402 /* Assets.xcassets */; };
-		93AC003B2CE740A600FCF402 /* BiRTH.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */; };
-		93AC003C2CE740A600FCF402 /* BiRTHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00322CE740A600FCF402 /* BiRTHApp.swift */; };
-		93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00332CE740A600FCF402 /* ContentView.swift */; };
-		93AC003E2CE740A600FCF402 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00352CE740A600FCF402 /* Persistence.swift */; };
-		93AC00402CE740CB00FCF402 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC003F2CE740CB00FCF402 /* TestView.swift */; };
-		F7A900792CE8B2B000FDF7CE /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A900782CE8B2B000FDF7CE /* Status.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,18 +29,11 @@
 
 /* Begin PBXFileReference section */
 		93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		93AC002F2CE740A600FCF402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93AC00302CE740A600FCF402 /* BiRTH.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BiRTH.entitlements; sourceTree = "<group>"; };
-		93AC00322CE740A600FCF402 /* BiRTHApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiRTHApp.swift; sourceTree = "<group>"; };
-		93AC00332CE740A600FCF402 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		93AC00342CE740A600FCF402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		93AC00352CE740A600FCF402 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BiRTH.xcdatamodel; sourceTree = "<group>"; };
-		93AC003F2CE740CB00FCF402 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		9E960C222CE7387600D40B10 /* BiRTH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiRTH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C392CE7387800D40B10 /* BiRTHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C432CE7387800D40B10 /* BiRTHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F7A900782CE8B2B000FDF7CE /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -59,6 +45,46 @@
 		9E960C462CE7387800D40B10 /* BiRTHUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BiRTHUITests;
+			sourceTree = "<group>";
+		};
+		F7A9007A2CE8B39600FDF7CE /* View */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = View;
+			sourceTree = "<group>";
+		};
+		F7A9007B2CE8B3B600FDF7CE /* ViewModel */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F7A900802CE8B3D200FDF7CE /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F7A900812CE8B3F600FDF7CE /* Helper */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F7A900842CE8B40D00FDF7CE /* Extension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		F7A900872CE8B44700FDF7CE /* App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = App;
+			sourceTree = "<group>";
+		};
+		F7A900882CE8B46600FDF7CE /* Resource */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		F7A900892CE8B4CA00FDF7CE /* CoreData */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -99,16 +125,17 @@
 		93AC00362CE740A600FCF402 /* BiRTH */ = {
 			isa = PBXGroup;
 			children = (
+				F7A900892CE8B4CA00FDF7CE /* CoreData */,
+				F7A900872CE8B44700FDF7CE /* App */,
+				F7A900802CE8B3D200FDF7CE /* Model */,
+				F7A9007B2CE8B3B600FDF7CE /* ViewModel */,
+				F7A9007A2CE8B39600FDF7CE /* View */,
+				F7A900812CE8B3F600FDF7CE /* Helper */,
+				F7A900842CE8B40D00FDF7CE /* Extension */,
+				F7A900882CE8B46600FDF7CE /* Resource */,
 				93AC002E2CE740A600FCF402 /* Preview Content */,
-				93AC002F2CE740A600FCF402 /* Assets.xcassets */,
 				93AC00302CE740A600FCF402 /* BiRTH.entitlements */,
-				93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */,
-				93AC00322CE740A600FCF402 /* BiRTHApp.swift */,
-				93AC00332CE740A600FCF402 /* ContentView.swift */,
 				93AC00342CE740A600FCF402 /* Info.plist */,
-				93AC00352CE740A600FCF402 /* Persistence.swift */,
-				93AC003F2CE740CB00FCF402 /* TestView.swift */,
-				F7A900782CE8B2B000FDF7CE /* Status.swift */,
 			);
 			path = BiRTH;
 			sourceTree = "<group>";
@@ -147,6 +174,16 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F7A9007A2CE8B39600FDF7CE /* View */,
+				F7A9007B2CE8B3B600FDF7CE /* ViewModel */,
+				F7A900802CE8B3D200FDF7CE /* Model */,
+				F7A900812CE8B3F600FDF7CE /* Helper */,
+				F7A900842CE8B40D00FDF7CE /* Extension */,
+				F7A900872CE8B44700FDF7CE /* App */,
+				F7A900882CE8B46600FDF7CE /* Resource */,
+				F7A900892CE8B4CA00FDF7CE /* CoreData */,
 			);
 			name = BiRTH;
 			packageProductDependencies = (
@@ -251,7 +288,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				93AC00382CE740A600FCF402 /* Preview Assets.xcassets in Resources */,
-				93AC00392CE740A600FCF402 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,12 +312,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93AC003B2CE740A600FCF402 /* BiRTH.xcdatamodeld in Sources */,
-				F7A900792CE8B2B000FDF7CE /* Status.swift in Sources */,
-				93AC00402CE740CB00FCF402 /* TestView.swift in Sources */,
-				93AC003C2CE740A600FCF402 /* BiRTHApp.swift in Sources */,
-				93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */,
-				93AC003E2CE740A600FCF402 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,19 +640,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */,
-			);
-			currentVersion = 93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */;
-			path = BiRTH.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 9E960C1A2CE7387600D40B10 /* Project object */;
 }
