@@ -14,6 +14,7 @@
 		93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00332CE740A600FCF402 /* ContentView.swift */; };
 		93AC003E2CE740A600FCF402 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00352CE740A600FCF402 /* Persistence.swift */; };
 		93AC00402CE740CB00FCF402 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC003F2CE740CB00FCF402 /* TestView.swift */; };
+		F7A900792CE8B2B000FDF7CE /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A900782CE8B2B000FDF7CE /* Status.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		9E960C222CE7387600D40B10 /* BiRTH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiRTH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C392CE7387800D40B10 /* BiRTHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C432CE7387800D40B10 /* BiRTHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7A900782CE8B2B000FDF7CE /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -106,6 +108,7 @@
 				93AC00342CE740A600FCF402 /* Info.plist */,
 				93AC00352CE740A600FCF402 /* Persistence.swift */,
 				93AC003F2CE740CB00FCF402 /* TestView.swift */,
+				F7A900782CE8B2B000FDF7CE /* Status.swift */,
 			);
 			path = BiRTH;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93AC003B2CE740A600FCF402 /* BiRTH.xcdatamodeld in Sources */,
+				F7A900792CE8B2B000FDF7CE /* Status.swift in Sources */,
 				93AC00402CE740CB00FCF402 /* TestView.swift in Sources */,
 				93AC003C2CE740A600FCF402 /* BiRTHApp.swift in Sources */,
 				93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */,
