@@ -1,9 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24B5070a" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="BCollage" representedClassName="BCollage" syncable="YES" codeGenerationType="class">
+        <attribute name="backgroundColor" optional="YES" attributeType="String"/>
+        <attribute name="photos" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[BPhotoForCollage]"/>
+        <relationship name="bPhotoForCollage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BPhotoForCollage" inverseName="bCollage" inverseEntity="BPhotoForCollage"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupForBCollageAndBFriend" inverseName="bCollage" inverseEntity="GroupForBCollageAndBFriend"/>
     </entity>
-    <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-    </elements>
+    <entity name="BFriend" representedClassName="BFriend" syncable="YES" codeGenerationType="class">
+        <attribute name="birth" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="history" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[BHistory]"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="noti" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
+        <attribute name="profileImage" optional="YES" attributeType="Binary"/>
+        <attribute name="tags" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[Btag]"/>
+        <relationship name="bHistory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BHistory" inverseName="bFriend" inverseEntity="BHistory"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupForBCollageAndBFriend" inverseName="bFriend" inverseEntity="GroupForBCollageAndBFriend"/>
+    </entity>
+    <entity name="BHistory" representedClassName="BHistory" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="photoForCollageByFriend" optional="YES" attributeType="Binary"/>
+        <attribute name="photoForCollageByMyself" optional="YES" attributeType="Binary"/>
+        <attribute name="year" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="bFriend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BFriend" inverseName="bHistory" inverseEntity="BFriend"/>
+    </entity>
+    <entity name="BPhotoForCollage" representedClassName="BPhotoForCollage" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="indexZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="posX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="posY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="rotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="scaleX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="scaleY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <relationship name="bCollage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BCollage" inverseName="bPhotoForCollage" inverseEntity="BCollage"/>
+    </entity>
+    <entity name="BTag" representedClassName="BTag" syncable="YES" codeGenerationType="class">
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="GroupForBCollageAndBFriend" representedClassName="GroupForBCollageAndBFriend" syncable="YES" codeGenerationType="class">
+        <attribute name="collage" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="BCollage"/>
+        <attribute name="friend" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="BFriend"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="status" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Status"/>
+        <relationship name="bCollage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BCollage" inverseName="group" inverseEntity="BCollage"/>
+        <relationship name="bFriend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BFriend" inverseName="group" inverseEntity="BFriend"/>
+    </entity>
 </model>

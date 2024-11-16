@@ -13,8 +13,8 @@ struct BiRTHApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TestView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
