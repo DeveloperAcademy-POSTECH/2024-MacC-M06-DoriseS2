@@ -5,6 +5,7 @@
 //  Created by 이소현 on 11/15/24.
 //
 
+import UIKit
 import SwiftUI
 
 struct TestSoyView: View {
@@ -13,29 +14,25 @@ struct TestSoyView: View {
     @State private var showAlert = false
     
     var body: some View {
-        VStack {
-            if let pastedImage = pastedImage {
-                Image(uiImage: pastedImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 300, height: 300)
-            } else {
-                Text("copy Image and paste")
-                    .frame(width: 500, height: 500)
-                    .foregroundStyle(.gray)
-                    .background(.black)
+        ZStack {
+            EditMenuPresentView(pastedImage: $pastedImage)
+            
+            VStack {
+                if let pastedImage = pastedImage {
+                    Image(uiImage: pastedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300, height: 300)
+                } else {
+                    Text("copy Image and paste")
+                    //                    .frame(width: 500, height: 500)
+                        .foregroundStyle(.gray)
+                    
+                }
+                
+                ExportSafariButton()
                 
             }
-            
-            ExportSafariButton()
-            
-            Button("붙여넣기") {
-                pasteImageFromClipboard()
-            }
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
         }
         .padding()
         .alert(isPresented: $showAlert) {
