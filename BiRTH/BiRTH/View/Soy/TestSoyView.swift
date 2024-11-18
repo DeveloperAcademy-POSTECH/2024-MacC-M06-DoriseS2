@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TestView: View {
+struct TestSoyView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         Text("씨네필 발")
@@ -15,5 +15,5 @@ struct TestView: View {
 }
 
 #Preview {
-    TestView()
+    TestSoyView()
 }
