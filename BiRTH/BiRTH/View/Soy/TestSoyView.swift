@@ -8,9 +8,51 @@
 import SwiftUI
 
 struct TestSoyView: View {
+    
+    @State private var pastedImage: UIImage?
+    @State private var showAlert = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        Text("씨네필 발")
+        VStack {
+            if let pastedImage = pastedImage {
+                Image(uiImage: pastedImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 300, height: 300)
+            } else {
+                Text("copy Image and paste")
+                    .frame(width: 500, height: 500)
+                    .foregroundStyle(.gray)
+                    .background(.black)
+                
+            }
+            
+            ExportSafariButton()
+            
+            Button("붙여넣기") {
+                pasteImageFromClipboard()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+        }
+        .padding()
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("오류"),
+                  dismissButton: .default(Text("확인")))
+            
+        }
+    }
+}
+
+extension TestSoyView {
+    func pasteImageFromClipboard() {
+        if let image = UIPasteboard.general.image {
+            pastedImage = image
+        } else {
+            showAlert = true
+        }
     }
 }
 

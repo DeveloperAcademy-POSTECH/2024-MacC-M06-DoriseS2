@@ -13,6 +13,8 @@ struct SafariSheet: UIViewControllerRepresentable {
 
     let url: URL
     
+    /// Inherited from UIViewControllerRepresentable.makeUIViewController(context:).
+    /// safari 브라우저를 생성합니다. 
     func makeUIViewController(context: Context) -> SFSafariViewController {
         SFSafariViewController(url: url)
     }
