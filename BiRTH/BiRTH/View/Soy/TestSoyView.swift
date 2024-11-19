@@ -10,24 +10,24 @@ import SwiftUI
 
 struct TestSoyView: View {
     
-    @State private var pastedImage: UIImage?
-    @State private var imagePosition: CGPoint = .zero
+    @State private var pastedImages: [PastedImage] = []
     @GestureState private var dragOffset: CGSize = .zero
     
     var body: some View {
         ZStack {
             
-            EditMenuPresentView(pastedImage: $pastedImage, imagePosition: $imagePosition)
+            EditMenuPresentView(pastedImages: $pastedImages)
             
             VStack {
-                Spacer()
-                
-                if let pastedImage = pastedImage {
-                    Image(uiImage: pastedImage)
+                ForEach(pastedImages.indices, id: \.self) { index in
+                    
+                    let pastedImage = pastedImages[index]
+                    
+                    Image(uiImage: pastedImage.image)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 100)
-                        .position(imagePosition)
+                        .position(pastedImage.position)
                         .offset(dragOffset)
                         .gesture(
                             DragGesture()
@@ -35,28 +35,28 @@ struct TestSoyView: View {
                                     state = value.translation
                                 }
                                 .onEnded { value in
-                                    imagePosition.x += value.translation.width
-                                    imagePosition.y +=
-                                    value.translation.height
+                                    pastedImages[index].position.x = pastedImage.position.x + value.translation.width
+                                    pastedImages[index].position.y = pastedImage.position.y + value.translation.height
                                 }
                         )
                 }
                 
+                
+                
                 ExportSafariButton()
-
+                
             }
         }
         .padding()
     }
 }
 
-extension TestSoyView {
-    func pasteImageFromClipboard() {
-        if let image = UIPasteboard.general.image {
-            pastedImage = image
-        }
-    }
+struct PastedImage: Identifiable {
+    let id = UUID()
+    var image: UIImage
+    var position: CGPoint
 }
+
 
 #Preview {
     TestSoyView()

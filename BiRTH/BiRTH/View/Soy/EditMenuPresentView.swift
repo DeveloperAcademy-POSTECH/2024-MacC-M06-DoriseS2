@@ -10,8 +10,7 @@ import UIKit
 
 
 struct EditMenuPresentView: UIViewRepresentable {
-    @Binding var pastedImage: UIImage?
-    @Binding var imagePosition: CGPoint
+    @Binding var pastedImages: [PastedImage]
     
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
@@ -31,16 +30,14 @@ struct EditMenuPresentView: UIViewRepresentable {
     func updateUIView(_ uiView: UIView, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(pastedImage: $pastedImage, imagePosition: $imagePosition)
+        Coordinator(pastedImages: $pastedImages)
     }
 
     class Coordinator: NSObject, UIEditMenuInteractionDelegate {
-        @Binding var pastedImage: UIImage?
-        @Binding var imagePosition: CGPoint
+        @Binding var pastedImages: [PastedImage]
 
-        init(pastedImage: Binding<UIImage?>, imagePosition: Binding<CGPoint>) {
-            _pastedImage = pastedImage
-            _imagePosition = imagePosition
+        init(pastedImages: Binding<[PastedImage]>) {
+            _pastedImages = pastedImages
         }
         
         
@@ -52,8 +49,8 @@ struct EditMenuPresentView: UIViewRepresentable {
             
             let pasteAction = UIAction(title: "Paste", image: UIImage(systemName: "doc.on.clipboard")) { _ in
                 if let image = UIPasteboard.general.image {
-                    self.pastedImage = image
-                    self.imagePosition = configuration.sourcePoint
+                    let pastedImage = PastedImage(image: image, position: CGPoint(x: 100, y: 100))
+                    self.pastedImages.append(pastedImage)
                 } else {
                     print("No image in pasteboard")
                 }
