@@ -11,35 +11,42 @@ import SwiftUI
 struct TestSoyView: View {
     
     @State private var pastedImage: UIImage?
-    @State private var showAlert = false
+    @State private var imagePosition: CGPoint = .zero
+    @GestureState private var dragOffset: CGSize = .zero
     
     var body: some View {
         ZStack {
-            EditMenuPresentView(pastedImage: $pastedImage)
+            
+            EditMenuPresentView(pastedImage: $pastedImage, imagePosition: $imagePosition)
             
             VStack {
+                Spacer()
+                
                 if let pastedImage = pastedImage {
                     Image(uiImage: pastedImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 300, height: 300)
-                } else {
-                    Text("copy Image and paste")
-                    //                    .frame(width: 500, height: 500)
-                        .foregroundStyle(.gray)
-                    
+                        .frame(width: 100, height: 100)
+                        .position(imagePosition)
+                        .offset(dragOffset)
+                        .gesture(
+                            DragGesture()
+                                .updating($dragOffset) { value, state, _ in
+                                    state = value.translation
+                                }
+                                .onEnded { value in
+                                    imagePosition.x += value.translation.width
+                                    imagePosition.y +=
+                                    value.translation.height
+                                }
+                        )
                 }
                 
                 ExportSafariButton()
-                
+
             }
         }
         .padding()
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("오류"),
-                  dismissButton: .default(Text("확인")))
-            
-        }
     }
 }
 
@@ -47,8 +54,6 @@ extension TestSoyView {
     func pasteImageFromClipboard() {
         if let image = UIPasteboard.general.image {
             pastedImage = image
-        } else {
-            showAlert = true
         }
     }
 }
