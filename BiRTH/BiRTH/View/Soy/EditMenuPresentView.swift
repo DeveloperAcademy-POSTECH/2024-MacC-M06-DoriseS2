@@ -49,7 +49,7 @@ struct EditMenuPresentView: UIViewRepresentable {
             
             let pasteAction = UIAction(title: "Paste", image: UIImage(systemName: "doc.on.clipboard")) { _ in
                 if let image = UIPasteboard.general.image {
-                    let pastedImage = PastedImage(image: image, position: CGPoint(x: 100, y: 100))
+                    let pastedImage = PastedImage(image: image, position: configuration.sourcePoint)
                     self.pastedImages.append(pastedImage)
                 } else {
                     print("No image in pasteboard")

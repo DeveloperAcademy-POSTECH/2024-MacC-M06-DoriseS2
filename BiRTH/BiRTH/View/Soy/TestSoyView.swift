@@ -11,6 +11,7 @@ import SwiftUI
 struct TestSoyView: View {
     
     @State private var pastedImages: [PastedImage] = []
+//    @State private var isDragging = false
     @GestureState private var dragOffset: CGSize = .zero
     
     var body: some View {
@@ -18,7 +19,6 @@ struct TestSoyView: View {
             
             EditMenuPresentView(pastedImages: $pastedImages)
             
-            VStack {
                 ForEach(pastedImages.indices, id: \.self) { index in
                     
                     let pastedImage = pastedImages[index]
@@ -28,26 +28,28 @@ struct TestSoyView: View {
                         .scaledToFit()
                         .frame(width: 100, height: 100)
                         .position(pastedImage.position)
-                        .offset(dragOffset)
+//                        .offset(dragOffset)
                         .gesture(
                             DragGesture()
                                 .updating($dragOffset) { value, state, _ in
                                     state = value.translation
                                 }
                                 .onEnded { value in
-                                    pastedImages[index].position.x = pastedImage.position.x + value.translation.width
-                                    pastedImages[index].position.y = pastedImage.position.y + value.translation.height
+                                    pastedImages[index].position.x += value.translation.width
+                                    pastedImages[index].position.y += value.translation.height
+                                    
                                 }
                         )
-                }
                 
+            
+                    
                 
-                
-                ExportSafariButton()
                 
             }
         }
         .padding()
+        
+        ExportSafariButton()
     }
 }
 
