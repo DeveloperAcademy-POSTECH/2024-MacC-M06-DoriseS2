@@ -12,6 +12,8 @@ import UIKit
 struct EditMenuPresentView: UIViewRepresentable {
     @Binding var pastedImages: [PastedImage]
     
+    /// Inherited from UIViewRepresentable.makeUIView(context:).
+    /// Paste가 가능한 View를 생성합니다.
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
         view.backgroundColor = .systemGray6
@@ -40,7 +42,8 @@ struct EditMenuPresentView: UIViewRepresentable {
             _pastedImages = pastedImages
         }
         
-        
+        /// Inherited from UIEditMenuInteractionDelegate.editMenuInteraction(_:menuFor:suggestedActions:).
+        /// editMenu에서 paste가 나타나도록 수정하는 함수입니다. paste를 누르면 클립보드에 저장된 이미지가 view에 붙여넣기 됩니다.
         func editMenuInteraction(
             _ interaction: UIEditMenuInteraction,
             menuFor configuration: UIEditMenuConfiguration,
@@ -67,6 +70,7 @@ struct EditMenuPresentView: UIViewRepresentable {
             CGRect(x: configuration.sourcePoint.x, y: configuration.sourcePoint.y, width: 1, height: 1)
         }
 
+        /// 사용자가 Tap한 지점을 인지하는 함수입니다. 
         @objc func didTap(_ recognizer: UITapGestureRecognizer) {
             guard let view = recognizer.view else { return }
             let location = recognizer.location(in: view)

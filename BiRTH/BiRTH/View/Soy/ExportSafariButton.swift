@@ -17,10 +17,10 @@ struct ExportSafariButton: View {
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 12)
-                    .frame(width: 100, height: 100)
+                    .frame(width: 50, height: 50)
                 
                 Image(systemName: "safari")
-                    .font(.system(size: 70))
+                    .font(.system(size: 45))
                     .foregroundStyle(.white)
                     
             }
