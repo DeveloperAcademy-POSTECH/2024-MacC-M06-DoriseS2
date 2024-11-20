@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension TestSoyView {
-
+    
     func dragGesture(index: Int) -> some Gesture {
         DragGesture()
             .onChanged { value in
@@ -18,8 +18,8 @@ extension TestSoyView {
                 withAnimation(.smooth) {
                     pastedImages[index].accumulatedOffset = pastedImages[index].accumulatedOffset + value.translation
                 }
-                
             }
+
     }
     
     func magnificationGesture(index: Int) -> some Gesture {
@@ -44,7 +44,7 @@ extension TestSoyView {
 
 
 extension CGSize {
-  static func + (lhs: Self, rhs: Self) -> Self {
-    CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
-  }
+    static func + (lhs: Self, rhs: Self) -> Self {
+        CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+    }
 }
