@@ -10,10 +10,8 @@ import SwiftUI
 
 struct TestSoyView: View {
     
-    @State private var pastedImages: [PastedImage] = []
-//    @State private var scale: CGFloat = 1.0
-    @GestureState private var scaleDelta: CGFloat = 1.0
-    @GestureState private var dragOffset: CGSize = .zero
+    @State var pastedImages: [PastedImage] = []
+    
     
     var body: some View {
         ZStack {
@@ -27,26 +25,12 @@ struct TestSoyView: View {
                     .scaledToFit()
                     .frame(width: 200 * pastedImages[index].scale, height: 200 * pastedImages[index].scale)
                     .position(pastedImages[index].position)
-                    .simultaneousGesture(
-                        DragGesture()
-                            .updating($dragOffset) { value, state, _ in
-                                state = value.translation
-                            }
-                            .onEnded { value in
-                                pastedImages[index].position.x += value.translation.width
-                                pastedImages[index].position.y += value.translation.height
-                                
-                            }
-                    )
-                    .simultaneousGesture(
-                        MagnifyGesture()
-                            .updating($scaleDelta) { value, state, _ in
-                                state = value.magnification
-                            }
-                            .onEnded { value in
-                                pastedImages[index].scale *= value.magnification
-                            }
-                    )
+                    .offset(pastedImages[index].dragOffset)
+                    .scaleEffect(1 + pastedImages[index].currentAmount + pastedImages[index].lastAmount)
+                    .rotationEffect(pastedImages[index].angle)
+                    .simultaneousGesture(dragGesture(index: index))
+                    .simultaneousGesture(magnificationGesture(index: index))
+                    .simultaneousGesture(rotateGesture(index: index))
             }
         }
         
@@ -54,13 +38,7 @@ struct TestSoyView: View {
     }
 }
 
-struct PastedImage: Identifiable {
-    let id = UUID()
-    var image: UIImage
-    var position: CGPoint
-    var scale: CGFloat = 1.0
-    var state: CGFloat = 1.0
-}
+
 
 
 #Preview {
