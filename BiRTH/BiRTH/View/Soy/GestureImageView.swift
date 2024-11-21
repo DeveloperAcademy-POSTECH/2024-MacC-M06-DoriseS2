@@ -4,6 +4,7 @@ struct GestureImageView: View {
     @ObservedObject var pastedImage: PastedImage // 개별 이미지 데이터
     @Binding var pastedImages: [PastedImage] // 전체 이미지 배열
     @GestureState private var startLocation: CGPoint? = nil // 드래그 시작 위치
+    @Binding var selectedImageID: UUID?
     
     var body: some View {
         ZStack {
@@ -14,13 +15,6 @@ struct GestureImageView: View {
                 .frame(width: pastedImage.imageWidth, height: pastedImage.imageHeight)
                 .rotationEffect(pastedImage.angle)
                 .position(pastedImage.imagePosition)
-                .overlay {
-                    if isSelected {
-                        Rectangle()
-                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [10]))
-                            .foregroundColor(.gray.opacity(0.5))
-                    }
-                }
                 .gesture(dragGesture)
                 .gesture(resizeAndRotateGesture)
                 .onTapGesture {
@@ -41,15 +35,15 @@ struct GestureImageView: View {
     
     // 선택 상태 확인
     private var isSelected: Bool {
-        pastedImages.contains { $0.id == pastedImage.id }
+        selectedImageID == pastedImage.id
     }
     
     // 이미지 선택
     private func selectImage() {
-        // 선택된 이미지를 배열의 마지막으로 이동
-        if let index = pastedImages.firstIndex(where: { $0.id == pastedImage.id }) {
-            let selectedImage = pastedImages.remove(at: index)
-            pastedImages.append(selectedImage)
+        if selectedImageID == pastedImage.id {
+            selectedImageID = nil
+        } else {
+            selectedImageID = pastedImage.id
         }
     }
     

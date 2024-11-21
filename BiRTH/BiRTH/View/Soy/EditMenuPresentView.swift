@@ -52,9 +52,12 @@ struct EditMenuPresentView: UIViewRepresentable {
             
             let pasteAction = UIAction(title: "Paste", image: UIImage(systemName: "doc.on.clipboard")) { _ in
                 if let image = UIPasteboard.general.image {
+                    let aspectRatio = image.size.height / image.size.width
+                    let calcHeight = 150 * aspectRatio
+                    
                     let pastedImage = PastedImage(
                         imageWidth: 150,
-                        imageHeight: 150,
+                        imageHeight: calcHeight,
                         imagePosition: configuration.sourcePoint,
                         angle: .zero,
                         angleSum: 0,
