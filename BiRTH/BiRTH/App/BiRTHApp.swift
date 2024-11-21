@@ -15,6 +15,7 @@ struct BiRTHApp: App {
         WindowGroup {
             SaveBdayView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+
         }
     }
 }
