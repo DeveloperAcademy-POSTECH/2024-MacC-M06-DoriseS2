@@ -10,13 +10,27 @@ import SwiftUI
 struct ButtonSheet: View {
     
     let rows = [GridItem(.flexible())]
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ScrollView(.horizontal) {
-            LazyHGrid(rows: rows) {
-                ExportSafariButton()
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle")
+                }
+            }
+            
+            ScrollView(.horizontal) {
+                LazyHGrid(rows: rows) {
+                    ExportSafariButton()
+                    BackgroundColorButton()
+                }
             }
         }
+        .padding()
     }
 }
 
