@@ -22,7 +22,7 @@ func saveBFriend(viewContext: NSManagedObjectContext, name: String, dateOfBday: 
 }
 
 // BFriend update
-func updateChatEnt(viewContext: NSManagedObjectContext, bFriend: BFriend, name: String, dateOfBday: Date, isLunar: Bool, notiFrequency: [String], imageData: Data, relationshipTag: [String]) {
+func updateChatEnt(viewContext: NSManagedObjectContext, bFriend: BFriend, name: String, dateOfBday: Date, isLunar: Bool, notiFrequency: [String], imageData: Data? = nil, relationshipTag: [String]) {
   do {
     // NSManagedObjectID로 해당 objectID를 갖고 있는 BFriend 찾기
       if let bFriendUpdate = try viewContext.existingObject(with: bFriend.objectID) as? BFriend {
@@ -52,9 +52,13 @@ func createBTag(viewContext: NSManagedObjectContext, tagName: String, tagColor: 
     newBTag.id = UUID()
     newBTag.name = tagName
     newBTag.color = tagColor
-
+//    persistenceController.container.viewContext
     saveData(viewContext: viewContext)
 }
+
+
+// 이걸 사용하세요!
+let persistenceController = PersistenceController.shared
 
 /// CoreData에 변경사항을 적용
 func saveData(viewContext: NSManagedObjectContext) {

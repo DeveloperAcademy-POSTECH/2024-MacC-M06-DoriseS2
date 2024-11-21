@@ -24,19 +24,16 @@ struct HeaderForSaveBdayView: View {
     @Binding var relationshipTag: [String]
     @Binding var profilrImage: Data?
 
-
-
-
     var body: some View {
         HStack {
             Spacer()
             Button {
                 if let bFriend = bFriend {
-
+                    updateChatEnt(viewContext: viewContext, bFriend: bFriend, name: name, dateOfBday: dateOfBday, isLunar: isLunar, notiFrequency: notiFrequency, imageData: imageData, relationshipTag: relationshipTag)
                 } else {
                     saveBFriend(viewContext: viewContext, name: name, dateOfBday: dateOfBday, isLunar: isLunar, notiFrequency: notiFrequency, imageData: imageData, relationshipTag: relationshipTag)
                 }
-                dismiss()
+//                dismiss()
             } label: {
                 Text("저장")
                     .font(.system(size: 24, weight: .semibold))

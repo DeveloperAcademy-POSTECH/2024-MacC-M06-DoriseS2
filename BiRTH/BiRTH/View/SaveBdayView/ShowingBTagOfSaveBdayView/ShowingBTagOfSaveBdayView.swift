@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ShowingBTagOfSaveBdayView: View {
 
-    var bTags: [BTag]
+    var bTags: FetchedResults<BTag>
 
     @Binding var relationshipTag: [String]
     @Binding var isshowingSheetForCreatingTag: Bool

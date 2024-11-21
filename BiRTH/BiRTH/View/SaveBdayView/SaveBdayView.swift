@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import CoreData
 import PhotosUI
 
 //import KoreanLunarSolarConverter
@@ -28,11 +29,11 @@ struct SaveBdayView: View {
     @State private var isshowingSheetForCreatingTag = false
 
     // Fetched results for tags
-//    @FetchRequest(
-//        entity: BTag.entity(),
-//        sortDescriptors: []
-//    )
-    private var bTags: [BTag] = []
+    @FetchRequest(
+        entity: BTag.entity(),
+        sortDescriptors: []
+    )
+    private var bTags: FetchedResults<BTag>
 
     // Optional BFriend object
     private var bFriend: BFriend?
