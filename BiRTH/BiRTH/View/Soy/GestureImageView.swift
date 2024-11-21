@@ -13,6 +13,12 @@ struct GestureImageView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: pastedImage.imageWidth, height: pastedImage.imageHeight)
+                .overlay {
+                    if selectedImageID == pastedImage.id {
+                        Rectangle()
+                            .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [10]))
+                    }
+                }
                 .rotationEffect(pastedImage.angle)
                 .position(pastedImage.imagePosition)
                 .gesture(dragGesture)
@@ -29,6 +35,7 @@ struct GestureImageView: View {
                     .foregroundColor(.gray)
                     .position(pastedImage.rotateDotPosition)
                     .gesture(resizeAndRotateGesture)
+                
             }
         }
     }
