@@ -10,22 +10,27 @@ import SwiftUI
 struct BackgroundColorSheet: View {
     
     let rows = [GridItem(.flexible())]
+    @Environment(\.dismiss) var dismiss
     @State var selectedColor: Color = .white
     @State var colorPicker: Color = .black
     
     var body: some View {
         VStack {
-            
-            RoundedRectangle(cornerRadius: 12)
-                .fill(selectedColor)
-                .frame(height: 100)
+            HStack {
+                Spacer()
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark.circle")
+                }
+            }
             
             HStack(spacing: 15) {
                 LazyHGrid(rows: rows) {
                     ForEach(ColorButton.allCases, id: \.self) { button in
                         Circle()
                             .fill(button.color)
-                            .frame(width: 20, height: 20)
+                            .frame(width: 25, height: 25)
                             .overlay {
                                 if selectedColor == button.color {
                                     Image(systemName: "checkmark")
@@ -43,7 +48,7 @@ struct BackgroundColorSheet: View {
                 
                 ColorPicker("", selection: $colorPicker)
                     .labelsHidden()
-                    .frame(width: 20, height: 20)
+                    .frame(width: 25, height: 25)
                     .overlay {
                         if selectedColor == colorPicker {
                             Image(systemName: "checkmark")
@@ -58,6 +63,7 @@ struct BackgroundColorSheet: View {
                     }
             }
         }
+        .padding()
     }
         
 }
