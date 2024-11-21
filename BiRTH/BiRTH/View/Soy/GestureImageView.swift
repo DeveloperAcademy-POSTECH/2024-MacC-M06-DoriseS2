@@ -19,12 +19,14 @@ struct GestureImageView: View {
                             .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [10]))
                     }
                 }
+                .zIndex(Double(findIndex(id: pastedImage.id)))
                 .rotationEffect(pastedImage.angle)
                 .position(pastedImage.imagePosition)
                 .gesture(dragGesture)
                 .gesture(resizeAndRotateGesture)
                 .onTapGesture {
                     selectImage()
+                    bringImageToFront()
                 }
             
             if isSelected {
@@ -33,6 +35,7 @@ struct GestureImageView: View {
                     .resizable()
                     .frame(width: 25, height: 25)
                     .foregroundColor(.gray)
+                    .zIndex(Double(findIndex(id: pastedImage.id)) + 1)
                     .position(pastedImage.rotateDotPosition)
                     .gesture(resizeAndRotateGesture)
                 
@@ -40,6 +43,8 @@ struct GestureImageView: View {
         }
     }
     
+    
+    // MARK: - GestureImageView Computed Property
     // 선택 상태 확인
     private var isSelected: Bool {
         selectedImageID == pastedImage.id
@@ -51,6 +56,14 @@ struct GestureImageView: View {
             selectedImageID = nil
         } else {
             selectedImageID = pastedImage.id
+        }
+    }
+    
+    // 이미지를 배열의 맨 뒤로 이동
+    private func bringImageToFront() {
+        if let index = pastedImages.firstIndex(where: { $0.id == pastedImage.id }) {
+            let selectedImage = pastedImages.remove(at: index)
+            pastedImages.append(selectedImage)
         }
     }
     
@@ -90,5 +103,17 @@ struct GestureImageView: View {
                 pastedImage.angleSum += (-(originalAngle - newAngle) * 180 / CGFloat.pi)
                 pastedImage.angle = .degrees(pastedImage.angleSum)
             }
+    }
+    
+    
+    func findIndex(id: UUID) -> Int {
+        for index in 0 ..< pastedImages.count {
+            if pastedImages[index].id == id {
+                return index
+            }
+        }
+        
+        return -1
+        
     }
 }
