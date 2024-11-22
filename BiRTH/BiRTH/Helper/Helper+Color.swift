@@ -1,21 +1,21 @@
 //
-//  Extension+Color.swift
+//  Helper+.swift
 //  BiRTH
 //
-//  Created by 이소현 on 11/21/24.
+//  Created by Hajin on 11/16/24.
 //
 
-import SwiftUI
 import Foundation
+import SwiftUI
 
 extension Color {
     init(hex: String) {
         let scanner = Scanner(string: hex)
         _ = scanner.scanString("#")
-        
+
         var rgb: UInt64 = 0
         scanner.scanHexInt64(&rgb)
-        
+
         let r = Double((rgb >> 16) & 0xFF) / 255.0
         let g = Double((rgb >>  8) & 0xFF) / 255.0
         let b = Double((rgb >>  0) & 0xFF) / 255.0

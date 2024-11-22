@@ -7,13 +7,13 @@
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupForBCollageAndBFriend" inverseName="bCollage" inverseEntity="GroupForBCollageAndBFriend"/>
     </entity>
     <entity name="BFriend" representedClassName="BFriend" syncable="YES" codeGenerationType="class">
-        <attribute name="birth" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="birth" attributeType="Date" defaultDateTimeInterval="753850140" usesScalarValueType="NO"/>
         <attribute name="history" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[BHistory]"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String" defaultValueString="&quot;&quot;"/>
         <attribute name="noti" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="profileImage" optional="YES" attributeType="Binary"/>
-        <attribute name="tags" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[BTag]"/>
+        <attribute name="tags" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <relationship name="bHistory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BHistory" inverseName="bFriend" inverseEntity="BHistory"/>
         <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GroupForBCollageAndBFriend" inverseName="bFriend" inverseEntity="GroupForBCollageAndBFriend"/>
     </entity>
