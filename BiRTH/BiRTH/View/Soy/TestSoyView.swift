@@ -4,8 +4,8 @@ import SwiftUI
 struct TestSoyView: View {
     @State var pastedImages: [PastedImage] = []
     @State var selectedImageID: UUID? = nil
-    @State var backgroundColorIndex: Int = 0
     @State var showingButtonSheet = false
+    @EnvironmentObject var colorManager: ColorManager
     
     var body: some View {
         ZStack {
@@ -24,6 +24,7 @@ struct TestSoyView: View {
         }
         .sheet(isPresented: $showingButtonSheet) {
             ButtonSheet()
+                .environmentObject(colorManager)
                 .presentationDetents([.fraction(0.25)])
         }
     }

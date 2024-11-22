@@ -45,12 +45,12 @@ struct GestureImageView: View {
     
     
     // MARK: - GestureImageView Computed Property
-    // 선택 상태 확인
+    /// 선택 상태 확인하는 연산 프로퍼티입니다. 
     private var isSelected: Bool {
         selectedImageID == pastedImage.id
     }
     
-    // 이미지 선택
+    /// 이미지 선택할 때 id를 확인하기 위한 함수입니다.
     private func selectImage() {
         if selectedImageID == pastedImage.id {
             selectedImageID = nil
@@ -59,7 +59,7 @@ struct GestureImageView: View {
         }
     }
     
-    // 이미지를 배열의 맨 뒤로 이동
+    /// 이미지를 배열의 맨 뒤로 이동하기 위한 함수입니다.
     private func bringImageToFront() {
         if let index = pastedImages.firstIndex(where: { $0.id == pastedImage.id }) {
             let selectedImage = pastedImages.remove(at: index)
@@ -67,7 +67,7 @@ struct GestureImageView: View {
         }
     }
     
-    // 드래그 제스처
+    /// 드래그 제스처
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
@@ -82,7 +82,7 @@ struct GestureImageView: View {
             }
     }
     
-    // 크기 조절 및 회전 제스처
+    /// 크기 조절 및 회전 제스처와 관련된 연산프로퍼티입니다.
     private var resizeAndRotateGesture: some Gesture {
         DragGesture()
             .onChanged { gesture in
@@ -105,7 +105,7 @@ struct GestureImageView: View {
             }
     }
     
-    
+    /// zIndex를 찾는 함수입니다.
     func findIndex(id: UUID) -> Int {
         for index in 0 ..< pastedImages.count {
             if pastedImages[index].id == id {

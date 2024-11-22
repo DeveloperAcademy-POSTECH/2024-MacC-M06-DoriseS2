@@ -11,8 +11,8 @@ struct BackgroundColorSheet: View {
     
     let rows = [GridItem(.flexible())]
     @Environment(\.dismiss) var dismiss
-    @State var selectedColor: Color = .white
     @State var colorPicker: Color = .black
+    @EnvironmentObject var colorManager: ColorManager
     
     var body: some View {
         VStack {
@@ -32,7 +32,7 @@ struct BackgroundColorSheet: View {
                             .fill(button.color)
                             .frame(width: 25, height: 25)
                             .overlay {
-                                if selectedColor == button.color {
+                                if colorManager.selectedBackgroundColor == button.color {
                                     Image(systemName: "checkmark")
                                         .foregroundStyle(.black)
                                         .bold()
@@ -41,7 +41,7 @@ struct BackgroundColorSheet: View {
                                 }
                             }
                             .onTapGesture {
-                                selectedColor = button.color
+                                colorManager.selectedBackgroundColor = button.color
                             }
                     }
                 }
@@ -50,7 +50,7 @@ struct BackgroundColorSheet: View {
                     .labelsHidden()
                     .frame(width: 25, height: 25)
                     .overlay {
-                        if selectedColor == colorPicker {
+                        if colorManager.selectedBackgroundColor == colorPicker {
                             Image(systemName: "checkmark")
                                 .foregroundStyle(.black)
                                 .bold()
@@ -59,7 +59,7 @@ struct BackgroundColorSheet: View {
                         }
                     }
                     .onChange(of: colorPicker) { oldValue, newValue in
-                        selectedColor = newValue
+                        colorManager.selectedBackgroundColor = newValue
                     }
             }
         }
@@ -95,5 +95,5 @@ enum ColorButton: CaseIterable {
 
 
 #Preview {
-    BackgroundColorSheet()
+//    BackgroundColorSheet(, selectedBackgroundColor: <#Binding<Color>#>)
 }

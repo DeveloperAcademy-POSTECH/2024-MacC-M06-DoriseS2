@@ -10,10 +10,12 @@ import SwiftUI
 @main
 struct BiRTHApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject private var colorManager = ColorManager()
 
     var body: some Scene {
         WindowGroup {
             TestSoyView()
+                .environmentObject(colorManager)
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

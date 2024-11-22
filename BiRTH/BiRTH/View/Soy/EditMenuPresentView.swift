@@ -11,12 +11,13 @@ import UIKit
 
 struct EditMenuPresentView: UIViewRepresentable {
     @Binding var pastedImages: [PastedImage]
+    @EnvironmentObject var colorManager: ColorManager
     
     /// Inherited from UIViewRepresentable.makeUIView(context:).
     /// Paste가 가능한 View를 생성합니다.
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor(colorManager.selectedBackgroundColor)
 
         // Add Edit Menu Interaction
         let editMenuInteraction = UIEditMenuInteraction(delegate: context.coordinator)
@@ -29,7 +30,9 @@ struct EditMenuPresentView: UIViewRepresentable {
         return view
     }
 
-    func updateUIView(_ uiView: UIView, context: Context) {}
+    func updateUIView(_ uiView: UIView, context: Context) {
+        uiView.backgroundColor = UIColor(colorManager.selectedBackgroundColor)
+    }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(pastedImages: $pastedImages)

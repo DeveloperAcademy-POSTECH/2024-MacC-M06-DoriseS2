@@ -11,6 +11,7 @@ struct ButtonSheet: View {
     
     let rows = [GridItem(.flexible())]
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var colorManager: ColorManager
     
     var body: some View {
         VStack {
@@ -27,6 +28,7 @@ struct ButtonSheet: View {
                 LazyHGrid(rows: rows) {
                     ExportSafariButton()
                     BackgroundColorButton()
+                        .environmentObject(colorManager)
                 }
             }
         }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BackgroundColorButton: View {
     @State var showingBackgroundColorSheet = false
+    @EnvironmentObject var colorManager: ColorManager
     
     var body: some View {
         Button {
