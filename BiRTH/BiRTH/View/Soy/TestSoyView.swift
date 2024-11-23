@@ -16,12 +16,6 @@ struct TestSoyView: View {
             }
         }
         
-        Text("60bold").font(.biRTH_bold_60)
-        Text("hello").font(.biRTH_plusMark)
-        Text("semi").font(.biRTH_semibold_16)
-                          Text("semibig").font(.biRTH_semibold_20)
-
-        
         Button {
             showingButtonSheet.toggle()
         } label: {
