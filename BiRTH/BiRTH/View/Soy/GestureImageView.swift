@@ -5,6 +5,7 @@ struct GestureImageView: View {
     @Binding var pastedImages: [PastedImage] // 전체 이미지 배열
     @GestureState private var startLocation: CGPoint? = nil // 드래그 시작 위치
     @Binding var selectedImageID: UUID?
+    @State var showingRemoveImageBackgroundSheet: Bool = false
     
     var body: some View {
         ZStack {
@@ -27,6 +28,10 @@ struct GestureImageView: View {
                 .onTapGesture {
                     selectImage()
                     bringImageToFront()
+                    showingRemoveImageBackgroundSheet.toggle()
+                }
+                .sheet(isPresented: $showingRemoveImageBackgroundSheet) {
+                    RemoveImageBackgroundSheet()
                 }
             
             if isSelected {
