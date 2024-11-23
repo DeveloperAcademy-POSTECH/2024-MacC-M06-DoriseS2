@@ -11,12 +11,13 @@ import UIKit
 
 struct EditMenuPresentView: UIViewRepresentable {
     @Binding var pastedImages: [PastedImage]
+    @EnvironmentObject var colorManager: ColorManager
     
     /// Inherited from UIViewRepresentable.makeUIView(context:).
     /// Paste가 가능한 View를 생성합니다.
     func makeUIView(context: Context) -> UIView {
         let view = UIView()
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor(colorManager.selectedBackgroundColor)
 
         // Add Edit Menu Interaction
         let editMenuInteraction = UIEditMenuInteraction(delegate: context.coordinator)
@@ -29,7 +30,9 @@ struct EditMenuPresentView: UIViewRepresentable {
         return view
     }
 
-    func updateUIView(_ uiView: UIView, context: Context) {}
+    func updateUIView(_ uiView: UIView, context: Context) {
+        uiView.backgroundColor = UIColor(colorManager.selectedBackgroundColor)
+    }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(pastedImages: $pastedImages)
@@ -52,7 +55,17 @@ struct EditMenuPresentView: UIViewRepresentable {
             
             let pasteAction = UIAction(title: "Paste", image: UIImage(systemName: "doc.on.clipboard")) { _ in
                 if let image = UIPasteboard.general.image {
-                    let pastedImage = PastedImage(image: image, position: configuration.sourcePoint)
+                    let aspectRatio = image.size.height / image.size.width
+                    let calcHeight = 150 * aspectRatio
+                    
+                    let pastedImage = PastedImage(
+                        imageWidth: 150,
+                        imageHeight: calcHeight,
+                        imagePosition: configuration.sourcePoint,
+                        angle: .zero,
+                        angleSum: 0,
+                        pastedImage: image
+                    )
                     self.pastedImages.append(pastedImage)
                 } else {
                     print("No image in pasteboard")
