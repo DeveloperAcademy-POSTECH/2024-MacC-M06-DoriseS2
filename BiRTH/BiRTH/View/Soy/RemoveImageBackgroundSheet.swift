@@ -12,6 +12,9 @@ struct RemoveImageBackgroundSheet: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @Binding var image: UIImage
+    @State var showRemoveImgBg = false
+    
     var body: some View {
         VStack {
             HStack {
@@ -26,7 +29,7 @@ struct RemoveImageBackgroundSheet: View {
             ScrollView(.horizontal) {
                 LazyHGrid(rows: rows) {
                     Button {
-//                        RemoveImageBackground()
+                        showRemoveImgBg.toggle()
                         print("removeImageBackground")
                     } label: {
                         ZStack {
@@ -39,6 +42,9 @@ struct RemoveImageBackgroundSheet: View {
                                 
                         }
                     }
+                    .sheet(isPresented: $showRemoveImgBg) {
+                        RemoveImageBackground(image: $image)
+                    }
                 }
             }
         }
@@ -46,6 +52,6 @@ struct RemoveImageBackgroundSheet: View {
     }
 }
 
-#Preview {
-    RemoveImageBackgroundSheet()
-}
+//#Preview {
+//    RemoveImageBackgroundSheet(image: <#UIImage#>)
+//}

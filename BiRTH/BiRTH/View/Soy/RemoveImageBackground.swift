@@ -10,8 +10,13 @@ import Vision
 import CoreImage.CIFilterBuiltins
 
 struct RemoveImageBackground: View {
-    @State var image = UIImage.photologo
+    @Binding var image: UIImage
     private var processingQueue = DispatchQueue(label: "ProcessingQueue")
+    
+    // 사용자 정의 초기화
+    init(image: Binding<UIImage>) {
+        self._image = image
+    }
     
     var body: some View {
         VStack {
@@ -90,5 +95,5 @@ extension RemoveImageBackground {
 }
 
 #Preview {
-    RemoveImageBackground()
+//    RemoveImageBackground()
 }

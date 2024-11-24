@@ -31,7 +31,8 @@ struct GestureImageView: View {
                     showingRemoveImageBackgroundSheet.toggle()
                 }
                 .sheet(isPresented: $showingRemoveImageBackgroundSheet) {
-                    RemoveImageBackgroundSheet()
+                    RemoveImageBackgroundSheet(image: $pastedImage.pastedImage)
+                        .presentationDetents([.fraction(0.25)])
                 }
             
             if isSelected {
