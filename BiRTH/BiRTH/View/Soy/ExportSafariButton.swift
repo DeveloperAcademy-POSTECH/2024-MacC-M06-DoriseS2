@@ -16,12 +16,12 @@ struct ExportSafariButton: View {
             showingSafariSheet.toggle()
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 12)
+                Circle()
                     .frame(width: 50, height: 50)
                 
                 Image(systemName: "safari")
-                    .font(.system(size: 45))
-                    .foregroundStyle(.white)
+                    .font(.system(size: 30))
+                    .foregroundStyle(.black)
                     
             }
                 
