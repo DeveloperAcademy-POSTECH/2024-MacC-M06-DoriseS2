@@ -53,3 +53,4 @@ struct SearchBarStyleForFriendListView: TextFieldStyle {
     @Previewable @State var searchText = ""
     SearchBarForFriendListView(text: $searchText)
 }
+

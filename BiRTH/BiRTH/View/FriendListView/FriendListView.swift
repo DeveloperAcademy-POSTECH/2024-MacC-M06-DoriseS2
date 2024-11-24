@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct FriendListView: View {
+    @Binding var text: String
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            SearchBarForFriendListView(text: $text)
+            HeaderForFriendListView()
+            Spacer()
+        }
     }
 }
 
 #Preview {
-    FriendListView()
+    @Previewable @State var searchText = ""
+    FriendListView(text: $searchText)
 }
