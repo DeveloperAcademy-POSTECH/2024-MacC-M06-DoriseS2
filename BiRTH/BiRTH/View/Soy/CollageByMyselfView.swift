@@ -24,30 +24,31 @@ struct CollageByMyselfView: View {
                 ColByMyselfBottomView()
             }
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
+            
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                RedoUndo()
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Rectangle()
+                    .frame(width: 16)
+                    .foregroundStyle(.clear)
+            }
+  
+            ToolbarItem(placement: .topBarTrailing) {
+                SendAndShare()
+            }
+            
+        }
     }
 }
 
-
-struct ColByMyselfBottomView: View {
-    @EnvironmentObject var colorManager: ColorManager
-    @State var showingButtonSheet = false
-    
-    var body: some View {
-        Button {
-            showingButtonSheet.toggle()
-        } label: {
-            Image(systemName: "plus.circle.fill")
-                .font(.system(size: 40))
-                .foregroundStyle(Color.biRTH_pointColor)
-        }
-        .padding(.vertical, 5)
-        .sheet(isPresented: $showingButtonSheet) {
-            ButtonSheet()
-                .environmentObject(colorManager)
-                .presentationDetents([.fraction(0.25)])
-        }
-    }
-}
 
 
 #Preview {
