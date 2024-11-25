@@ -11,7 +11,7 @@ import CoreData
 import PhotosUI
 
 //import KoreanLunarSolarConverter
-
+//최상단뷰
 struct SaveBdayView: View {
     @Environment(\.modelContext) var context
 
@@ -35,6 +35,12 @@ struct SaveBdayView: View {
     )
     private var bTags: FetchedResults<BTag>
 
+    
+//    @FetchRequest(
+//        entity: BFriend.entity(),
+//        sortDescriptors: []
+//    )
+//    private var bFriend: FetchedResults<BFriend?>
     // Optional BFriend object
     private var bFriend: BFriend?
 

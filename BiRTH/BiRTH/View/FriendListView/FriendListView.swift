@@ -13,6 +13,7 @@ struct FriendListView: View {
         VStack {
             SearchBarForFriendListView(text: $text)
             HeaderForFriendListView()
+            
             Spacer()
         }
     }
