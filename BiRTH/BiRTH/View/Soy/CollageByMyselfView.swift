@@ -4,13 +4,11 @@ import SwiftUI
 struct CollageByMyselfView: View {
     @State var pastedImages: [PastedImage] = []
     @State var selectedImageID: UUID? = nil
-    @State var showingButtonSheet = false
-    @EnvironmentObject var colorManager: ColorManager
     
     var body: some View {
         ZStack {
             // BackgroundColor
-            Color(Color.biRTH_mainColor).ignoresSafeArea()
+            Color.biRTH_mainColor.ignoresSafeArea()
             
             VStack {
                 ColByMyselfTopView(friendImage: "exampleImage", friendName: "임찬우", remainDday: 5)
@@ -23,19 +21,30 @@ struct CollageByMyselfView: View {
                     }
                 }
                 
-                Button {
-                    showingButtonSheet.toggle()
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 40))
-                }
-                .padding()
-                .sheet(isPresented: $showingButtonSheet) {
-                    ButtonSheet()
-                        .environmentObject(colorManager)
-                        .presentationDetents([.fraction(0.25)])
-                }
+                ColByMyselfBottomView()
             }
+        }
+    }
+}
+
+
+struct ColByMyselfBottomView: View {
+    @EnvironmentObject var colorManager: ColorManager
+    @State var showingButtonSheet = false
+    
+    var body: some View {
+        Button {
+            showingButtonSheet.toggle()
+        } label: {
+            Image(systemName: "plus.circle.fill")
+                .font(.system(size: 40))
+                .foregroundStyle(Color.biRTH_pointColor)
+        }
+        .padding(.vertical, 5)
+        .sheet(isPresented: $showingButtonSheet) {
+            ButtonSheet()
+                .environmentObject(colorManager)
+                .presentationDetents([.fraction(0.25)])
         }
     }
 }
