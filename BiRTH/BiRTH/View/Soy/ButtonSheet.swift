@@ -14,25 +14,21 @@ struct ButtonSheet: View {
     @EnvironmentObject var colorManager: ColorManager
     
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                }
-            }
-            
+        NavigationStack {
             ScrollView(.horizontal) {
-                LazyHGrid(rows: rows) {
+                LazyHGrid(rows: rows, spacing: 24) {
                     ExportSafariButton()
                     BackgroundColorButton()
                         .environmentObject(colorManager)
                 }
             }
+            .padding(.horizontal)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    XmarkButton()
+                }
+            }
         }
-        .padding()
     }
 }
 

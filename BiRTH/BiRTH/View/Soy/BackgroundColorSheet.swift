@@ -11,83 +11,81 @@ struct BackgroundColorSheet: View {
     
     let rows = [GridItem(.flexible())]
     @Environment(\.dismiss) var dismiss
-    @State var colorPicker: Color = .black
     @EnvironmentObject var colorManager: ColorManager
+    @State var colorPicker: Color = .black
+    
     
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                }
-            }
-            
-            HStack(spacing: 15) {
-                LazyHGrid(rows: rows) {
-                    ForEach(ColorButton.allCases, id: \.self) { button in
-                        Circle()
-                            .fill(button.color)
-                            .frame(width: 25, height: 25)
-                            .overlay {
-                                if colorManager.selectedBackgroundColor == button.color {
-                                    Image(systemName: "checkmark")
-                                        .foregroundStyle(.black)
-                                        .bold()
-                                } else {
-                                    EmptyView()
+        NavigationStack {
+            VStack {
+                HStack(spacing: 15) {
+                    LazyHGrid(rows: rows) {
+                        ForEach(ColorButton.allCases, id: \.self) { button in
+                            Circle()
+                                .fill(button.color)
+                                .frame(width: 25, height: 25)
+                                .overlay {
+                                    if colorManager.selectedBackgroundColor == button.color {
+                                        Image(systemName: "checkmark")
+                                            .foregroundStyle(.black)
+                                            .bold()
+                                    } else {
+                                        EmptyView()
+                                    }
                                 }
-                            }
-                            .onTapGesture {
-                                colorManager.selectedBackgroundColor = button.color
-                            }
-                    }
-                }
-                
-                ColorPicker("", selection: $colorPicker)
-                    .labelsHidden()
-                    .frame(width: 25, height: 25)
-                    .overlay {
-                        if colorManager.selectedBackgroundColor == colorPicker {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(.black)
-                                .bold()
-                        } else {
-                            EmptyView()
+                                .onTapGesture {
+                                    colorManager.selectedBackgroundColor = button.color
+                                }
                         }
                     }
-                    .onChange(of: colorPicker) { oldValue, newValue in
-                        colorManager.selectedBackgroundColor = newValue
-                    }
+                    
+                    ColorPicker("", selection: $colorPicker)
+                        .labelsHidden()
+                        .frame(width: 25, height: 25)
+                        .overlay {
+                            if colorManager.selectedBackgroundColor == colorPicker {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.black)
+                                    .bold()
+                            } else {
+                                EmptyView()
+                            }
+                        }
+                        .onChange(of: colorPicker) { oldValue, newValue in
+                            colorManager.selectedBackgroundColor = newValue
+                        }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    XmarkButton()
+                }
             }
         }
-        .padding()
     }
-        
+    
 }
 
 enum ColorButton: CaseIterable {
-    case white, pink, yellow01, yellow02, green01, green02, blue01, blue02
+    case bgWhite, bgPink, bgYellow01, bgYellow02, bgGreen01, bgGreen02, bgBlue01, bgBlue02
     
     var color: Color {
         switch self {
-        case .white:
+        case .bgWhite:
             Color(hex: "FFFFFF")
-        case .pink:
+        case .bgPink:
             Color(hex: "EB7777")
-        case .yellow01:
+        case .bgYellow01:
             Color(hex: "FFC97F")
-        case .yellow02:
+        case .bgYellow02:
             Color(hex: "FEC600")
-        case .green01:
+        case .bgGreen01:
             Color(hex: "C9E7DB")
-        case .green02:
+        case .bgGreen02:
             Color(hex: "73BFBA")
-        case .blue01:
+        case .bgBlue01:
             Color(hex: "3CA5D9")
-        case .blue02:
+        case .bgBlue02:
             Color(hex: "2364AA")
         }
     }
@@ -95,5 +93,5 @@ enum ColorButton: CaseIterable {
 
 
 #Preview {
-//    BackgroundColorSheet(, selectedBackgroundColor: <#Binding<Color>#>)
+    //    BackgroundColorSheet(, selectedBackgroundColor: <#Binding<Color>#>)
 }

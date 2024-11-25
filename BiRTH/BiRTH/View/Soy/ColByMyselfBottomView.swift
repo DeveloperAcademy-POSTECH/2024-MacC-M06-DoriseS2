@@ -23,10 +23,11 @@ struct ColByMyselfBottomView: View {
         .sheet(isPresented: $showingButtonSheet) {
             ButtonSheet()
                 .environmentObject(colorManager)
-                .presentationDetents([.fraction(0.25)])
+                .presentationDetents([.fraction(0.2)])
         }
     }
 }
+
 
 #Preview {
     ColByMyselfBottomView()

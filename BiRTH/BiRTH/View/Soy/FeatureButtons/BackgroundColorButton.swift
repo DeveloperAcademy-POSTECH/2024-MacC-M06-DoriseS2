@@ -15,14 +15,7 @@ struct BackgroundColorButton: View {
         Button {
             showingBackgroundColorSheet.toggle()
         } label: {
-            Circle()
-                .frame(width: 50, height: 50)
-                .foregroundStyle(Color(hex: "9FCF8E"))
-                .overlay {
-                    Image(systemName: "paintbrush.pointed")
-                        .font(.system(size: 30))
-                        .foregroundStyle(.black)
-                }
+            FeatureCircle(colorHex: "9FCF8E", featureImgName: "paintbrush.pointed", featureName: "배경색상")
         }
         .sheet(isPresented: $showingBackgroundColorSheet) {
             BackgroundColorSheet()
