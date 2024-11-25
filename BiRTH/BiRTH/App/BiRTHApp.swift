@@ -16,6 +16,7 @@ struct BiRTHApp: App {
         WindowGroup {
 //            TestSoyView()
 //                .environmentObject(colorManager)
+
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //            SaveBdayView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
