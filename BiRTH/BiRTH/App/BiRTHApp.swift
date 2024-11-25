@@ -15,6 +15,7 @@ struct BiRTHApp: App {
     var body: some Scene {
         WindowGroup {
             TestSoyView()
+//            RemoveImageBackground()
                 .environmentObject(colorManager)
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //            SaveBdayView()
