@@ -13,6 +13,7 @@ struct BackgroundColorSheet: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var colorManager: ColorManager
     @State var colorPicker: Color = .black
+    @State var isAbleClosed = false
     
     
     var body: some View {
@@ -56,6 +57,7 @@ struct BackgroundColorSheet: View {
                         }
                 }
             }
+            .interactiveDismissDisabled(!isAbleClosed)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     XmarkButton()

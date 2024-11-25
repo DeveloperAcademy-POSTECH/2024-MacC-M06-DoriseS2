@@ -15,17 +15,21 @@ struct ColByMyselfTopView: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            ZStack {
-                
-                Image(friendImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 50)
-                    .mask {
-                        Circle()
-                    }
-                
-                magnifyImage()
+            NavigationLink {
+                // TODO: FriendDetailView 연결
+            } label: {
+                ZStack {
+                    
+                    Image(friendImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50)
+                        .mask {
+                            Circle()
+                        }
+                    
+                    magnifyImage()
+                }
             }
             
             Text("TO.\(friendName)")

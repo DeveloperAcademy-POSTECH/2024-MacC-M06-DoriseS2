@@ -1,58 +1,13 @@
 //
-//  RemoveImageBackgroundSheet.swift
+//  Extension+RemoveImageBackgroundSheet.swift
 //  BiRTH
 //
-//  Created by 이소현 on 11/23/24.
+//  Created by 이소현 on 11/25/24.
 //
 
 import SwiftUI
 import Vision
 import CoreImage.CIFilterBuiltins
-
-
-struct RemoveImageBackgroundSheet: View {
-    let rows = [GridItem(.flexible())]
-    
-    @Environment(\.dismiss) var dismiss
-    
-    @Binding var image: UIImage
-    
-    var processingQueue = DispatchQueue(label: "ProcessingQueue")
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                }
-            }
-            
-            ScrollView(.horizontal) {
-                LazyHGrid(rows: rows) {
-                    Button {
-                        createSticker()
-                        print("removeImageBackground")
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .frame(width: 50, height: 50)
-                            
-                            Image(systemName: "wand.and.rays")
-                                .font(.system(size: 30))
-                                .foregroundStyle(.black)
-                                
-                        }
-                    }
-                }
-            }
-        }
-        .padding()
-    }
-}
-
 
 extension RemoveImageBackgroundSheet {
     func createSticker() {
@@ -114,4 +69,3 @@ extension RemoveImageBackgroundSheet {
         return UIImage(cgImage: cgImage)
     }
 }
-
