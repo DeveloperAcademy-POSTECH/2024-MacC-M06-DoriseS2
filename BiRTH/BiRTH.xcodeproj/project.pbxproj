@@ -36,7 +36,25 @@
 		9E960C432CE7387800D40B10 /* BiRTHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		892843692CF480AC0003E956 /* Exceptions for "Utilities" folder in "BiRTH" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DdayUtils.swift,
+			);
+			target = 9E960C212CE7387600D40B10 /* BiRTH */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		892843652CF4807E0003E956 /* Utilities */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				892843692CF480AC0003E956 /* Exceptions for "Utilities" folder in "BiRTH" target */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		9E960C3C2CE7387800D40B10 /* BiRTHTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BiRTHTests;
@@ -147,6 +165,7 @@
 				9E960C3C2CE7387800D40B10 /* BiRTHTests */,
 				9E960C462CE7387800D40B10 /* BiRTHUITests */,
 				9E960C232CE7387600D40B10 /* Products */,
+				892843652CF4807E0003E956 /* Utilities */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,6 +225,7 @@
 				9E960C3B2CE7387800D40B10 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				892843652CF4807E0003E956 /* Utilities */,
 				9E960C3C2CE7387800D40B10 /* BiRTHTests */,
 			);
 			name = BiRTHTests;

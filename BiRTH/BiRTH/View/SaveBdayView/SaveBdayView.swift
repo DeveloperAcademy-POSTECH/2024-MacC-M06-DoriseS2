@@ -91,9 +91,10 @@ struct SaveBdayView: View {
                 
                 SetAlarmInSaveBdayView(notiFrequency: $notiFrequency)
                 
-                Spacer()
-            }
-        }
+                Spacer(minLength: 82)
+            } //: VSTACK
+            .background(Color.biRTH_mainColor)
+        } //: NAVIGATIONVIEW
         .onAppear {
             // Optionally initialize additional state when view appears
             if let bFriend = bFriend {
@@ -103,7 +104,6 @@ struct SaveBdayView: View {
                 self.notiFrequency = bFriend.noti ?? [""]
                 self.relationshipTag = bFriend.tags ?? [""]
             }
-
         }
     }
 }

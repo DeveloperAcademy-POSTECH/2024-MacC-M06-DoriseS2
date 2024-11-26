@@ -19,7 +19,6 @@ struct BiRTHApp: App {
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //            SaveBdayView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-
         }
     }
 }

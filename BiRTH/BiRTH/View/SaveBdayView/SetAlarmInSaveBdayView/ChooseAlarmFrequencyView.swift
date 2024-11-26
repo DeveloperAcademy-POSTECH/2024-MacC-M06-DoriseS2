@@ -24,17 +24,23 @@ struct ChooseAlarmFrequencyView: View {
                         }
                     } label: {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 40)
-                                .fill(Color.init(hex: "0A84FF"))
-                                .opacity(notiFrequency.contains(noti) ? 1 : 0.15)
-                                .frame(width: 74, height: 43)
+                            RoundedRectangle(cornerRadius: 90)
+                                .overlay(RoundedRectangle(cornerRadius: 90)
+                                    .strokeBorder(Color.biRTH_pointColor, lineWidth: 1))
+                                .foregroundColor(notiFrequency.contains(noti) ? Color.biRTH_pointColor : Color.white)
+                                .frame(width: 58, height: 33)
+                            
                             Text(noti)
-                                .foregroundColor(notiFrequency.contains(noti) ? .white : Color.init(hex: "0A84FF"))
-                                .font(.system(size: 15, weight: notiFrequency.contains(noti) ? .bold : .regular))
+                                .foregroundColor(notiFrequency.contains(noti) ? .white : .black)
+                                .font(.biRTH_semibold_14)
                         }
                     }
                 }
             }
-        }.padding(.init(top: 0, leading: 38, bottom: 0, trailing: 38))
+        }.padding(.init(top: 0, leading: 26, bottom: 0, trailing: 38))
     }
+}
+
+#Preview {
+    ChooseAlarmFrequencyView(notiFrequency: .constant([]))
 }

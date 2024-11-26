@@ -57,7 +57,6 @@ struct ListForFriendListView: View {
             .listRowBackground(Color.biRTH_mainColor)
         } //: List
         .listStyle(.plain)
-        .ignoresSafeArea()
         .background(Color.biRTH_mainColor)
     }
 }
