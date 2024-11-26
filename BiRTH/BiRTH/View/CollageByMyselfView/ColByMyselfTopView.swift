@@ -19,7 +19,6 @@ struct ColByMyselfTopView: View {
                 // TODO: FriendDetailView 연결
             } label: {
                 ZStack {
-                    
                     Image(friendImage)
                         .resizable()
                         .scaledToFit()

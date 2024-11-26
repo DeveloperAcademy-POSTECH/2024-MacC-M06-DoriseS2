@@ -5,7 +5,10 @@ struct GestureImageView: View {
     @Binding var pastedImages: [PastedImage] // 전체 이미지 배열
     @GestureState private var startLocation: CGPoint? = nil // 드래그 시작 위치
     @Binding var selectedImageID: UUID?
-    @State var showingRemoveImageBackgroundSheet: Bool = false
+    @State var isShowingRmImgBgSheet: Bool = false
+    @State var isDragging = false
+    @State var dragOffset: CGSize = .zero
+    @State var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.2
     
     var body: some View {
         ZStack {
@@ -28,11 +31,7 @@ struct GestureImageView: View {
                 .onTapGesture {
                     selectImage()
                     bringImageToFront()
-                    showingRemoveImageBackgroundSheet.toggle()
-                }
-                .sheet(isPresented: $showingRemoveImageBackgroundSheet) {
-                    RemoveImageBackgroundSheet(image: $pastedImage.pastedImage)
-                        .presentationDetents([.fraction(0.2)])
+                    isShowingRmImgBgSheet.toggle()
                 }
             
             if isSelected {
@@ -43,8 +42,13 @@ struct GestureImageView: View {
                     .foregroundColor(.gray)
                     .zIndex(Double(findIndex(id: pastedImage.id)) + 1)
                     .position(pastedImage.rotateDotPosition)
+                    .offset(dragOffset)
                     .gesture(resizeAndRotateGesture)
                 
+            }
+            
+            if isShowingRmImgBgSheet {
+                RemoveImageBackgroundSheet(image: $pastedImage.pastedImage, sheetHeight: $sheetHeight, isShowingRmImgBgSheet: $isShowingRmImgBgSheet)
             }
         }
     }
@@ -77,6 +81,11 @@ struct GestureImageView: View {
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
+                self.isDragging = true
+                self.dragOffset = value.translation
+                if abs(value.translation.height) > 50 {
+                    sheetHeight = UIScreen.main.bounds.height * 0.1 // 드래그 중에는 Sheet를 줄임
+                }
                 let newLocation = startLocation ?? pastedImage.imagePosition
                 pastedImage.imagePosition = CGPoint(
                     x: newLocation.x + value.translation.width,
@@ -84,6 +93,11 @@ struct GestureImageView: View {
                 )
             }
             .updating($startLocation) { _, startLocation, _ in
+                self.isDragging = false
+                self.dragOffset = .zero
+                withAnimation {
+                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 드래그가 끝나면 Sheet 높이 복원
+                }
                 startLocation = startLocation ?? pastedImage.imagePosition
             }
     }
