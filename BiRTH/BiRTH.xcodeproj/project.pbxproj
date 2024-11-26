@@ -58,6 +58,7 @@
 		9E37706D2CF30D2F00DDE059 /* BiRTHWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BiRTHWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E37706F2CF30D2F00DDE059 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		9E3770712CF30D2F00DDE059 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		9E816A132CF592B100A517CC /* BiRTHWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BiRTHWidgetExtension.entitlements; sourceTree = "<group>"; };
 		9E960C222CE7387600D40B10 /* BiRTH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiRTH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C392CE7387800D40B10 /* BiRTHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C432CE7387800D40B10 /* BiRTHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +237,7 @@
 		9E960C192CE7387600D40B10 = {
 			isa = PBXGroup;
 			children = (
+				9E816A132CF592B100A517CC /* BiRTHWidgetExtension.entitlements */,
 				93AC00362CE740A600FCF402 /* BiRTH */,
 				9E960C3C2CE7387800D40B10 /* BiRTHTests */,
 				9E960C462CE7387800D40B10 /* BiRTHUITests */,
@@ -493,6 +495,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = BiRTHWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 56D5DRN4CX;
@@ -506,7 +509,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.bohemio.BiRTH.BiRTHWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bohemio.BiRTH.BiRTHWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -520,6 +523,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = BiRTHWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 56D5DRN4CX;
@@ -533,7 +537,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.bohemio.BiRTH.BiRTHWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bohemio.BiRTH.BiRTHWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -566,7 +570,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.bohemio.BiRTH;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bohemio.BiRTH;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -598,7 +602,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.bohemio.BiRTH;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bohemio.BiRTH;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
