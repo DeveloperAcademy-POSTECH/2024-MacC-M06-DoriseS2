@@ -9,7 +9,7 @@ import SwiftUI
 import Vision
 import CoreImage.CIFilterBuiltins
 
-extension RemoveImageBackgroundSheet {
+extension RemoveBackgroundButton {
     func createSticker() {
         guard let inputImage = CIImage(image: image) else {
             print("Failed to create CIImage")

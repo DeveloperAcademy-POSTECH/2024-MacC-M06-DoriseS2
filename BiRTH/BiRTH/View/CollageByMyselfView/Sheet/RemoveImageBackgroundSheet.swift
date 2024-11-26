@@ -17,7 +17,7 @@ struct RemoveImageBackgroundSheet: View {
     @Binding var sheetHeight: CGFloat
     @Binding var isShowingRmImgBgSheet: Bool
     
-    var processingQueue = DispatchQueue(label: "ProcessingQueue")
+    
     
     var body: some View {
 
@@ -39,13 +39,9 @@ struct RemoveImageBackgroundSheet: View {
                 
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: rows) {
-                        Button {
-                            createSticker()
-                            print("removeImageBackground")
-                        } label: {
-                            FeatureCircle(colorHex: "9694FF", featureImgName: "wand.and.rays", featureName: "배경제거")
-                        }
-
+                        
+                        RemoveBackgroundButton(image: $image)
+                        DeleteButton()
                     }
                 }
             }
