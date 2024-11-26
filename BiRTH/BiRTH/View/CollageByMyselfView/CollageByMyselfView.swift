@@ -4,6 +4,8 @@ import SwiftUI
 struct CollageByMyselfView: View {
     @State var pastedImages: [PastedImage] = []
     @State var selectedImageID: UUID? = nil
+    @State var isCustomSheet: Bool = false
+    @State var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.2
     
     var body: some View {
         ZStack {
@@ -17,12 +19,22 @@ struct CollageByMyselfView: View {
                     EditMenuPresentView(pastedImages: $pastedImages)
                     
                     ForEach(pastedImages.indices, id: \.self) { index in
-                        GestureImageView(pastedImage: pastedImages[index], pastedImages: $pastedImages, selectedImageID: $selectedImageID)
+                        GestureImageView(pastedImage: pastedImages[index], pastedImages: $pastedImages, selectedImageID: $selectedImageID, isCustomSheet: $isCustomSheet, sheetHeight: $sheetHeight)
                     }
                 }
                 
                 ColByMyselfBottomView()
+
             }
+            
+            if isCustomSheet {
+                if let selectedIndex = pastedImages.firstIndex(where: { $0.id == selectedImageID }) {
+                    CustomSheet(image: $pastedImages[selectedIndex].pastedImage, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet)
+                        .transition(.move(edge: .bottom))
+                        .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
+                }
+            }
+                
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -53,4 +65,5 @@ struct CollageByMyselfView: View {
 
 #Preview {
     CollageByMyselfView()
+        .environmentObject(ColorManager())
 }

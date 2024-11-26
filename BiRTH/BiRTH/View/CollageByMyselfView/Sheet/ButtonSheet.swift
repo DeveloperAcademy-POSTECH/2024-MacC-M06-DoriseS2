@@ -34,4 +34,5 @@ struct ButtonSheet: View {
 
 #Preview {
     ButtonSheet()
+        .environmentObject(ColorManager())
 }
