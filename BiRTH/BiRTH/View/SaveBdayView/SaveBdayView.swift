@@ -11,7 +11,7 @@ import CoreData
 import PhotosUI
 
 //import KoreanLunarSolarConverter
-
+//최상단뷰
 struct SaveBdayView: View {
     @Environment(\.modelContext) var context
 
@@ -35,6 +35,12 @@ struct SaveBdayView: View {
     )
     private var bTags: FetchedResults<BTag>
 
+    
+//    @FetchRequest(
+//        entity: BFriend.entity(),
+//        sortDescriptors: []
+//    )
+//    private var bFriend: FetchedResults<BFriend?>
     // Optional BFriend object
     private var bFriend: BFriend?
 
@@ -55,26 +61,40 @@ struct SaveBdayView: View {
 
     static let dateFormat: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY년 M월 d일"
+        formatter.dateFormat = "YYYY. M. d"
         return formatter
     }()
 
     var body: some View {
-        VStack {
-            HeaderForSaveBdayView(name: $name, dateOfBday: $dateOfBday, isLunar: $isLunar, notiFrequency: $notiFrequency, imageData: $imageData, relationshipTag: $relationshipTag, profilrImage: $profileImage)
-
-            PhotoPickerForSaveBdayView(imageData: $imageData, selectedItem: $selectedItem)
-
-            SetNameForSaveBdayView(name: $name)
-
-            SetBirthForSaveBdayView(isLunar: $isLunar, dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
-
-            ShowingBTagOfSaveBdayView(bTags: bTags, relationshipTag: $relationshipTag, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
-
-            SetAlarmInSaveBdayView(notiFrequency: $notiFrequency)
-
-            Spacer()
-        }
+        NavigationView {
+            VStack {
+                HeaderForSaveBdayView(name: $name, dateOfBday: $dateOfBday, isLunar: $isLunar, notiFrequency: $notiFrequency, imageData: $imageData, relationshipTag: $relationshipTag, profilrImage: $profileImage)
+                
+                Spacer(minLength: 26)
+                
+                PhotoPickerForSaveBdayView(imageData: $imageData, selectedItem: $selectedItem)
+                
+                Spacer(minLength: 47)
+                
+                SetNameForSaveBdayView(name: $name)
+                
+                Spacer(minLength: 27.5)
+                
+                SetBirthForSaveBdayView(isLunar: $isLunar, dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
+                
+                Spacer(minLength: 29)
+                
+                
+                ShowingBTagOfSaveBdayView(bTags: bTags, relationshipTag: $relationshipTag, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
+                
+                Spacer(minLength: 28)
+                
+                SetAlarmInSaveBdayView(notiFrequency: $notiFrequency)
+                
+                Spacer(minLength: 82)
+            } //: VSTACK
+            .background(Color.biRTH_mainColor)
+        } //: NAVIGATIONVIEW
         .onAppear {
             // Optionally initialize additional state when view appears
             if let bFriend = bFriend {
@@ -84,7 +104,6 @@ struct SaveBdayView: View {
                 self.notiFrequency = bFriend.noti ?? [""]
                 self.relationshipTag = bFriend.tags ?? [""]
             }
-
         }
     }
 }

@@ -21,10 +21,10 @@ struct ButtonForCheckingTheDate: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.init(hex: "F0F0F0"))
-                        .frame(width: 157, height: 43)
+                        .frame(width: 123, height: 34)
                     Text("\(dateOfBday, formatter: SaveBdayView.dateFormat)")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.blue)
+                        .font(.biRTH_regular_18)
+                        .foregroundColor(.biRTH_pointColor)
                 }
             }
             .sheet(isPresented: $isshowingSheetForSettingDate) {

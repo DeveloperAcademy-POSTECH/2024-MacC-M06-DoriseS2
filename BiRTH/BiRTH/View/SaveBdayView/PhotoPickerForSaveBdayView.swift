@@ -9,10 +9,10 @@ import SwiftUI
 import PhotosUI
 
 struct PhotoPickerForSaveBdayView: View {
-
+    
     @Binding var imageData: Data?
     @Binding var selectedItem: PhotosPickerItem?
-
+    
     var body: some View {
         //MARK: 이미지 피커
         ZStack {
@@ -20,14 +20,14 @@ struct PhotoPickerForSaveBdayView: View {
                 if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)
                         .resizable()
-                        .clipShape(RoundedRectangle(cornerRadius: 45))
-                        .frame(width: 112, height: 112)
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .frame(width: 166, height: 168)
                 } else {
                     ZStack {
-                        Image("basicprofile")
+                        Image("photo")
                             .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 45))
-                            .frame(width: 112, height: 112)
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                            .frame(width: 166, height: 168)
                     }
                 }
             }
@@ -38,12 +38,25 @@ struct PhotoPickerForSaveBdayView: View {
                     }
                 }
             }
-
-            Image("photologo")
-                .resizable()
-                .clipShape(Circle())
-                .frame(width: 30, height: 30)
-                .offset(x: 30, y: 40)
+            
+            PhotosPicker(
+                selection: $selectedItem,
+                matching: .images
+            ) {
+                Image("AddButton")
+                    .resizable()
+                    .frame(width: 46, height: 47)
+                    .padding(.leading, 123)
+                    .padding(.top, 128)
+            }
         }
     }
 }
+
+#Preview {
+    PhotoPickerForSaveBdayView(
+        imageData: .constant(nil),
+        selectedItem: .constant(nil)
+    )
+}
+

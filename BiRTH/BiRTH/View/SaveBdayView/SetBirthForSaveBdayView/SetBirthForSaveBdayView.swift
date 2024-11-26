@@ -16,11 +16,13 @@ struct SetBirthForSaveBdayView: View {
     var body: some View {
         //MARK: 생일 날짜 설정
         HStack(alignment: .bottom) {
-            Text("생일")
-                .font(.system(size: 18, weight: .semibold))
+            Text("생년월일")
+                .font(.biRTH_semibold_20)
+                .padding(.leading, 22)
+                .padding(.bottom, 16)
 
             Spacer()
-        }.padding(.init(top: 5, leading: 45, bottom: 1, trailing: 45))
+        }
 
         HStack {
 
@@ -30,6 +32,10 @@ struct SetBirthForSaveBdayView: View {
 
             Spacer()
 
-        }.padding(.init(top: 0, leading: 38, bottom: 0, trailing: 38))
+        } .padding(.leading, 21)
     }
+}
+
+#Preview {
+    SetBirthForSaveBdayView(isLunar: .constant(true), dateOfBday: .constant(Date()), isshowingSheetForSettingDate: .constant(false))
 }

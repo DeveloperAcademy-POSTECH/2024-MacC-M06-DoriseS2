@@ -6,29 +6,51 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ShowingBTagOfSaveBdayView: View {
-
+    
     var bTags: FetchedResults<BTag>
-
+    
     @Binding var relationshipTag: [String]
     @Binding var isshowingSheetForCreatingTag: Bool
-
+    
     var body: some View {
         //MARK: 태그 설정
-        HStack {
+        VStack (alignment: .leading){
             Text("태그")
-                .font(.system(size: 18, weight: .semibold))
-            Spacer()
-        }.padding(.init(top: 5, leading: 45, bottom: 2, trailing: 45))
-
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ChooseTagsInSaveBdayView(bTags: bTags, relationshipTag: $relationshipTag, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
-
-                ButtonForMovingToSetTagView(isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
-
+                .font(.biRTH_semibold_20)
+                .padding(.leading, 22)
+                .padding(.bottom, 13)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack (spacing: 12) {
+                    ChooseTagsInSaveBdayView(bTags: bTags, relationshipTag: $relationshipTag, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
+                    
+                    ButtonForMovingToSetTagView(isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
+                    
+                } .padding(.leading, 26)
             }
-        }.padding(.init(top: 0, leading: 38, bottom: 0, trailing: 38))
+        }
     }
+}
+
+#Preview {
+    struct PreviewContainer: View {
+            @FetchRequest(
+                entity: BTag.entity(),
+                sortDescriptors: []
+            ) private var bTags: FetchedResults<BTag>
+            
+            var body: some View {
+                ShowingBTagOfSaveBdayView(
+                    bTags: bTags,
+                    relationshipTag: .constant([]),
+                    isshowingSheetForCreatingTag: .constant(false)
+                )
+            }
+        }
+        
+        return PreviewContainer()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
