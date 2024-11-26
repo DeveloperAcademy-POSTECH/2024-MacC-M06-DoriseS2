@@ -7,6 +7,55 @@
 
 import CoreData
 
+//func createBCollage(viewContext: NSManagedObjectContext, backgroundColor: String) -> BCollage {
+//    let newCollage = BCollage(context: viewContext)
+//    newCollage.backgroundColor = backgroundColor
+//
+//    saveData(viewContext: viewContext)
+//    return newCollage
+//}
+//
+//func addPhotoToCollage(viewContext: NSManagedObjectContext, collage: BCollage, image: String, posX: Double, posY: Double, scaleX: Double, scaleY: Double, rotation: Double, indexZ: Double) {
+//    let newPhoto = BPhotoForCollage(context: viewContext)
+//    newPhoto.id = UUID()
+//    newPhoto.image = image
+//    newPhoto.posX = (posX) as NSNumber
+//    newPhoto.posY = (posY) as NSNumber
+//    newPhoto.scaleX = (scaleX) as NSNumber
+//    newPhoto.scaleY = (scaleY) as NSNumber
+//    newPhoto.rotation = (rotation) as NSNumber
+//    newPhoto.indexZ = (indexZ) as NSNumber
+//    newPhoto.bCollage = collage 
+//
+//    saveData(viewContext: viewContext)
+//}
+//
+//func fetchCollages(viewContext: NSManagedObjectContext) -> [BCollage] {
+//    let fetchRequest: NSFetchRequest<BCollage> = BCollage.fetchRequest()
+//    do {
+//        let collages = try viewContext.fetch(fetchRequest)
+//        return collages
+//    } catch {
+//        print("Failed to fetch collages: \(error)")
+//        return []
+//    }
+//}
+
+func updateBCollage(viewContext: NSManagedObjectContext, collage: BCollage, backgroundColor: String?) {
+    if let bgColor = backgroundColor {
+        collage.backgroundColor = bgColor
+    }
+    saveData(viewContext: viewContext)
+}
+
+
+func deleteBCollage(viewContext: NSManagedObjectContext, collage: BCollage) {
+    viewContext.delete(collage)
+    saveData(viewContext: viewContext)
+}
+
+
+
 func saveBFriend(viewContext: NSManagedObjectContext, name: String, dateOfBday: Date, isLunar: Bool, notiFrequency: [String], imageData: Data? = nil, relationshipTag: [String]) {
 
         let newFriend = BFriend(context: viewContext)
