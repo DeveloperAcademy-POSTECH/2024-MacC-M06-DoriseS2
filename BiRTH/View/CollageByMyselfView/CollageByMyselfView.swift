@@ -19,7 +19,13 @@ struct CollageByMyselfView: View {
                     EditMenuPresentView(pastedImages: $pastedImages)
                     
                     ForEach(pastedImages.indices, id: \.self) { index in
-                        GestureImageView(pastedImage: pastedImages[index], pastedImages: $pastedImages, selectedImageID: $selectedImageID, isCustomSheet: $isCustomSheet, sheetHeight: $sheetHeight)
+                        GestureImageView(
+                            pastedImage: pastedImages[index],
+                            pastedImages: $pastedImages,
+                            selectedImageID: $selectedImageID,
+                            isCustomSheet: $isCustomSheet,
+                            sheetHeight: $sheetHeight
+                        )
                     }
                 }
                 
@@ -30,8 +36,6 @@ struct CollageByMyselfView: View {
             if isCustomSheet {
                 if let selectedIndex = pastedImages.firstIndex(where: { $0.id == selectedImageID }) {
                     CustomSheet(image: $pastedImages[selectedIndex].pastedImage, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet)
-                        .transition(.move(edge: .bottom))
-                        .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
                 }
             }
                 

@@ -30,24 +30,23 @@ struct GestureImageView: View {
                 .gesture(dragGesture)
                 .gesture(resizeAndRotateGesture)
                 .onTapGesture {
-                    withAnimation(.easeInOut(duration: 0.5)) {
-                        isCustomSheet = true
-                    }
+                        isCustomSheet.toggle()
                     selectImage()
                     bringImageToFront()
                 }
             
             if isSelected {
-                // 회전 및 크기 조절 핸들
-                Image(systemName: "arrow.up.backward.and.arrow.down.forward.circle.fill")
-                    .resizable()
-                    .frame(width: 25, height: 25)
-                    .foregroundColor(.gray)
-                    .zIndex(Double(findIndex(id: pastedImage.id)) + 1)
-                    .position(pastedImage.rotateDotPosition)
-                    .offset(dragOffset)
-                    .gesture(resizeAndRotateGesture)
-                
+                    // 회전 및 크기 조절 핸들
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    Image(systemName: "arrow.up.backward.and.arrow.down.forward.circle.fill")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.gray)
+                        .zIndex(Double(findIndex(id: pastedImage.id)) + 1)
+                        .position(pastedImage.rotateDotPosition)
+                        .offset(dragOffset)
+                        .gesture(resizeAndRotateGesture)
+                }
             }
         }
     }
@@ -80,14 +79,7 @@ struct GestureImageView: View {
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
-                self.isDragging = true
-                self.dragOffset = value.translation
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    if abs(value.translation.height) > 50 {
-                        sheetHeight = UIScreen.main.bounds.height * 0.1 // 드래그 중에는 Sheet를 줄임
-                    }
-                }
-                
+
                 let newLocation = startLocation ?? pastedImage.imagePosition
                 pastedImage.imagePosition = CGPoint(
                     x: newLocation.x + value.translation.width,
@@ -95,11 +87,6 @@ struct GestureImageView: View {
                 )
             }
             .updating($startLocation) { _, startLocation, _ in
-                self.isDragging = false
-                self.dragOffset = .zero
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 드래그가 끝나면 Sheet 높이 복원
-                }
                 startLocation = startLocation ?? pastedImage.imagePosition
             }
     }
@@ -108,11 +95,6 @@ struct GestureImageView: View {
     private var resizeAndRotateGesture: some Gesture {
         DragGesture()
             .onChanged { gesture in
-                self.isDragging = true
-                self.dragOffset = gesture.translation
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    sheetHeight = UIScreen.main.bounds.height * 0.1 // 회전/크기 조절 중 Sheet 줄이기
-                }
                 let centerToNewPositionDistance = sqrt(pow(gesture.location.x - pastedImage.imagePosition.x, 2) + pow(gesture.location.y - pastedImage.imagePosition.y, 2))
                 let imageDiagonal = sqrt(pow(pastedImage.imageWidth, 2) + pow(pastedImage.imageHeight, 2))
                 
@@ -129,14 +111,10 @@ struct GestureImageView: View {
                 )
                 pastedImage.angleSum += (-(originalAngle - newAngle) * 180 / CGFloat.pi)
                 pastedImage.angle = .degrees(pastedImage.angleSum)
+
             }
-            .onEnded { _ in
-                self.isDragging = false
-                self.dragOffset = .zero
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 회전/크기 조절 종료 후 Sheet 복원
-                }
-            }
+//            .onEnded { _ in
+//            }
     }
     
     /// zIndex를 찾는 함수입니다.
