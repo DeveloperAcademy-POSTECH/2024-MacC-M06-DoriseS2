@@ -14,15 +14,10 @@ struct BiRTHApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            CollageByMyselfView()
-            TempFriendDetailView()
-                .environmentObject(colorManager)
 
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-//            SaveBdayView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-
-//            PhotoPickerAndListView()
+//            TempFriendDetailView()
+            FriendListView()
+                .environmentObject(colorManager)    
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
 
         }
