@@ -33,6 +33,7 @@ extension Font {
     static let biRTH_bold_60 = Font.custom("Pretendard-Bold", size: 60)
     
     // MARK: - SemiBold
+    static let biRTH_semibold_14 = Font.custom("Pretendard-SemiBold", size: 14)
     static let biRTH_semibold_16 = Font.custom("Pretendard-SemiBold", size: 16)
     static let biRTH_semibold_18 = Font.custom("Pretendard-SemiBold", size: 18)
     static let biRTH_semibold_20 = Font.custom("Pretendard-SemiBold", size: 20)

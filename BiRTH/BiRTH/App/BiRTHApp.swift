@@ -14,12 +14,11 @@ struct BiRTHApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            TestSoyView()
+
 //                .environmentObject(colorManager)
-            HistoryView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-//            SaveBdayView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+
+            FriendListView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 
         }
     }

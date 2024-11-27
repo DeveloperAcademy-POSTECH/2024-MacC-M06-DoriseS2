@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ButtonForCheckingTheDate: View {
 
-    @Binding var isLunar: Bool
+
     @Binding var dateOfBday: Date
     @Binding var isshowingSheetForSettingDate: Bool
 
@@ -21,14 +21,14 @@ struct ButtonForCheckingTheDate: View {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.init(hex: "F0F0F0"))
-                        .frame(width: 157, height: 43)
+                        .frame(width: 123, height: 34)
                     Text("\(dateOfBday, formatter: SaveBdayView.dateFormat)")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(.blue)
+                        .font(.biRTH_regular_18)
+                        .foregroundColor(.biRTH_pointColor)
                 }
             }
             .sheet(isPresented: $isshowingSheetForSettingDate) {
-                SetDateView(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate, isLunar: $isLunar)
+                SetDateView(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
                     .presentationDragIndicator(.visible)
                     .presentationDetents([.medium])
             }

@@ -23,10 +23,10 @@ struct ButtonOfSavingBTagView: View {
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(.black)
-                        .frame(width: 340, height: 60)
+                        .foregroundColor(.biRTH_pointColor)
+                        .frame(width: 300, height: 48)
                     Text("추가")
-                        .font(.system(size: 20, weight: .bold))
+                        .font(Font.biRTH_bold_16)
                         .foregroundColor(.white)
                 }
             }

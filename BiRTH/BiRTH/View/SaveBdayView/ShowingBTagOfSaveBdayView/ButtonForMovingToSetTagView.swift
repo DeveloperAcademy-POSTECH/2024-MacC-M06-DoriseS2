@@ -15,15 +15,16 @@ struct ButtonForMovingToSetTagView: View {
         Button {
             isshowingSheetForCreatingTag.toggle()
         } label: {
-            ZStack {
                 Text("+")
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundColor(Color.init(hex: "0A84FF"))
-                    .padding()
-                    .frame(height: 43)
-                    .background(Color.init(hex: "0A84FF").opacity(0.15))
-                    .cornerRadius(40)
-            }
+                    .font(.biRTH_bold_16)
+                    .foregroundColor(Color.biRTH_pointColor)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 7)
+                    .overlay(RoundedRectangle(cornerRadius: 20)
+                        .strokeBorder(Color.biRTH_pointColor, lineWidth: 1))
+                    .frame(height: 34)
+                    .background(Color.white)
+                    .cornerRadius(20)
         }
         .sheet(isPresented: $isshowingSheetForCreatingTag) {
             SetTagView(isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
@@ -31,4 +32,9 @@ struct ButtonForMovingToSetTagView: View {
                 .presentationDetents([.medium])
         }
     }
+}
+
+#Preview {
+    ButtonForMovingToSetTagView(isshowingSheetForCreatingTag: .constant(false))
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }

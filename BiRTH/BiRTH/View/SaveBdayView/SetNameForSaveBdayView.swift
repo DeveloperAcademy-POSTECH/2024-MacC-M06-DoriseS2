@@ -8,25 +8,37 @@
 import SwiftUI
 
 struct SetNameForSaveBdayView: View {
-
     @Binding var name: String
 
     var body: some View {
-        //MARK: 이름 설정
-        HStack {
+        VStack(alignment: .leading)  {
             Text("이름")
-                .font(.system(size: 18, weight: .semibold))
-            Spacer()
-        }.padding(.init(top: 5, leading: 45, bottom: 2, trailing: 45))
-
-        ZStack {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.init(hex: "F0F0F0"))
-                .frame(width: 324, height: 43)
-            TextField("", text: $name)
-                .textFieldStyle(.plain)
-                .padding(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
-        }.padding(.init(top: 0, leading: 38, bottom: 0, trailing: 38))
-            .onAppear (perform : UIApplication.shared.hideKeyboard)
+                .font(.biRTH_semibold_20)
+                .padding(.leading, 22)
+                .padding(.bottom, 13)
+             TextField("이름 입력", text: $name)
+                .textFieldStyle(CommonTextfieldStyle())
+                .onAppear (perform : UIApplication.shared.hideKeyboard)
+        }
     }
+}
+
+struct CommonTextfieldStyle: TextFieldStyle {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        VStack(alignment: .leading) {
+            // 텍스트필드
+            configuration
+                .font(.system(size: 16, weight: .semibold))
+                .padding(.leading, 38)
+            Rectangle()
+                .frame(width: 286, height: 1)
+                .foregroundColor(Color.purple)
+                .padding(.leading, 29.5)
+                .padding(.trailing, 59.5)
+        }
+    }
+}
+
+#Preview {
+    SetNameForSaveBdayView(name: .constant(""))
 }
