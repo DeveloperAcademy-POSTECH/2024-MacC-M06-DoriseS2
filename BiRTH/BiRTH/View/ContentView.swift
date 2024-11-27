@@ -1,10 +1,4 @@
-////
-////  ContentView.swift
-////  BiRTH
-////
-////  Created by chanu on 11/15/24.
-////
-//
+
 //import SwiftUI
 //import CoreData
 ////
@@ -84,3 +78,4 @@
         //#Preview {
         //    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         //}
+
