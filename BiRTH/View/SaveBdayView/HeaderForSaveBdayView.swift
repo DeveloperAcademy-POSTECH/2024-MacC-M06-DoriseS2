@@ -30,12 +30,7 @@ struct HeaderForSaveBdayView: View {
         Text("")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        print("back 이전 뷰로 돌아갑니다. FriendListView")
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.black)
-                    }
+                    BackButton()
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
