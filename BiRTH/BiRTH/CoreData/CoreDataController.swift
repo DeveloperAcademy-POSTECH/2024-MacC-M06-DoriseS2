@@ -56,7 +56,7 @@ func deleteBCollage(viewContext: NSManagedObjectContext, collage: BCollage) {
 
 
 
-func saveBFriend(viewContext: NSManagedObjectContext, name: String, dateOfBday: Date, isLunar: Bool, notiFrequency: [String], imageData: Data? = nil, relationshipTag: [String]) {
+func saveBFriend(viewContext: NSManagedObjectContext, name: String, dateOfBday: Date, notiFrequency: [String], imageData: Data? = nil, relationshipTag: [String]) {
 
         let newFriend = BFriend(context: viewContext)
         newFriend.id = UUID()
@@ -71,7 +71,7 @@ func saveBFriend(viewContext: NSManagedObjectContext, name: String, dateOfBday: 
 }
 
 // BFriend update
-func updateChatEnt(viewContext: NSManagedObjectContext, bFriend: BFriend, name: String, dateOfBday: Date, isLunar: Bool, notiFrequency: [String], imageData: Data? = nil, relationshipTag: [String]) {
+func updateBFriend(viewContext: NSManagedObjectContext, bFriend: BFriend, name: String, dateOfBday: Date, notiFrequency: [String], imageData: Data? = nil, relationshipTag: [String]) {
   do {
     // NSManagedObjectID로 해당 objectID를 갖고 있는 BFriend 찾기
       if let bFriendUpdate = try viewContext.existingObject(with: bFriend.objectID) as? BFriend {

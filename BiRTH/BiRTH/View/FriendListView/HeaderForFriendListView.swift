@@ -12,8 +12,8 @@ struct HeaderForFriendListView: View {
     @Binding var isGridView: Bool
     @Binding var isDdaySort: Bool
     
-    let friends: [BFriend]
-    
+    var bFriend: FetchedResults<BFriend>
+
     var body: some View {
         HStack {
             Text("나의 친구")
@@ -21,8 +21,8 @@ struct HeaderForFriendListView: View {
                 .padding(.leading, 31)
             
             Spacer()
-            SortingMethodPicker(isDdaySort: $isDdaySort, friends: friends)
-            
+            SortingMethodPicker(isDdaySort: $isDdaySort, bFriend: bFriend)
+
             Divider()
                 .frame(height: 17.5)
             
@@ -38,13 +38,15 @@ struct SortingMethodPicker: View {
     @State var selectedItem = "생일 가까운 순"
     var items = ["생일 가까운 순", "이름 순"]
     @Binding var isDdaySort: Bool
-    let friends: [BFriend]
+
+    var bFriend: FetchedResults<BFriend>
+
     let ddayUtils = DdayUtils()
-    
+//    TODO: 솔트 함수 새로 만들기
     var sortedFriends: [BFriend] {
             if selectedItem == "생일 가까운 순" {
                 // D-day 기준 정렬
-                return friends.sorted { friend1, friend2 in
+                return bFriend.sorted { friend1, friend2 in
                     guard let birth1 = friend1.birth,
                           let birth2 = friend2.birth else {
                         return false
@@ -62,7 +64,7 @@ struct SortingMethodPicker: View {
                 }
             } else {
                 // 이름 기준 정렬
-                return friends.sorted { ($0.name ?? "") < ($1.name ?? "") }
+                return bFriend.sorted { ($0.name ?? "") < ($1.name ?? "") }
             }
         }
 
@@ -128,30 +130,30 @@ struct ListModeToggle: View {
     }
 }
 
-#Preview {
-    let context = PersistenceController.preview.container.viewContext
-    
-    // 더미 데이터 생성
-    let dummyFriends: [BFriend] = {
-        let friend1 = BFriend(context: context)
-        friend1.name = "시네필"
-        friend1.profileImage = nil
-        friend1.birth = Calendar.current.date(byAdding: .day, value: 21, to: Date())
-        
-        let friend2 = BFriend(context: context)
-        friend2.name = "친구"
-        friend2.profileImage = nil
-        friend2.birth = Calendar.current.date(byAdding: .day, value: 15, to: Date())
-        
-        try? context.save()
-        
-        return [friend1, friend2]
-    }()
-    
-    return HeaderForFriendListView(
-        viewMode: .constant(.grid),
-        isGridView: .constant(true),
-        isDdaySort: .constant(true),
-        friends: dummyFriends
-    )
-}
+//#Preview {
+//    let context = PersistenceController.preview.container.viewContext
+//    
+//    // 더미 데이터 생성
+//    let dummyFriends: [BFriend] = {
+//        let friend1 = BFriend(context: context)
+//        friend1.name = "시네필"
+//        friend1.profileImage = nil
+//        friend1.birth = Calendar.current.date(byAdding: .day, value: 21, to: Date())
+//        
+//        let friend2 = BFriend(context: context)
+//        friend2.name = "친구"
+//        friend2.profileImage = nil
+//        friend2.birth = Calendar.current.date(byAdding: .day, value: 15, to: Date())
+//        
+//        try? context.save()
+//        
+//        return [friend1, friend2]
+//    }()
+//    
+//    return HeaderForFriendListView(
+//        viewMode: .constant(.grid),
+//        isGridView: .constant(true),
+//        isDdaySort: .constant(true),
+//        friends: dummyFriends
+//    )
+//}

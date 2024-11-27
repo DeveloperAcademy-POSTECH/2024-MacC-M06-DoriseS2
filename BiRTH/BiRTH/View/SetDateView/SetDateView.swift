@@ -11,7 +11,6 @@ struct SetDateView: View {
 
     @Binding var dateOfBday: Date
     @Binding var isshowingSheetForSettingDate: Bool
-    @Binding var isLunar: Bool
 
     var body: some View {
         VStack {
@@ -21,10 +20,6 @@ struct SetDateView: View {
 
                 Spacer()
             }.padding(.init(top: 5, leading: 0, bottom: 1, trailing: 0))
-
-            if isLunar {
-//                IsLunarDateTextView(dateOfBday: $dateOfBday)
-            }
 
             Spacer()
 
@@ -39,5 +34,5 @@ struct SetDateView: View {
 }
 
 #Preview {
-    SetDateView(dateOfBday: .constant(Date()), isshowingSheetForSettingDate: .constant(true), isLunar: .constant(false))
+    SetDateView(dateOfBday: .constant(Date()), isshowingSheetForSettingDate: .constant(true))
 }

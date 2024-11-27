@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ButtonForCheckingTheDate: View {
 
-    @Binding var isLunar: Bool
+
     @Binding var dateOfBday: Date
     @Binding var isshowingSheetForSettingDate: Bool
 
@@ -28,7 +28,7 @@ struct ButtonForCheckingTheDate: View {
                 }
             }
             .sheet(isPresented: $isshowingSheetForSettingDate) {
-                SetDateView(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate, isLunar: $isLunar)
+                SetDateView(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
                     .presentationDragIndicator(.visible)
                     .presentationDetents([.medium])
             }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchBarForFriendListView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @Binding var text: String
     
     var body: some View {
@@ -16,8 +17,8 @@ struct SearchBarForFriendListView: View {
                 .textFieldStyle(SearchBarStyleForFriendListView())
                 .padding(.leading, 16)
             
-            Button {
-                print("Add profiles")
+            NavigationLink {
+                SaveBdayView()
             } label: {
                 Image("AddButton")
                     .resizable()
@@ -31,26 +32,28 @@ struct SearchBarForFriendListView: View {
 // MARK: TextFieldCustomForSearchBar
 struct SearchBarStyleForFriendListView: TextFieldStyle {
     func _body(configuration: TextField<Self._Label>) -> some View {
+
         ZStack {
             RoundedRectangle(cornerRadius: 90)
                 .frame(width: 288, height: 45)
                 .foregroundColor(Color.gray.opacity(0.2))
-            
+
             HStack {
                 Text(Image(systemName: "magnifyingglass"))
                     .foregroundColor(Color.black)
                     .font(.system(size: 24))
-                
+
                 configuration
                     .font(.system(size: 12, weight: .regular))
             }
             .padding(.leading, 31)
         }
+
     }
 }
 
-#Preview {
-    @Previewable @State var searchText = ""
-    SearchBarForFriendListView(text: $searchText)
-}
+//#Preview {
+//    @Previewable @State var searchText = ""
+//    SearchBarForFriendListView(text: $searchText)
+//}
 
