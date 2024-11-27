@@ -10,6 +10,7 @@ import SwiftUI
 struct ColByMyselfBottomView: View {
     @EnvironmentObject var colorManager: ColorManager
     @State var showingButtonSheet = false
+    @Binding var selectedPhotos: [PastedImage]
     
     var body: some View {
         Button {
@@ -21,7 +22,7 @@ struct ColByMyselfBottomView: View {
         }
         .padding(.vertical, 5)
         .sheet(isPresented: $showingButtonSheet) {
-            ButtonSheet()
+            ButtonSheet(selectedPhotos: $selectedPhotos)
                 .environmentObject(colorManager)
                 .presentationDetents([.fraction(0.2)])
         }
@@ -29,6 +30,6 @@ struct ColByMyselfBottomView: View {
 }
 
 
-#Preview {
-    ColByMyselfBottomView()
-}
+//#Preview {
+//    ColByMyselfBottomView()
+//}

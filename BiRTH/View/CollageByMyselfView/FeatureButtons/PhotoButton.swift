@@ -10,7 +10,7 @@ import PhotosUI
 
 struct PhotoButton: View {
     @State var showingPhotoPicker = false
-    @State var selectedItem: UIImage? = nil
+    @Binding var selectedPhotos: [PastedImage]
     
     var body: some View {
         Button {
@@ -19,34 +19,71 @@ struct PhotoButton: View {
         } label: {
             FeatureCircle(colorHex: "FFF100", featureImgName: "photo", featureName: "사진")
         }
+        .sheet(isPresented: $showingPhotoPicker) {
+            PastedPhotoPicker(pastedImages: $selectedPhotos)
+        }
         
     }
 }
 
-struct PhotoPickerView: View {
-    @Environment(\.dismiss) var dismiss
-    @Binding var selectedItem: UIImage?
-    
-    var body: some View {
-        PhotosPicker(
-            "", selection: Binding(get: { nil }, set: { newSelection in
-                Task {
-                    if let imageData = try? await newSelection?.loadTransferable(type: Data.self),
-                       let image = UIImage(data: imageData) {
-                        DispatchQueue.main.async {
-                            selectedItem = image
+struct PastedPhotoPicker: UIViewControllerRepresentable {
+    @Binding var pastedImages: [PastedImage]
+
+    func makeUIViewController(context: Context) -> PHPickerViewController {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0 // 여러 장 선택 가능
+        configuration.filter = .images // 이미지만 표시
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        let parent: PastedPhotoPicker
+
+        init(_ parent: PastedPhotoPicker) {
+            self.parent = parent
+        }
+
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true)
+
+            for result in results {
+                if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                    result.itemProvider.loadObject(ofClass: UIImage.self) { object, error in
+                        if let image = object as? UIImage {
+                            DispatchQueue.main.async {
+                                // 랜덤 위치 및 크기로 PastedImage 생성
+                                let aspectRatio = image.size.height / image.size.width
+                                let randomOffset = CGSize(width: CGFloat.random(in: -30...30), height: CGFloat.random(in: -30...30))
+                                let pastedImage = PastedImage(
+                                    imageWidth: 150,
+                                    imageHeight: 150 * aspectRatio,
+                                    imagePosition: CGPoint(
+                                        x: UIScreen.main.bounds.width / 2 + randomOffset.width,
+                                        y: UIScreen.main.bounds.height / 2 + randomOffset.height
+                                    ),
+                                    angle: .zero,
+                                    angleSum: 0,
+                                    pastedImage: image
+                                )
+                                self.parent.pastedImages.append(pastedImage)
+                            }
                         }
                     }
-                    dismiss() // 선택 후 PhotoPicker 닫기
                 }
-            }),
-            matching: .images,
-            photoLibrary: .shared()
-        )
+            }
+        }
     }
 }
 
 
-#Preview {
-    PhotoButton()
-}
+//#Preview {
+//    PhotoButton()
+//}

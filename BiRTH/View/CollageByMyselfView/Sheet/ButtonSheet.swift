@@ -12,11 +12,13 @@ struct ButtonSheet: View {
     let rows = [GridItem(.flexible())]
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var colorManager: ColorManager
+    @Binding var selectedPhotos: [PastedImage]
     
     var body: some View {
         NavigationStack {
             ScrollView(.horizontal) {
                 LazyHGrid(rows: rows, spacing: 24) {
+                    PhotoButton(selectedPhotos: $selectedPhotos)
                     ExportSafariButton()
                     BackgroundColorButton()
                         .environmentObject(colorManager)
@@ -32,7 +34,7 @@ struct ButtonSheet: View {
     }
 }
 
-#Preview {
-    ButtonSheet()
-        .environmentObject(ColorManager())
-}
+//#Preview {
+//    ButtonSheet()
+//        .environmentObject(ColorManager())
+//}

@@ -29,13 +29,14 @@ struct CollageByMyselfView: View {
                     }
                 }
                 
-                ColByMyselfBottomView()
+                ColByMyselfBottomView(selectedPhotos: $pastedImages)
 
             }
             
             if isCustomSheet {
                 if let selectedIndex = pastedImages.firstIndex(where: { $0.id == selectedImageID }) {
                     CustomSheet(image: $pastedImages[selectedIndex].pastedImage, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet)
+
                 }
             }
                 
