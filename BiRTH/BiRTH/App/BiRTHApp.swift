@@ -21,7 +21,9 @@ struct BiRTHApp: App {
 //            SaveBdayView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 
-            PhotoPickerAndListView()
+//            PhotoPickerAndListView()
+//            ShowFriendListForPika()
+            FriendListView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
 
         }

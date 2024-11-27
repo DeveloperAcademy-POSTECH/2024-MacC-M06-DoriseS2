@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SetBirthForSaveBdayView: View {
 
-    @Binding var isLunar: Bool
     @Binding var dateOfBday: Date
     @Binding var isshowingSheetForSettingDate: Bool
 
@@ -28,7 +27,7 @@ struct SetBirthForSaveBdayView: View {
 
 //            ButtonForCheckingIsLunar(isLunar: $isLunar)
 
-            ButtonForCheckingTheDate(isLunar: $isLunar, dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
+            ButtonForCheckingTheDate(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
 
             Spacer()
 
@@ -37,5 +36,5 @@ struct SetBirthForSaveBdayView: View {
 }
 
 #Preview {
-    SetBirthForSaveBdayView(isLunar: .constant(true), dateOfBday: .constant(Date()), isshowingSheetForSettingDate: .constant(false))
+    SetBirthForSaveBdayView(dateOfBday: .constant(Date()), isshowingSheetForSettingDate: .constant(false))
 }

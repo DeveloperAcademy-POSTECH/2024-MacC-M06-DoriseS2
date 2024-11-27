@@ -15,11 +15,12 @@ import PhotosUI
 struct SaveBdayView: View {
     @Environment(\.modelContext) var context
 
+    @State private var isEditing = false
+
     // State variables for user inputs
     @State private var name = ""
     @State private var profileImage: Data?
     @State private var dateOfBday: Date = Date()
-    @State private var isLunar = false
     @State private var notiFrequency = [""]
     @State private var relationshipTag = [""]
 
@@ -35,25 +36,7 @@ struct SaveBdayView: View {
     )
     private var bTags: FetchedResults<BTag>
 
-    
-//    @FetchRequest(
-//        entity: BFriend.entity(),
-//        sortDescriptors: []
-//    )
-//    private var bFriend: FetchedResults<BFriend?>
-    // Optional BFriend object
-    private var bFriend: BFriend?
-
-    init(bFriend: BFriend? = nil) {
-        self.bFriend = bFriend
-        if let bFriend = bFriend {
-            _name = State(initialValue: bFriend.name ?? "")
-            _profileImage = State(initialValue: bFriend.profileImage)
-            _dateOfBday = State(initialValue: bFriend.birth ?? Date())
-            _notiFrequency = State(initialValue: bFriend.noti ?? [""])
-            _relationshipTag = State(initialValue: bFriend.tags ?? [""])
-        }
-    }
+    var bFriend: BFriend? = nil
 
     @Environment(\.dismiss) var dismiss
 
@@ -66,10 +49,9 @@ struct SaveBdayView: View {
     }()
 
     var body: some View {
-        NavigationView {
             VStack {
-                HeaderForSaveBdayView(name: $name, dateOfBday: $dateOfBday, isLunar: $isLunar, notiFrequency: $notiFrequency, imageData: $imageData, relationshipTag: $relationshipTag, profilrImage: $profileImage)
-                
+                HeaderForSaveBdayView(isEditing: $isEditing, bFriend: bFriend, name: $name, dateOfBday: $dateOfBday, notiFrequency: $notiFrequency, imageData: $imageData, relationshipTag: $relationshipTag, profilrImage: $profileImage)
+
                 Spacer(minLength: 26)
                 
                 PhotoPickerForSaveBdayView(imageData: $imageData, selectedItem: $selectedItem)
@@ -80,7 +62,7 @@ struct SaveBdayView: View {
                 
                 Spacer(minLength: 27.5)
                 
-                SetBirthForSaveBdayView(isLunar: $isLunar, dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
+                SetBirthForSaveBdayView(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
                 
                 Spacer(minLength: 29)
                 
@@ -94,7 +76,6 @@ struct SaveBdayView: View {
                 Spacer(minLength: 82)
             } //: VSTACK
             .background(Color.biRTH_mainColor)
-        } //: NAVIGATIONVIEW
         .onAppear {
             // Optionally initialize additional state when view appears
             if let bFriend = bFriend {
@@ -103,12 +84,13 @@ struct SaveBdayView: View {
                 self.dateOfBday = bFriend.birth ?? Date()
                 self.notiFrequency = bFriend.noti ?? [""]
                 self.relationshipTag = bFriend.tags ?? [""]
+                isEditing = true
             }
         }
     }
 }
 
 
-#Preview {
-    SaveBdayView()
-}
+//#Preview {
+//    SaveBdayView()
+//}
