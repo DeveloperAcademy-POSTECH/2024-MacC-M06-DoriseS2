@@ -12,30 +12,29 @@ struct ButtonSheet: View {
     let rows = [GridItem(.flexible())]
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var colorManager: ColorManager
+    @Binding var selectedPhotos: [PastedImage]
     
     var body: some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle")
-                }
-            }
-            
+        NavigationStack {
             ScrollView(.horizontal) {
-                LazyHGrid(rows: rows) {
+                LazyHGrid(rows: rows, spacing: 24) {
+                    PhotoButton(selectedPhotos: $selectedPhotos)
                     ExportSafariButton()
                     BackgroundColorButton()
                         .environmentObject(colorManager)
                 }
             }
+            .padding(.horizontal)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    XmarkButton()
+                }
+            }
         }
-        .padding()
     }
 }
 
-#Preview {
-    ButtonSheet()
-}
+//#Preview {
+//    ButtonSheet()
+//        .environmentObject(ColorManager())
+//}

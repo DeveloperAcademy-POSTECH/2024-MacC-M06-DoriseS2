@@ -15,16 +15,7 @@ struct ExportSafariButton: View {
         Button {
             showingSafariSheet.toggle()
         } label: {
-            ZStack {
-                Circle()
-                    .frame(width: 50, height: 50)
-                
-                Image(systemName: "safari")
-                    .font(.system(size: 30))
-                    .foregroundStyle(.black)
-                    
-            }
-                
+            FeatureCircle(colorHex: "80C4E9", featureImgName: "safari", featureName: "사파리")
         }
         .sheet(isPresented: $showingSafariSheet) {
                 SafariSheet(url: safariURL)
@@ -36,4 +27,6 @@ struct ExportSafariButton: View {
 #Preview {
     ExportSafariButton()
 }
+
+
 

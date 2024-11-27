@@ -1,39 +1,15 @@
 //
-//  RemoveImageBackground.swift
+//  Extension+RemoveImageBackgroundSheet.swift
 //  BiRTH
 //
-//  Created by 이소현 on 11/23/24.
+//  Created by 이소현 on 11/25/24.
 //
 
 import SwiftUI
 import Vision
 import CoreImage.CIFilterBuiltins
 
-struct RemoveImageBackground: View {
-    @Binding var image: UIImage
-    private var processingQueue = DispatchQueue(label: "ProcessingQueue")
-    
-    // 사용자 정의 초기화
-    init(image: Binding<UIImage>) {
-        self._image = image
-    }
-    
-    var body: some View {
-        VStack {
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFit()
-            
-            Button("Remove Background") {
-                createSticker()
-                print("Remove Background")
-            }
-        }
-        .padding()
-    }
-}
-
-extension RemoveImageBackground {
+extension RemoveBackgroundButton {
     func createSticker() {
         guard let inputImage = CIImage(image: image) else {
             print("Failed to create CIImage")
@@ -41,13 +17,13 @@ extension RemoveImageBackground {
         }
         
         processingQueue.async {
-            guard let maskImage = subjectMaskImage(from: inputImage) else {
+            guard let maskImage = self.subjectMaskImage(from: inputImage) else {
                 print("Failed to create mask image")
                 return
             }
             
-            let outputImage = apply(mask: maskImage, to: inputImage)
-            let image = render(ciImage: outputImage)
+            let outputImage = self.apply(mask: maskImage, to: inputImage)
+            let image = self.render(ciImage: outputImage)
             DispatchQueue.main.async {
                 self.image = image
             }
@@ -92,8 +68,4 @@ extension RemoveImageBackground {
         }
         return UIImage(cgImage: cgImage)
     }
-}
-
-#Preview {
-//    RemoveImageBackground()
 }

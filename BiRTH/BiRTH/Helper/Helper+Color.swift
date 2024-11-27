@@ -27,4 +27,5 @@ extension Color {
     static let biRTH_pointColor = Color(hex: "B35588") // 포인트컬러(분홍)
     static let biRTH_text1 = Color(hex: "AEAEAE") // 텍스트컬러1(연그레이)
     static let biRTH_text2 = Color(hex: "6B6B6B") // 텍스트컬러2(진한그레이)
+    
 }
