@@ -35,8 +35,13 @@ struct CollageByMyselfView: View {
             
             if isCustomSheet {
                 if let selectedIndex = pastedImages.firstIndex(where: { $0.id == selectedImageID }) {
-                    CustomSheet(image: $pastedImages[selectedIndex].pastedImage, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet)
-
+                    CustomSheet(
+                        image: $pastedImages[selectedIndex].pastedImage,
+                        sheetHeight: $sheetHeight,
+                        isCustomSheet: $isCustomSheet
+                    )
+                    .transition(.move(edge: .bottom))
+                    .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
                 }
             }
                 

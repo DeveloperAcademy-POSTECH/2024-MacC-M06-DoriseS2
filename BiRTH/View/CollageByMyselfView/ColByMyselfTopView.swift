@@ -34,6 +34,7 @@ struct ColByMyselfTopView: View {
             
             Text("TO.\(friendName)")
                 .font(.biRTH_semibold_18)
+                .foregroundStyle(.black)
             Spacer()
             Text("D-\(remainDday)")
                 .font(.biRTH_semibold_16)

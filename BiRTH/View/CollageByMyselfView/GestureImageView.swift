@@ -7,8 +7,8 @@ struct GestureImageView: View {
     @Binding var selectedImageID: UUID?
     @Binding var isCustomSheet: Bool
     @Binding var sheetHeight: CGFloat
+    
     @State var isDragging = false
-    @State var dragOffset: CGSize = .zero
     
     
     var body: some View {
@@ -21,7 +21,7 @@ struct GestureImageView: View {
                 .overlay {
                     if selectedImageID == pastedImage.id {
                         Rectangle()
-                            .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [10]))
+                            .strokeBorder(Color.biRTH_pointColor, style: StrokeStyle(lineWidth: 5))
                     }
                 }
                 .zIndex(Double(findIndex(id: pastedImage.id)))
@@ -30,30 +30,31 @@ struct GestureImageView: View {
                 .gesture(dragGesture)
                 .gesture(resizeAndRotateGesture)
                 .onTapGesture {
-                        isCustomSheet.toggle()
+                    withAnimation {
+                        isCustomSheet = true
+                    }
+                    
                     selectImage()
                     bringImageToFront()
                 }
             
             if isSelected {
-                    // 회전 및 크기 조절 핸들
-                withAnimation(.easeInOut(duration: 0.5)) {
-                    Image(systemName: "arrow.up.backward.and.arrow.down.forward.circle.fill")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .foregroundColor(.gray)
-                        .zIndex(Double(findIndex(id: pastedImage.id)) + 1)
-                        .position(pastedImage.rotateDotPosition)
-                        .offset(dragOffset)
-                        .gesture(resizeAndRotateGesture)
-                }
+                // 회전 및 크기 조절 핸들
+                Image(systemName: "arrow.up.backward.and.arrow.down.forward.circle.fill")
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .foregroundColor(.black)
+                    .zIndex(Double(findIndex(id: pastedImage.id)) + 1)
+                    .position(pastedImage.rotateDotPosition)
+                //                        .offset(dragOffset)
+                    .gesture(resizeAndRotateGesture)
             }
         }
     }
     
     
     // MARK: - GestureImageView Computed Property
-    /// 선택 상태 확인하는 연산 프로퍼티입니다. 
+    /// 선택 상태 확인하는 연산 프로퍼티입니다.
     private var isSelected: Bool {
         selectedImageID == pastedImage.id
     }
@@ -79,7 +80,9 @@ struct GestureImageView: View {
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
-
+                withAnimation {
+                    sheetHeight = UIScreen.main.bounds.height * 0.1 // 드래그 중 시트 내려가기
+                }
                 let newLocation = startLocation ?? pastedImage.imagePosition
                 pastedImage.imagePosition = CGPoint(
                     x: newLocation.x + value.translation.width,
@@ -89,12 +92,20 @@ struct GestureImageView: View {
             .updating($startLocation) { _, startLocation, _ in
                 startLocation = startLocation ?? pastedImage.imagePosition
             }
+            .onEnded { _ in
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 드래그 종료 후 시트 복원
+                }
+            }
     }
     
     /// 크기 조절 및 회전 제스처와 관련된 연산프로퍼티입니다.
     private var resizeAndRotateGesture: some Gesture {
         DragGesture()
             .onChanged { gesture in
+                withAnimation {
+                    sheetHeight = UIScreen.main.bounds.height * 0.1 // 제스처 중 시트 줄이기
+                }
                 let centerToNewPositionDistance = sqrt(pow(gesture.location.x - pastedImage.imagePosition.x, 2) + pow(gesture.location.y - pastedImage.imagePosition.y, 2))
                 let imageDiagonal = sqrt(pow(pastedImage.imageWidth, 2) + pow(pastedImage.imageHeight, 2))
                 
@@ -111,10 +122,13 @@ struct GestureImageView: View {
                 )
                 pastedImage.angleSum += (-(originalAngle - newAngle) * 180 / CGFloat.pi)
                 pastedImage.angle = .degrees(pastedImage.angleSum)
-
+                
             }
-//            .onEnded { _ in
-//            }
+            .onEnded { _ in
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 제스처 종료 후 시트 복원
+                }
+            }
     }
     
     /// zIndex를 찾는 함수입니다.

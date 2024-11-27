@@ -41,7 +41,9 @@ struct CustomSheet: View {
                 HStack {
                     Spacer()
                     Button {
+                        withAnimation(.easeInOut(duration: 0.5)) {
                             isCustomSheet = false
+                        }
                     } label: {
                         Image(systemName: "xmark.circle")
                             .foregroundStyle(.black)
@@ -53,12 +55,15 @@ struct CustomSheet: View {
             }
             .frame(maxWidth: .infinity)
             .frame(maxHeight: sheetHeight)
-            .background(.yellow)
+            .background(.white)
             .cornerRadius(16, corners: .topLeft)
             .cornerRadius(16, corners: .topRight)
+            .transition(.move(edge: .bottom))
+
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
+        .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
     }
 }
 
