@@ -94,7 +94,7 @@ struct PhotoPickerAndListView: View {
                 newPhoto.scaleX = 1
                 newPhoto.scaleY = 1
                 newPhoto.rotation = 0
-                newPhoto.indexZ = 1
+               
             }
         }
 

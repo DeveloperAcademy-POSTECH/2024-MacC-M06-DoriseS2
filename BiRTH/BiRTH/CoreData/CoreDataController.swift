@@ -41,6 +41,30 @@ import CoreData
 //    }
 //}
 
+//
+//func saveToCoreData(pastedImages: [PastedImage], context: NSManagedObjectContext) {
+//    for pastedImage in pastedImages {
+//        let newPhoto = BPhotoForCollage(context: context)
+//
+//        // Map properties from PastedImage to BPhotoForCollage
+//        newPhoto.id = UUID() // Generate a new ID
+//        newPhoto.image = pastedImage.pastedImage.pngData()?.base64EncodedString() // Save as a base64 string
+//        newPhoto.posX = Double(pastedImage.imagePosition.x)
+//        newPhoto.posY = Double(pastedImage.imagePosition.y)
+//        newPhoto.rotation = pastedImage.angleSum
+//        newPhoto.scaleX = Double(pastedImage.imageWidth)
+//        newPhoto.scaleY = Double(pastedImage.imageHeight)
+//    }
+//
+//    // Save the context
+//    do {
+//        try context.save()
+//        print("Images saved successfully to Core Data!")
+//    } catch {
+//        print("Error saving images to Core Data: \(error)")
+//    }
+//}
+
 func updateBCollage(viewContext: NSManagedObjectContext, collage: BCollage, backgroundColor: String?) {
     if let bgColor = backgroundColor {
         collage.backgroundColor = bgColor

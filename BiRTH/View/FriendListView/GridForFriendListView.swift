@@ -21,7 +21,8 @@ struct GridForFriendListView: View {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(bFriend, id: \.self) { friend in
                     NavigationLink {
-                        SaveBdayView(bFriend: friend)
+                        CollageByMyselfView(bFriend: friend)
+//                        SaveBdayView(bFriend: friend)
                     } label: {
                         VStack {
                             if let imageData = friend.profileImage,  // 인스턴스에서 접근
@@ -60,28 +61,3 @@ struct GridForFriendListView: View {
         }
 }
 
-//#Preview {
-//    let viewContext = PersistenceController.preview.container.viewContext
-//    
-//    // 더미 데이터 생성 및 저장
-//    let dummyFriends: [BFriend] = {
-//        let friend1 = BFriend(context: viewContext)
-//        friend1.name = "시네필"
-//        friend1.profileImage = nil
-//        
-//        let friend2 = BFriend(context: viewContext)
-//        friend2.name = "친구"
-//        friend2.profileImage = nil
-//        
-//        let friend3 = BFriend(context: viewContext)
-//        friend3.name = "가족"
-//        friend3.profileImage = nil
-//        
-//        try? viewContext.save()
-//        
-//        return [friend1, friend2, friend3]
-//    }()
-//    
-//    // GridForFriendListView 반환
-//    GridForFriendListView(friends: dummyFriends)
-//}

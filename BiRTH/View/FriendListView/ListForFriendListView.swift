@@ -6,16 +6,23 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ListForFriendListView: View {
     var bFriend: FetchedResults<BFriend>
+//    var bCollage: FetchedResults<BCollage>
 
     @Environment(\.managedObjectContext) private var viewContext
 
     var body: some View {
         List(bFriend, id: \.self) { friend in
             NavigationLink {
-                SaveBdayView(bFriend: friend)
+//                let collage = createBCollage(for: friend, context: viewContext)
+//                    createGroupForBCollageAndBFriend(with: collage, friend: friend, context: viewContext)
+
+                
+                CollageByMyselfView(bFriend: friend)
+//                SaveBdayView(bFriend: friend)
             } label: {
             HStack {
                 Group {
@@ -66,30 +73,13 @@ struct ListForFriendListView: View {
         .listStyle(.plain)
         .background(Color.biRTH_mainColor)
     }
-}
 
-//#Preview {
-//    let viewContext = PersistenceController.preview.container.viewContext
-//    
-//    // 더미 데이터 생성 및 저장
-//    let dummyFriends: [BFriend] = {
-//        let friend1 = BFriend(context: viewContext)
-//        friend1.name = "시네필"
-//        friend1.profileImage = nil
-//        
-//        let friend2 = BFriend(context: viewContext)
-//        friend2.name = "친구"
-//        friend2.profileImage = nil
-//        
-//        let friend3 = BFriend(context: viewContext)
-//        friend3.name = "가족"
-//        friend3.profileImage = nil
-//        
-//        try? viewContext.save()
-//        
-//        return [friend1, friend2, friend3]
-//    }()
-//    
-//    // ListForFriendListView 반환
-//    ListForFriendListView(friends: dummyFriends)
-//}
+    func createBCollage(for friend: BFriend, context: NSManagedObjectContext) -> BCollage {
+        let newCollage = BCollage(context: context)
+        newCollage.id = UUID()
+        newCollage.photos = nil
+        newCollage.backgroundColor = "FFFFFF"
+        newCollage.status = .none
+        return newCollage
+    }
+}

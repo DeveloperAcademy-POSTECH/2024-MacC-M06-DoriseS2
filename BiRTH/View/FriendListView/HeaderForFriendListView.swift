@@ -130,30 +130,4 @@ struct ListModeToggle: View {
     }
 }
 
-//#Preview {
-//    let context = PersistenceController.preview.container.viewContext
-//    
-//    // 더미 데이터 생성
-//    let dummyFriends: [BFriend] = {
-//        let friend1 = BFriend(context: context)
-//        friend1.name = "시네필"
-//        friend1.profileImage = nil
-//        friend1.birth = Calendar.current.date(byAdding: .day, value: 21, to: Date())
-//        
-//        let friend2 = BFriend(context: context)
-//        friend2.name = "친구"
-//        friend2.profileImage = nil
-//        friend2.birth = Calendar.current.date(byAdding: .day, value: 15, to: Date())
-//        
-//        try? context.save()
-//        
-//        return [friend1, friend2]
-//    }()
-//    
-//    return HeaderForFriendListView(
-//        viewMode: .constant(.grid),
-//        isGridView: .constant(true),
-//        isDdaySort: .constant(true),
-//        friends: dummyFriends
-//    )
-//}
+
