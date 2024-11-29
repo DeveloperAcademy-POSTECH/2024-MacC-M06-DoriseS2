@@ -13,7 +13,7 @@ struct HeaderForFriendList: View {
     @Binding var text: String
     @Binding var sortingMethod: String
     @Binding var selectedViewMode: ViewMode
-    @Binding var isGridView: ViewMode
+    @Binding var isGridView: Bool
     
     var body: some View {
         SearchBarForFriendListView(text: $text)
@@ -56,7 +56,8 @@ struct HeaderForFriendList: View {
                         selectedViewMode = .grid
                     }
                     
-                    isGridView = .grid
+                    isGridView = true
+                    
                 } label: {
                     Image(systemName: "square.grid.2x2")
                         .foregroundColor(selectedViewMode == .grid ? .black : .gray.opacity(0.5))
@@ -68,7 +69,7 @@ struct HeaderForFriendList: View {
                         selectedViewMode = .list
                     }
                     
-                    isGridView = .list
+                    isGridView = false
                 } label: {
                     Image(systemName: "list.bullet")
                         .foregroundColor(selectedViewMode == .list ? .black : .gray.opacity(0.5))

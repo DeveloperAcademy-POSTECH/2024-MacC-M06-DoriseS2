@@ -12,10 +12,12 @@ struct FriendListView: View {
     
     @State var text: String = ""
     @State var selectedViewMode: ViewMode = .grid
-    @State var isGridView = ViewMode.noFriend
+    @State var isGridView = true
     @State var sortingMethod = "생일 가까운 순"
     @State var tagName = [""]
     @State var tagColor = [""]
+
+
     
     @FetchRequest(entity: BTag.entity(), sortDescriptors: []) var bTags: FetchedResults<BTag>
     @FetchRequest(entity: BFriend.entity(), sortDescriptors: []) var bFriend: FetchedResults<BFriend>

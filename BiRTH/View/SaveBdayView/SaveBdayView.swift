@@ -14,9 +14,8 @@ import PhotosUI
 //최상단뷰
 struct SaveBdayView: View {
     @Environment(\.modelContext) var context
-    
-    @State private var isEditing = false
-    
+    @Environment(\.dismiss) var dismiss
+  
     // State variables for user inputs
     @State private var name = ""
     @State private var profileImage: Data?
@@ -24,10 +23,12 @@ struct SaveBdayView: View {
     @State private var notiFrequency = [""]
     @State private var relationshipTag = [""]
     
+    @State private var imageData: Data?
     @State private var selectedItem: PhotosPickerItem?
-    
     @State private var isshowingSheetForSettingDate = false
     @State private var isshowingSheetForCreatingTag = false
+    
+    @State private var isEditing = false
     
     // Fetched results for tags
     @FetchRequest(
@@ -37,10 +38,7 @@ struct SaveBdayView: View {
     private var bTags: FetchedResults<BTag>
     
     var bFriend: BFriend? = nil
-    
-    @Environment(\.dismiss) var dismiss
-    
-    @State private var imageData: Data?
+
     
     static let dateFormat: DateFormatter = {
         let formatter = DateFormatter()
@@ -50,7 +48,17 @@ struct SaveBdayView: View {
     
     var body: some View {
         VStack {
-            HeaderForSaveBdayView(isEditing: $isEditing, bFriend: bFriend, name: $name, dateOfBday: $dateOfBday, notiFrequency: $notiFrequency, imageData: $imageData, relationshipTag: $relationshipTag, profilrImage: $profileImage)
+//            HeaderForSaveBdayView(viewContext: $isEditing, context: bFriend, dismiss: $name, bFriend: $dateOfBday, name: $notiFrequency, dateOfBday: $imageData, notiFrequency: $relationshipTag, imageData: $profileImage)
+            
+            HeaderForSaveBdayView(
+                name: $name,
+                dateOfBday: $dateOfBday,
+                notiFrequency: $notiFrequency,
+                imageData: $imageData,
+                relationshipTag: $relationshipTag,
+                profilrImage: $profileImage,
+                isEditing: $isEditing
+            )
             
             Spacer(minLength: 26)
             

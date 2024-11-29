@@ -9,13 +9,13 @@ import SwiftUI
 
 
 enum ViewMode {
-    case grid, list, noFriend
+    case grid, list
 }
 
 struct FriendGridORListView: View {
     @Environment(\.managedObjectContext) var viewContext
     
-    @Binding var isGridView: ViewMode
+    @Binding var isGridView: Bool
     @Binding var text: String
     @Binding var tagName: [String]
     @Binding var sortingMethod: String
@@ -57,108 +57,105 @@ struct FriendGridORListView: View {
         }
     }
     
-
+    
     
     var body: some View {
-        if bFriend.isEmpty {
-            IfNoFriendForFriendListView()
-        } else {
-            // MARK: - GridView
-            if isGridView == .grid {
-                ScrollView {
-                    LazyVGrid(columns: columns) {
-                        ForEach(filteredAndSortedFriends, id: \.self) { friend in
-                            NavigationLink {
-                                SaveBdayView(bFriend: friend)
-                            } label: {
-                                VStack {
-                                    if let imageData = friend.profileImage, let uiImage = UIImage(data: imageData) {
-                                        Image(uiImage: uiImage)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 150, height: 150)
-                                            .clipShape(getRandomShape())
-                                    } else {
-                                        Image("photo")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 166, height: 166)
-                                            .clipShape(getRandomShape())
-                                    }
-                                    
-                                    HStack() {
-                                        Spacer()
-                                        VStack(alignment: .trailing) {
-                                            Text(friend.name ?? "")
-                                                .foregroundStyle(.black)
-                                                .font(.biRTH_semibold_18)
-                                            Text(dDaytext(friend: friend))
-                                                .foregroundStyle(Color.biRTH_text1)
-                                                .font(.biRTH_regular_12)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            // MARK: - ListView
-            } else if isGridView == .list {
-                List(filteredAndSortedFriends, id: \.self) { friend in
-                    NavigationLink {
-                        SaveBdayView(bFriend: friend)
-                    } label: {
-                        HStack {
-                            Group {
-                                if let imageData = friend.profileImage,
-                                   let uiImage = UIImage(data: imageData) {
+        // MARK: - GridView
+        if isGridView {
+            ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(filteredAndSortedFriends, id: \.self) { friend in
+                        NavigationLink {
+                            SaveBdayView(bFriend: friend)
+                        } label: {
+                            VStack {
+                                if let imageData = friend.profileImage, let uiImage = UIImage(data: imageData) {
                                     Image(uiImage: uiImage)
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 45, height: 45)
-                                        .clipShape(.circle)
+                                        .frame(width: 150, height: 150)
+                                        .clipShape(getRandomShape())
                                 } else {
                                     Image("photo")
                                         .resizable()
                                         .aspectRatio(contentMode: .fill)
-                                        .frame(width: 45, height: 45)
-                                        .clipShape(.circle)
+                                        .frame(width: 166, height: 166)
+                                        .clipShape(getRandomShape())
+                                }
+                                
+                                HStack() {
+                                    Spacer()
+                                    VStack(alignment: .trailing) {
+                                        Text(friend.name ?? "")
+                                            .foregroundStyle(.black)
+                                            .font(.biRTH_semibold_18)
+                                        Text(dDaytext(friend: friend))
+                                            .foregroundStyle(Color.biRTH_text1)
+                                            .font(.biRTH_regular_12)
+                                    }
                                 }
                             }
-                            
-                            Text(friend.name ?? "")
-                                .font(.biRTH_semibold_14)
-                                .foregroundColor(.black)
-                            
-                            Spacer()
-                            
-                            Text(dDaytext(friend: friend))
-                                .font(.biRTH_bold_12)
-                                .foregroundColor(.biRTH_text1)
-                            
-                        } //: HSTACK
-                    }
-                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                        Button {
-                            viewContext.delete(friend)
-                            saveData(viewContext: viewContext)
-                        } label: {
-                            Label("Delete", systemImage: "minus.circle.fill")
-                                .symbolRenderingMode(.palette)
-                                .background(Color.red)
                         }
-                        .tint(.biRTH_mainColor)
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowBackground(Color.biRTH_mainColor)
                 }
-                .listRowInsets(.none)
-                .listStyle(.plain)
-                .background(Color.biRTH_mainColor)
             }
+            // MARK: - ListView
+        } else {
+            List(filteredAndSortedFriends, id: \.self) { friend in
+                NavigationLink {
+                    SaveBdayView(bFriend: friend)
+                } label: {
+                    HStack {
+                        Group {
+                            if let imageData = friend.profileImage,
+                               let uiImage = UIImage(data: imageData) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 45, height: 45)
+                                    .clipShape(.circle)
+                            } else {
+                                Image("photo")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 45, height: 45)
+                                    .clipShape(.circle)
+                            }
+                        }
+                        
+                        Text(friend.name ?? "")
+                            .font(.biRTH_semibold_14)
+                            .foregroundColor(.black)
+                        
+                        Spacer()
+                        
+                        Text(dDaytext(friend: friend))
+                            .font(.biRTH_bold_12)
+                            .foregroundColor(.biRTH_text1)
+                        
+                    } //: HSTACK
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button {
+                        viewContext.delete(friend)
+                        saveData(viewContext: viewContext)
+                    } label: {
+                        Label("Delete", systemImage: "minus.circle.fill")
+                            .symbolRenderingMode(.palette)
+                            .background(Color.red)
+                    }
+                    .tint(.biRTH_mainColor)
+                }
+                .listRowSeparator(.hidden)
+                .listRowBackground(Color.biRTH_mainColor)
+            }
+            .listRowInsets(.none)
+            .listStyle(.plain)
+            .background(Color.biRTH_mainColor)
         }
     }
 }
+
 
 
 

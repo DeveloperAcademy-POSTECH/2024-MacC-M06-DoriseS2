@@ -8,12 +8,8 @@
 import SwiftUI
 
 struct HeaderForSaveBdayView: View {
-    
-    @Binding var isEditing: Bool
-    
-    
+
     @Environment(\.managedObjectContext) var viewContext
-    
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
     
@@ -25,6 +21,8 @@ struct HeaderForSaveBdayView: View {
     @Binding var imageData: Data?
     @Binding var relationshipTag: [String]
     @Binding var profilrImage: Data?
+    
+    @Binding var isEditing: Bool
     
     var body: some View {
         Text("")
@@ -56,6 +54,7 @@ struct HeaderForSaveBdayView: View {
 //                            }
                             
                             updateBFriend(viewContext: viewContext, bFriend: existingFriend, name: name, dateOfBday: dateOfBday, notiFrequency: notiFrequency, relationshipTag: relationshipTag)
+                            
                         } else {
                             print("3")
                             // 저장 로직
