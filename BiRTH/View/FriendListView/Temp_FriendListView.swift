@@ -371,19 +371,26 @@ extension Temp_FriendListView {
         
         let daysUntil = calendar.dateComponents([.day], from: today, to: birthDateThisYear).day!
         
-        if daysUntil == 0 {
-            return "D-day" // 오늘이 생일인 경우
-        } else if daysUntil > 0 {
-            print("\(daysUntil)")
-            return "D-\(daysUntil)" // 생일이 아직 오지 않은 경우
-        } else {
-            // 생일이 지났다면 다음 해 생일로 계산
-            guard let birthDateNextYear = calendar.date(byAdding: .year, value: 1, to: birthDateThisYear) else {
-                return "날짜 계산 오류"
+        if daysUntil == 0 { // 오늘이 생일인 경우
+            return "D-day"
+        } else if daysUntil > 0 { // 생일이 아직 오지 않은 경우
+            if daysUntil < 31 { // Dday가 30일 남은 경우
+                print("\(daysUntil)")
+                return "D-\(daysUntil)"
+            } else {
+                print("\(daysUntil)")
+                return ""
             }
-            let nextDaysUntil = calendar.dateComponents([.day], from: today, to: birthDateNextYear).day!
-            print("\(daysUntil)")
-            return "D+\(abs(nextDaysUntil))" // 지났으므로 음수 대신 양수로 변환
+            
+        } else { // 생일이 지났다면 다음 해 생일로 계산
+            
+            let absDaysUntil = abs(daysUntil)
+            if absDaysUntil < 15 {
+                print(absDaysUntil)
+                return "D+\(absDaysUntil)"
+            } else {
+                return ""
+            }
         }
     }
     
