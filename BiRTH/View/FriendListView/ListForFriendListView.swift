@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ListForFriendListView: View {
-    var bFriend: FetchedResults<BFriend>
 
     @Environment(\.managedObjectContext) private var viewContext
+//    @FetchRequest(entity: BFriend.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \BFriend.birth, ascending: true)])
+    var bFriend: FetchedResults<BFriend>
+    
+    let ddayUtils = DdayUtils()
 
     var body: some View {
         List(bFriend, id: \.self) { friend in
@@ -42,11 +46,13 @@ struct ListForFriendListView: View {
                     .foregroundColor(.black)
 
                 Spacer()
-
-                Text("D-11")
-                    .font(.biRTH_bold_12)
-                    .foregroundColor(.biRTH_text1)
-                    .padding(.trailing, 10)
+                
+                if let birthDate = friend.birth {
+                    Text("\(ddayUtils.calculateDday(birth: birthDate))")
+                        .font(.biRTH_bold_12)
+                        .foregroundColor(.biRTH_text1)
+                        .padding(.trailing, 10)
+                }
             } //: HSTACK
         }
             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
@@ -67,29 +73,3 @@ struct ListForFriendListView: View {
         .background(Color.biRTH_mainColor)
     }
 }
-
-//#Preview {
-//    let viewContext = PersistenceController.preview.container.viewContext
-//    
-//    // 더미 데이터 생성 및 저장
-//    let dummyFriends: [BFriend] = {
-//        let friend1 = BFriend(context: viewContext)
-//        friend1.name = "시네필"
-//        friend1.profileImage = nil
-//        
-//        let friend2 = BFriend(context: viewContext)
-//        friend2.name = "친구"
-//        friend2.profileImage = nil
-//        
-//        let friend3 = BFriend(context: viewContext)
-//        friend3.name = "가족"
-//        friend3.profileImage = nil
-//        
-//        try? viewContext.save()
-//        
-//        return [friend1, friend2, friend3]
-//    }()
-//    
-//    // ListForFriendListView 반환
-//    ListForFriendListView(friends: dummyFriends)
-//}

@@ -15,26 +15,36 @@ struct FriendListView: View {
     @State var isDdaySort = true
     @State private var relationshipTag = [""]
 
-    @FetchRequest(
-        entity: BFriend.entity(),
-        sortDescriptors: []
-    )
+    @FetchRequest(entity: BFriend.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \BFriend.birth, ascending: true)])
     private var bFriend: FetchedResults<BFriend>
 
     @State private var isshowingSheetForCreatingTag = false
-    
-    @FetchRequest(
-        entity: BTag.entity(),
-        sortDescriptors: []
-    )
+    @FetchRequest(entity: BTag.entity(), sortDescriptors: [])
     private var bTags: FetchedResults<BTag>
+    
+    let ddayUtils = DdayUtils()
+    
+    
+    var sortedFriends: [BFriend] {
+        if isDdaySort {
+            return bFriend.sorted { friend1, friend2 in
+                guard let birth1 = friend1.birth, let birth2 = friend2.birth else { return false }
+                let dday1 = ddayUtils.calculateDday(birth: birth1)
+                let dday2 = ddayUtils.calculateDday(birth: birth2)
+                return dday1 < dday2
+            }
+        } else {
+            return bFriend.sorted { ($0.name ?? "") < ($1.name ?? "") }
+        }
+    }
+    
 
 
     var body: some View {
-        NavigationView{
+        NavigationStack {
             VStack {
                 SearchBarForFriendListView(text: $text)
-                HeaderForFriendListView(viewMode: $viewMode, isGridView: $isGridView, isDdaySort: $isDdaySort, bFriend: bFriend)
+                HeaderForFriendListView(viewMode: $viewMode, isGridView: $isGridView, isDdaySort: $isDdaySort, sortingMethod: $sortingMethod)
                     .padding(.bottom, 18)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {

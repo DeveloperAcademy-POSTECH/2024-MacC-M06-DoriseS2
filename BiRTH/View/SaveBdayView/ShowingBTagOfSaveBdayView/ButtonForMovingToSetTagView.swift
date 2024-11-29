@@ -19,7 +19,7 @@ struct ButtonForMovingToSetTagView: View {
                     .font(.biRTH_bold_16)
                     .foregroundColor(Color.biRTH_pointColor)
                     .padding(.horizontal, 18)
-                    .padding(.vertical, 7)
+                    .padding(.vertical, 8)
                     .overlay(RoundedRectangle(cornerRadius: 20)
                         .strokeBorder(Color.biRTH_pointColor, lineWidth: 1))
                     .frame(height: 34)

@@ -40,8 +40,8 @@ struct CollageByMyselfView: View {
                         sheetHeight: $sheetHeight,
                         isCustomSheet: $isCustomSheet
                     )
-                    .transition(.move(edge: .bottom))
-                    .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
+//                    .transition(.move(edge: .bottom))
+//                    .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
                 }
             }
                 
@@ -71,7 +71,20 @@ struct CollageByMyselfView: View {
     }
 }
 
-
+private extension CollageByMyselfView {
+    var imageField: some View {
+        
+        ForEach(pastedImages.indices, id: \.self) { index in
+            GestureImageView(
+                pastedImage: pastedImages[index],
+                pastedImages: $pastedImages,
+                selectedImageID: $selectedImageID,
+                isCustomSheet: $isCustomSheet,
+                sheetHeight: $sheetHeight
+            )
+        }
+    }
+}
 
 #Preview {
     CollageByMyselfView()
