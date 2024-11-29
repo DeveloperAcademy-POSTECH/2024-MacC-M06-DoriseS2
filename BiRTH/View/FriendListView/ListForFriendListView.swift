@@ -14,7 +14,7 @@ struct ListForFriendListView: View {
 //    @FetchRequest(entity: BFriend.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \BFriend.birth, ascending: true)])
     var bFriend: FetchedResults<BFriend>
     
-    let ddayUtils = DdayUtils()
+//    let ddayUtils = DdayUtils()
 
     var body: some View {
         List(bFriend, id: \.self) { friend in
@@ -48,10 +48,10 @@ struct ListForFriendListView: View {
                 Spacer()
                 
                 if let birthDate = friend.birth {
-                    Text("\(ddayUtils.calculateDday(birth: birthDate))")
-                        .font(.biRTH_bold_12)
-                        .foregroundColor(.biRTH_text1)
-                        .padding(.trailing, 10)
+//                    Text("\(ddayUtils.calculateDday(birth: birthDate))")
+//                        .font(.biRTH_bold_12)
+//                        .foregroundColor(.biRTH_text1)
+//                        .padding(.trailing, 10)
                 }
             } //: HSTACK
         }
