@@ -38,20 +38,24 @@ struct HeaderForSaveBdayView: View {
                         if let existingFriend = bFriend {
                             // 수정 로직
                             print("2")
-                            do {
-                                if let bFriendUpdate = try viewContext.existingObject(with: existingFriend.objectID) as? BFriend {
-                                    bFriendUpdate.name = name
-                                    bFriendUpdate.birth = dateOfBday
-                                    bFriendUpdate.noti = notiFrequency
-                                    bFriendUpdate.profileImage = imageData
-                                    bFriendUpdate.tags = relationshipTag
-                                    
-                                    saveData(viewContext: viewContext)
-                                }
-                            } catch {
-                                let nsError = error as NSError
-                                fatalError("Error: \(nsError), \(nsError.userInfo)")
-                            }
+//                            do {
+//                                if let bFriendUpdate = try viewContext.existingObject(with: existingFriend.objectID) as? BFriend {
+//                                    bFriendUpdate.name = name
+//                                    bFriendUpdate.birth = dateOfBday
+//                                    bFriendUpdate.calcBirthComponents()
+//                                    bFriendUpdate.noti = notiFrequency
+//                                    bFriendUpdate.profileImage = imageData
+//                                    bFriendUpdate.tags = relationshipTag
+//                                    
+//                                    saveData(viewContext: viewContext)
+//                                }
+//                                
+//                            } catch {
+//                                let nsError = error as NSError
+//                                fatalError("Error: \(nsError), \(nsError.userInfo)")
+//                            }
+                            
+                            updateBFriend(viewContext: viewContext, bFriend: existingFriend, name: name, dateOfBday: dateOfBday, notiFrequency: notiFrequency, relationshipTag: relationshipTag)
                         } else {
                             print("3")
                             // 저장 로직

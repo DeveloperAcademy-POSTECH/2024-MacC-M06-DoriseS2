@@ -171,8 +171,7 @@ struct Temp_FriendListView: View {
                                                 Text(friend.name ?? "")
                                                     .foregroundStyle(.black)
                                                     .font(.biRTH_semibold_18)
-                                                // TODO: iOS18에서는 ddayText 가 나타나지 않음 이전 버전에서는 확인되고 있음, 브레이크 포인트에는 걸림 하지만 background에도 안 걸림
-                                                Text(dDaytext(bFriend: friend))
+                                                Text(dDaytext(friend: friend))
                                                     .foregroundStyle(Color.biRTH_text1)
                                                     .font(.biRTH_regular_12)
                                             }
@@ -211,13 +210,9 @@ struct Temp_FriendListView: View {
                                 
                                 Spacer()
                                 
-                                // TODO: iOS18에서는 ddayText 가 나타나지 않음 이전 버전에서는 확인되고 있음, 브레이크 포인트에는 걸림 하지만 background에도 안 걸림
-                                Text(dDaytext(bFriend: friend))
+                                Text(dDaytext(friend: friend))
                                     .font(.biRTH_bold_12)
                                     .foregroundColor(.biRTH_text1)
-                                    .background(
-                                        .red
-                                    )
                                 
                             } //: HSTACK
                         }
@@ -353,64 +348,45 @@ extension Temp_FriendListView {
         return shapes.randomElement() ?? AnyShape(CustomRectangle1())
     }
     
-    func dDaytext(bFriend: BFriend) -> String {
-        guard let birthdate = bFriend.birth else {
-            return "저장된 날짜가 없습니다"
-        }
-        
+    
+    func dDaytext(friend: BFriend) -> String {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
+        
+        let birthMonth = friend.birthMonth
+        let birthDay = friend.birthDay
         let currentYear = calendar.component(.year, from: today)
         
-        // 현재 연도로 생일 설정
-        guard let thisYearBirthday = calendar.date(bySetting: .year, value: currentYear, of: birthdate) else {
+        print("birthMonth, birthDay: \(birthMonth), \(birthDay)")
+        
+        // 생일이 설정되지 않았을 경우 처리
+        guard birthMonth > 0, birthDay > 0 else {
+            return "저장된 날짜가 없습니다."
+        }
+        
+        // 현재 연도의 생일 계산
+        guard let birthDateThisYear = calendar.date(from: DateComponents(year: currentYear, month: Int(birthMonth), day: Int(birthDay))) else {
             return "날짜 계산 오류"
         }
         
-        // 오늘과 생일의 날짜 차이 계산
-        let daysUntil = calendar.dateComponents([.day], from: today, to: thisYearBirthday).day ?? 0
+        let daysUntil = calendar.dateComponents([.day], from: today, to: birthDateThisYear).day!
         
         if daysUntil == 0 {
-            print("birthdate(디데이): \(birthdate)")
-            print("daysUntil(디데이): \(daysUntil)")
             return "D-day" // 오늘이 생일인 경우
         } else if daysUntil > 0 {
-            if daysUntil <= 30 {
-                print("birthdate(30일 이전): \(birthdate)")
-                print("daysUntil(30일 이전): \(daysUntil)")
-                return "D-\(daysUntil)"
-            } else {
-                print("birthdate(30일 이후): \(birthdate)")
-                print("daysUntil(30일 이후): \(daysUntil)")
-                return ""
-            }
+            print("\(daysUntil)")
+            return "D-\(daysUntil)" // 생일이 아직 오지 않은 경우
         } else {
-            // 생일이 이미 지난 경우, 다음 해 생일 계산
-            guard let nextYearBirthday = calendar.date(bySetting: .year, value: currentYear + 1, of: birthdate) else {
+            // 생일이 지났다면 다음 해 생일로 계산
+            guard let birthDateNextYear = calendar.date(byAdding: .year, value: 1, to: birthDateThisYear) else {
                 return "날짜 계산 오류"
             }
-            
-            let nextDaysUntil = calendar.dateComponents([.day], from: today, to: nextYearBirthday).day ?? 0
-            
-            if nextDaysUntil <= 15 {
-                print("birthdate(15일 이내): \(birthdate)")
-                print("nextDaysUntil(15일 이내): \(nextDaysUntil)")
-                return "D+\(nextDaysUntil)" // 15일 이내
-            } else {
-                print("birthdate(15일 이상): \(birthdate)")
-                print("nextDaysUntil(15일 이상): \(nextDaysUntil)")
-                return ""
-            }
+            let nextDaysUntil = calendar.dateComponents([.day], from: today, to: birthDateNextYear).day!
+            print("\(daysUntil)")
+            return "D+\(abs(nextDaysUntil))" // 지났으므로 음수 대신 양수로 변환
         }
     }
     
-    func applySortingMethod() {
-        if sortingMethod == "생일 가까운 순" {
-            bFriend.sortDescriptors = [SortDescriptor(\BFriend.birth, order: .forward)]
-        } else if sortingMethod == "이름 순" {
-            bFriend.sortDescriptors = [SortDescriptor(\BFriend.name, order: .forward)]
-        }
-    }
     
 }
 
