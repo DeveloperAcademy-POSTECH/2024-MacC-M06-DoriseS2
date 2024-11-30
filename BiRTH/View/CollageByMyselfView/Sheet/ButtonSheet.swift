@@ -30,6 +30,7 @@ struct ButtonSheet: View {
                     XmarkButton()
                 }
             }
+            .background(.white)
         }
     }
 }

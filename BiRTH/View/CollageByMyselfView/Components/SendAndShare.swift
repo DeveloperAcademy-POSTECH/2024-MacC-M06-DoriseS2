@@ -9,14 +9,16 @@ import SwiftUI
 import Photos
 
 
-// TODO: EditMenuPresent 만큼만 캡쳐될 수 있도록 수정하기 
-struct SendAndShare: View {
-//    @Binding var targetView: UIView
+// TODO: EditMenuPresent 만큼만 캡쳐될 수 있도록 수정하기
+struct SendAndShare<Content: View>: View {
     @State private var showingAlert: Bool = false
+    let view: Content
+    
     
     var body: some View {
         Button {
-            screenShot()
+//            screenShot()
+            captureAndSaveView(of: view)
             print("paperplane")
         } label: {
             Image(systemName: "paperplane")
@@ -28,7 +30,7 @@ struct SendAndShare: View {
             }
             let secondButton = Alert.Button.default(Text("공유하기")) {
                 share()
-            }            
+            }
             
             return Alert(title: Text("저장하기"),
                          message: Text("이미지를 저장합니다."),
@@ -41,9 +43,9 @@ extension SendAndShare {
     /// 이미지 저장
     func screenShot() {
         guard let window = UIApplication.shared.connectedScenes
-                .compactMap({ $0 as? UIWindowScene })
-                .first?.windows
-                .first else {
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first else {
             print("Failed to fetch the key window.")
             return
         }
@@ -71,9 +73,9 @@ extension SendAndShare {
     /// 이미지 공유
     func share() {
         guard let window = UIApplication.shared.connectedScenes
-                .compactMap({ $0 as? UIWindowScene })
-                .first?.windows
-                .first else {
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first else {
             print("Failed to fetch the key window.")
             return
         }
@@ -96,7 +98,8 @@ extension UIView {
 }
 
 // View에 ScreenShot을 넣기 위함
-extension View {
+
+public extension View {
     func takeScreenshot(origin: CGPoint, size: CGSize) -> UIImage {
         let window = UIWindow(frame: CGRect(origin: origin, size: size))
         let hosting = UIHostingController(rootView: self)
@@ -105,8 +108,64 @@ extension View {
         window.makeKeyAndVisible()
         return hosting.view.screenShot
     }
+    
+    @MainActor
+    func captureView(
+        of view: some View,
+        scale: CGFloat = 1.0,
+        size: CGSize? = nil,
+        completion: @escaping (UIImage?) -> Void
+    ) {
+        let renderer = ImageRenderer(content: view)
+        renderer.scale = scale
+        
+        if let size = size {
+            renderer.proposedSize = .init(size)
+        }
+        
+        completion(renderer.uiImage)
+    }
+
+    @MainActor
+    func captureAndSaveView(
+        of view: some View,
+        scale: CGFloat = 1.0,
+        size: CGSize? = nil
+    ) {
+        // 캡처 수행
+        let renderer = ImageRenderer(content: view)
+        renderer.scale = scale
+        
+        if let size = size {
+            renderer.proposedSize = .init(size)
+        }
+        
+        guard let capturedImage = renderer.uiImage else {
+            print("Failed to capture image.")
+            return
+        }
+        
+        // 이미지 저장
+        UIImageWriteToSavedPhotosAlbum(capturedImage, nil, nil, nil)
+        
+        // 사진 권한 요청 및 상태에 따른 처리
+        PHPhotoLibrary.requestAuthorization { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    print("Image successfully saved!")
+                case .denied, .restricted, .notDetermined:
+                    print("Permission denied or not determined.")
+                case .limited:
+                    print("Image successfully saved with limited access.")
+                @unknown default:
+                    print("Unknown authorization status.")
+                }
+            }
+        }
+    }
 }
 
-#Preview {
-    SendAndShare()
-}
+//#Preview {
+//    SendAndShare()
+//}

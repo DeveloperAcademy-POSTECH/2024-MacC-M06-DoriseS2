@@ -17,7 +17,7 @@ struct ColByMyselfTopView: View {
         HStack(spacing: 20) {
             NavigationLink {
                 // TODO: FriendDetailView 연결
-                TempFriendDetailView()
+                Temp_FriendDetailView()
             } label: {
                 ZStack {
                     Image(friendImage)

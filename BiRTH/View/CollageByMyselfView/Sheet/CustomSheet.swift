@@ -12,7 +12,7 @@ import UIKit
 struct CustomSheet: View {
     let rows = [GridItem(.flexible())]
     
-    @Binding var image: UIImage
+    @Binding var selectedImage: UIImage
     @Binding var sheetHeight: CGFloat
     @Binding var isCustomSheet: Bool
     
@@ -31,7 +31,7 @@ struct CustomSheet: View {
 
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: rows, spacing: 24) {
-                        RemoveBackgroundButton(image: $image)
+                        RemoveBackgroundButton(image: $selectedImage)
                         DeleteButton()
                     }
                     .padding()
@@ -85,7 +85,7 @@ struct CustomSheetWrapper: View {
     @State private var isCustomSheet: Bool = true
     
     var body: some View {
-        CustomSheet(image: $image, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet)
+        CustomSheet(selectedImage: $image, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet)
             .previewLayout(.sizeThatFits)
     }
 }

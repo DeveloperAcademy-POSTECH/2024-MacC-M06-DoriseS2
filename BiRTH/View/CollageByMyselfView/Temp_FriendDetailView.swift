@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TempFriendDetailView: View {
+struct Temp_FriendDetailView: View {
     var body: some View {
         NavigationStack {
             NavigationLink("CollageByMyselfView") {
@@ -18,5 +18,5 @@ struct TempFriendDetailView: View {
 }
 
 #Preview {
-    TempFriendDetailView()
+    Temp_FriendDetailView()
 }
