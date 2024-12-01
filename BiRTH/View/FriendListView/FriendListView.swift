@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FriendListView: View {
 
+
     @State var viewMode: ListModeToggle.ViewMode = .grid
     @State var sortingMethod = "생일 가까운 순"
     @State var isGridView = true
@@ -27,6 +28,9 @@ struct FriendListView: View {
     
     @State var text: String = ""
     @State var selectedViewMode: ViewMode = .grid
+
+
+
     @State var tagName = [""]
     @State var tagColor = [""]
 
@@ -73,9 +77,4 @@ struct FriendListView: View {
     }
 }
 
-
-
-#Preview {
-    FriendListView()
-}
 

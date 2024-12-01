@@ -79,5 +79,6 @@ extension HeaderForSaveBdayView {
     func lunarToFinalDate() {
             dateOfBday = dateOfBday
 
+
     }
 }
