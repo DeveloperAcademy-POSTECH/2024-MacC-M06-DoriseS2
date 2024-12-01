@@ -10,6 +10,9 @@ import SwiftUI
 struct TempFriendDetailView: View {
     @ObservedObject var bFriend: BFriend
     //    @Binding var imageData: Data?
+    @Environment(\.managedObjectContext) var viewContext
+
+    @State var memo: String = ""
 
     let colors: [String] = ["2364AA", "3DA5D9", "73BFB9", "FEC601", "EA7317", "FFC97F", "EB7777", "EB8291", "F0BBCD", "C9E7DB"]
 
@@ -24,6 +27,7 @@ struct TempFriendDetailView: View {
 
                     NavigationLink {
                         //TODO: 히스토리뷰
+                        HistoryView()
                     } label: {
                         Text("히스토리")
                             .font(.biRTH_bold_18)
@@ -92,7 +96,23 @@ struct TempFriendDetailView: View {
                     Text("메모")
                         .font(.biRTH_semibold_20)
                         .foregroundColor(.black)
+
                     Spacer()
+
+                    Button {
+                        //TODO: 저장 버튼 위치 수정
+                            bFriend.memo = memo
+                            do {
+                                try viewContext.save()
+                                print("Friend updated successfully!")
+                            } catch {
+                                print("Failed to update friend: \(error)")
+                            }
+                    } label: {
+                        Text("저장")
+                            .font(.biRTH_semibold_20)
+                            .foregroundColor(.blue)
+                    }
                 }.padding(.init(top: 43, leading: 28, bottom: 10, trailing: 28))
 
                 ZStack{
@@ -100,16 +120,33 @@ struct TempFriendDetailView: View {
                         .fill(Color(hex: "EDEDED"))
                         .frame(width: 342, height:215)
 
-                    Text("메모를 작성해 보세요..")
-                        .font(.biRTH_semibold_16)
+                    if memo == "" {
+                        Text("메모를 작성해 보세요..")
+                            .font(.biRTH_semibold_16)
+                            .foregroundColor(.biRTH_text1)
+                            .offset(x:-80, y:-75)
+                    }
+                    TextEditor(text: $memo)
+                        .scrollContentBackground(.hidden)
+                        .background(Color.clear)
+                        .padding()
                         .foregroundColor(.biRTH_text1)
-                        .offset(x:-80, y:-75)
+                        .font(.biRTH_semibold_16)
+                        .lineSpacing(5) //줄 간격
+                        .frame(width: 350, height: 220)
+
+
                 }
                 Spacer()
             }
         }
+        .onAppear() {
+                memo = bFriend.memo ?? ""
+        }
     }
-    
+
+
+
 /// 날짜 MM.DD(E)로 바꿔주는 함수
     func formattedBirthday(friend: BFriend) -> String {
         // Calendar 및 오늘 날짜

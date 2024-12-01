@@ -34,9 +34,4 @@ struct ButtonOfSavingBTagView: View {
     }
 }
 
-//extension ButtonOfSavingBTagView {
-//    func saveBTag() {
-//        let newBdayTag = BdayTag(id: UUID(), tagName: tagName, tagColor: tagColor)
-//        contextForBTag.insert(newBdayTag)
-//    }
-//}
+
