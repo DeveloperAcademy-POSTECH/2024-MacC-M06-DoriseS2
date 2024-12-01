@@ -1,25 +1,19 @@
 //
-//  FriendListView.swift
+//  Temp_FriendListView.swift
 //  BiRTH
 //
-//  Created by Cho YeonJi on 11/21/24.
+//  Created by 이소현 on 11/28/24.
 //
 
 import SwiftUI
 
 struct FriendListView: View {
-    @State private var text = ""
+
     @State var viewMode: ListModeToggle.ViewMode = .grid
     @State var sortingMethod = "생일 가까운 순"
     @State var isGridView = true
     @State var isDdaySort = true
     @State private var relationshipTag = [""]
-
-    @FetchRequest(
-        entity: BFriend.entity(),
-        sortDescriptors: []
-    )
-    private var bFriend: FetchedResults<BFriend>
 
     @FetchRequest(
         entity: BCollage.entity(),
@@ -28,36 +22,60 @@ struct FriendListView: View {
     private var bCollage: FetchedResults<BCollage>
 
     @State private var isshowingSheetForCreatingTag = false
+    @Environment(\.managedObjectContext) var viewContext
+
     
-    @FetchRequest(
-        entity: BTag.entity(),
-        sortDescriptors: []
-    )
-    private var bTags: FetchedResults<BTag>
+    @State var text: String = ""
+    @State var selectedViewMode: ViewMode = .grid
+    @State var tagName = [""]
+    @State var tagColor = [""]
 
 
+    
+    @FetchRequest(entity: BTag.entity(), sortDescriptors: []) var bTags: FetchedResults<BTag>
+    @FetchRequest(entity: BFriend.entity(), sortDescriptors: []) var bFriend: FetchedResults<BFriend>
+    
+    let gridShapes: [any Shape] = [CustomRectangle1(), CustomRectangle2()]
+    
     var body: some View {
-        NavigationView{
+        NavigationStack {
             VStack {
-                SearchBarForFriendListView(text: $text)
-                HeaderForFriendListView(viewMode: $viewMode, isGridView: $isGridView, isDdaySort: $isDdaySort, bFriend: bFriend)
-                    .padding(.bottom, 18)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ChooseTagsInSaveBdayView(bTags: bTags, relationshipTag: $relationshipTag, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
-                    } .padding(.leading, 25)
-                }
+                // MARK: - HeaderView
+                HeaderForFriendList(
+                    text: $text,
+                    sortingMethod: $sortingMethod,
+                    selectedViewMode: $selectedViewMode,
+                    isGridView: $isGridView
+                )
                 
-                Spacer()
+                TagsInFriendList(
+                    bTags: bTags,
+                    tagName: $tagName,
+                    tagColor: $tagColor
+                )
                 
-                
-                if isGridView {
-                    GridForFriendListView(bFriend: bFriend)
-                } else {
-                    ListForFriendListView(bFriend: bFriend)
-                }
+            
+                // MARK: - Grid Or ListView
+                FriendGridORListView(
+                    isGridView: $isGridView,
+                    text: $text,
+                    tagName: $tagName,
+                    sortingMethod: $sortingMethod,
+                    bFriend: bFriend
+                )
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical)
             .background(Color.biRTH_mainColor)
+            
         }
+        
     }
 }
+
+
+
+#Preview {
+    FriendListView()
+}
+

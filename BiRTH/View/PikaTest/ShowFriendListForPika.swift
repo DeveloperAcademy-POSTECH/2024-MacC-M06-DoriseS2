@@ -17,6 +17,8 @@ struct ShowFriendListForPika: View {
     private var bFriend: FetchedResults<BFriend>
 
     @Environment(\.managedObjectContext) private var viewContext
+    
+    @Binding var refreshTrigger: Bool
 
 
     var body: some View {
@@ -33,7 +35,7 @@ struct ShowFriendListForPika: View {
                     ForEach(bFriend) { bFriend in
                         VStack {
                             NavigationLink {
-                                SaveBdayView(bFriend: bFriend)
+                                SaveBdayView()
                             } label: {
                                 Text(bFriend.name ?? "")
                             }
