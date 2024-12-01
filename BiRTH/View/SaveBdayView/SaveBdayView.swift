@@ -22,7 +22,7 @@ struct SaveBdayView: View {
     @State private var dateOfBday: Date = Date()
     @State private var notiFrequency = [""]
     @State private var relationshipTag = [""]
-    
+
     @State private var imageData: Data?
     @State private var selectedItem: PhotosPickerItem?
     @State private var isshowingSheetForSettingDate = false
@@ -50,15 +50,7 @@ struct SaveBdayView: View {
         VStack {
 //            HeaderForSaveBdayView(viewContext: $isEditing, context: bFriend, dismiss: $name, bFriend: $dateOfBday, name: $notiFrequency, dateOfBday: $imageData, notiFrequency: $relationshipTag, imageData: $profileImage)
             
-            HeaderForSaveBdayView(
-                name: $name,
-                dateOfBday: $dateOfBday,
-                notiFrequency: $notiFrequency,
-                imageData: $imageData,
-                relationshipTag: $relationshipTag,
-                profilrImage: $profileImage,
-                isEditing: $isEditing
-            )
+            HeaderForSaveBdayView(bFriend: bFriend, name: $name, dateOfBday: $dateOfBday, notiFrequency: $notiFrequency, imageData: $imageData, profileImage: $profileImage, relationshipTag: $relationshipTag, isEditing: $isEditing)
             
             Spacer(minLength: 26)
             
