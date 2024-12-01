@@ -41,6 +41,8 @@ struct HeaderForSaveBdayView: View {
                     Button {
                         print("1")
                         if let existingFriend = bFriend {
+
+                            print("Existing friend: \(existingFriend)")
                             // 수정 로직
                             print("2")
                             do {

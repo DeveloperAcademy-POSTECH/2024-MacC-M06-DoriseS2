@@ -73,13 +73,4 @@ struct ListForFriendListView: View {
         .listStyle(.plain)
         .background(Color.biRTH_mainColor)
     }
-
-    func createBCollage(for friend: BFriend, context: NSManagedObjectContext) -> BCollage {
-        let newCollage = BCollage(context: context)
-        newCollage.id = UUID()
-        newCollage.photos = nil
-        newCollage.backgroundColor = "FFFFFF"
-        newCollage.status = .none
-        return newCollage
-    }
 }

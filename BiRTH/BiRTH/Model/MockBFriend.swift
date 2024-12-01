@@ -18,7 +18,6 @@ protocol MockBFriendProtocol {
     var noti: [String] { get set }
     var tags: [String] { get set }
     var history: [BHistory] { get set }
-    var group: GroupForBCollageAndBFriend? { get set }
 }
 
 // MARK: - Mock Implementation
@@ -30,7 +29,6 @@ class MockBFriend: MockBFriendProtocol {
     var noti: [String]
     var tags: [String]
     var history: [BHistory]
-    var group: GroupForBCollageAndBFriend?
     
     init(id: UUID = UUID(),
          name: String,
@@ -38,8 +36,7 @@ class MockBFriend: MockBFriendProtocol {
          profileImage: Data? = nil,
          noti: [String] = [],
          tags: [String] = [],
-         history: [BHistory] = [],
-         group: GroupForBCollageAndBFriend? = nil) {
+         history: [BHistory] = []) {
         self.id = id
         self.name = name
         self.birth = birth
@@ -47,7 +44,6 @@ class MockBFriend: MockBFriendProtocol {
         self.noti = noti
         self.tags = tags
         self.history = history
-        self.group = group
     }
 }
 

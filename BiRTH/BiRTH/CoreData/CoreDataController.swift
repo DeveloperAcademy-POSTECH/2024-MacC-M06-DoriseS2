@@ -135,10 +135,14 @@ let persistenceController = PersistenceController.shared
 
 /// CoreData에 변경사항을 적용
 func saveData(viewContext: NSManagedObjectContext) {
-  do {
-    try viewContext.save()
-  } catch {
-    let nsError = error as NSError
-    fatalError("error: \(nsError), \(nsError.userInfo)")
-  }
+    do {
+        try viewContext.save()
+        print("Data saved successfully!")
+    } catch {
+        if let nsError = error as NSError? {
+            print("Error: \(nsError), \(nsError.userInfo)")
+        }
+        fatalError("Unresolved Core Data error: \(error)")
+    }
 }
+

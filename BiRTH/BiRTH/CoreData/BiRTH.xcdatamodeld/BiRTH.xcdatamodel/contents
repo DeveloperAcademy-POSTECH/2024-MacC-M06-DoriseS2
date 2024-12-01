@@ -3,21 +3,19 @@
     <entity name="BCollage" representedClassName="BCollage" syncable="YES" codeGenerationType="class">
         <attribute name="backgroundColor" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="photos" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[BPhotoForCollage]"/>
-        <attribute name="status" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Status"/>
-        <relationship name="bFriend" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BFriend" inverseName="bCollage" inverseEntity="BFriend"/>
-        <relationship name="bPhotoForCollage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BPhotoForCollage" inverseName="bCollage" inverseEntity="BPhotoForCollage"/>
+        <attribute name="status" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromData" defaultValueString="&quot;inprogress&quot;" customClassName="Status"/>
+        <relationship name="bFriend" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="BFriend" inverseName="bCollage" inverseEntity="BFriend"/>
+        <relationship name="bPhotoForCollage" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BPhotoForCollage" inverseName="bCollage" inverseEntity="BPhotoForCollage"/>
     </entity>
     <entity name="BFriend" representedClassName="BFriend" syncable="YES" codeGenerationType="class">
         <attribute name="birth" attributeType="Date" defaultDateTimeInterval="753850140" usesScalarValueType="NO"/>
-        <attribute name="collage" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="BCollage"/>
         <attribute name="history" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[BHistory]"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="&quot;&quot;"/>
         <attribute name="noti" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="profileImage" optional="YES" attributeType="Binary"/>
         <attribute name="tags" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
-        <relationship name="bCollage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BCollage" inverseName="bFriend" inverseEntity="BCollage"/>
+        <relationship name="bCollage" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="BCollage" inverseName="bFriend" inverseEntity="BCollage"/>
         <relationship name="bHistory" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BHistory" inverseName="bFriend" inverseEntity="BHistory"/>
     </entity>
     <entity name="BHistory" representedClassName="BHistory" syncable="YES" codeGenerationType="class">
@@ -41,12 +39,6 @@
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="GroupForBCollageAndBFriend" representedClassName="GroupForBCollageAndBFriend" syncable="YES" codeGenerationType="class">
-        <attribute name="collage" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="BCollage"/>
-        <attribute name="friend" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="BFriend"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="status" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Status"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
