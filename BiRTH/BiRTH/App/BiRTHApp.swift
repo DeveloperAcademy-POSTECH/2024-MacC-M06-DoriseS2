@@ -17,7 +17,8 @@ struct BiRTHApp: App {
 
 //            TempFriendDetailView()
             FriendListView()
-                .environmentObject(colorManager)    
+//            CollageByMyselfView()
+                .environmentObject(colorManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
 
         }

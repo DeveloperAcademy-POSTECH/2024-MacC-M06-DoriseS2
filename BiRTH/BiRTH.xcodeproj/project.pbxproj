@@ -52,11 +52,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		F7A9007B2CE8B3B600FDF7CE /* ViewModel */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		F7A900802CE8B3D200FDF7CE /* Model */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Model;
@@ -128,7 +123,6 @@
 				F7A900892CE8B4CA00FDF7CE /* CoreData */,
 				F7A900872CE8B44700FDF7CE /* App */,
 				F7A900802CE8B3D200FDF7CE /* Model */,
-				F7A9007B2CE8B3B600FDF7CE /* ViewModel */,
 				F7A900812CE8B3F600FDF7CE /* Helper */,
 				F7A900842CE8B40D00FDF7CE /* Extension */,
 				F7A900882CE8B46600FDF7CE /* Resource */,
@@ -177,7 +171,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				F7A9007A2CE8B39600FDF7CE /* View */,
-				F7A9007B2CE8B3B600FDF7CE /* ViewModel */,
 				F7A900802CE8B3D200FDF7CE /* Model */,
 				F7A900812CE8B3F600FDF7CE /* Helper */,
 				F7A900842CE8B40D00FDF7CE /* Extension */,

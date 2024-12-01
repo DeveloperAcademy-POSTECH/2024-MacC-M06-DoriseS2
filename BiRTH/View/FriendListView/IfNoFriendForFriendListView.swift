@@ -10,6 +10,8 @@ import SwiftUI
 struct IfNoFriendForFriendListView: View {
     var body: some View {
         VStack {
+            Spacer()
+            
             Image("xmark")
                 .resizable()
                 .frame(width: 25, height: 25)
@@ -21,6 +23,8 @@ struct IfNoFriendForFriendListView: View {
             
             Text("플러스 버튼을 눌러서 친구를 등록해봐요 😊 ")
                 .font(.biRTH_regular_14)
+            
+            Spacer()
         }
         .background(Color.biRTH_mainColor)
     }

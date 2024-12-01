@@ -57,17 +57,18 @@ func deleteBCollage(viewContext: NSManagedObjectContext, collage: BCollage) {
 
 
 func saveBFriend(viewContext: NSManagedObjectContext, name: String, dateOfBday: Date, notiFrequency: [String], imageData: Data? = nil, relationshipTag: [String]) {
-
-        let newFriend = BFriend(context: viewContext)
-        newFriend.id = UUID()
-        newFriend.name = name
-        newFriend.birth = dateOfBday
-        newFriend.noti = notiFrequency
-        newFriend.profileImage = imageData
-        newFriend.tags = relationshipTag
-
-        saveData(viewContext: viewContext)
-
+    
+    let newFriend = BFriend(context: viewContext)
+    newFriend.id = UUID()
+    newFriend.name = name
+    newFriend.birth = dateOfBday
+    newFriend.calcBirthComponents()
+    newFriend.noti = notiFrequency
+    newFriend.profileImage = imageData
+    newFriend.tags = relationshipTag
+    
+    saveData(viewContext: viewContext)
+    
 }
 
 // BFriend update
@@ -77,6 +78,7 @@ func updateBFriend(viewContext: NSManagedObjectContext, bFriend: BFriend, name: 
       if let bFriendUpdate = try viewContext.existingObject(with: bFriend.objectID) as? BFriend {
           bFriendUpdate.name = name
           bFriendUpdate.birth = dateOfBday
+          bFriendUpdate.calcBirthComponents()
           bFriendUpdate.noti = notiFrequency
           bFriendUpdate.profileImage = imageData
           bFriendUpdate.tags = relationshipTag
