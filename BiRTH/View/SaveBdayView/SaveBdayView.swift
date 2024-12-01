@@ -86,6 +86,17 @@ struct SaveBdayView: View {
         .background(Color.biRTH_mainColor)
         .navigationBarBackButtonHidden(true)
         .onAppear {
+                if let bFriend = bFriend {
+                    print("bFriend exists with ID: \(bFriend.objectID)")
+                    if let collage = bFriend.bCollage {
+                        print("Collage exists with ID: \(collage.objectID)")
+                    } else {
+                        print("Collage is nil")
+                    }
+                } else {
+                    print("bFriend is nil")
+                }
+
             // Optionally initialize additional state when view appears
             if let bFriend = bFriend {
                 self.name = bFriend.name ?? ""
