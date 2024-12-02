@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9394FA6F2CFE4CC000E1D1D3 /* AppCodeNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9394FA6E2CFE4CC000E1D1D3 /* AppCodeNotes.swift */; };
 		93AC00382CE740A600FCF402 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9394FA6E2CFE4CC000E1D1D3 /* AppCodeNotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCodeNotes.swift; sourceTree = "<group>"; };
 		93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		93AC00302CE740A600FCF402 /* BiRTH.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BiRTH.entitlements; sourceTree = "<group>"; };
 		93AC00342CE740A600FCF402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				93AC002E2CE740A600FCF402 /* Preview Content */,
 				93AC00302CE740A600FCF402 /* BiRTH.entitlements */,
 				93AC00342CE740A600FCF402 /* Info.plist */,
+				9394FA6E2CFE4CC000E1D1D3 /* AppCodeNotes.swift */,
 			);
 			path = BiRTH;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9394FA6F2CFE4CC000E1D1D3 /* AppCodeNotes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
