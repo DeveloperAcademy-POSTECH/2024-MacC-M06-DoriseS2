@@ -13,7 +13,7 @@ import PhotosUI
 //import KoreanLunarSolarConverter
 //최상단뷰
 struct SaveBdayView: View {
-    @Environment(\.modelContext) var context
+
     @Environment(\.dismiss) var dismiss
   
     // State variables for user inputs
@@ -22,12 +22,14 @@ struct SaveBdayView: View {
     @State private var dateOfBday: Date = Date()
     @State private var notiFrequency = [""]
     @State private var relationshipTag = [""]
-    
+
     @State private var imageData: Data?
     @State private var selectedItem: PhotosPickerItem?
     @State private var isshowingSheetForSettingDate = false
     @State private var isshowingSheetForCreatingTag = false
-    
+
+
+
     @State private var isEditing = false
     
     // Fetched results for tags
@@ -48,17 +50,8 @@ struct SaveBdayView: View {
     
     var body: some View {
         VStack {
-//            HeaderForSaveBdayView(viewContext: $isEditing, context: bFriend, dismiss: $name, bFriend: $dateOfBday, name: $notiFrequency, dateOfBday: $imageData, notiFrequency: $relationshipTag, imageData: $profileImage)
             
-            HeaderForSaveBdayView(
-                name: $name,
-                dateOfBday: $dateOfBday,
-                notiFrequency: $notiFrequency,
-                imageData: $imageData,
-                relationshipTag: $relationshipTag,
-                profilrImage: $profileImage,
-                isEditing: $isEditing
-            )
+            HeaderForSaveBdayView(bFriend: bFriend, name: $name, dateOfBday: $dateOfBday, notiFrequency: $notiFrequency, imageData: $imageData, profileImage: $profileImage, relationshipTag: $relationshipTag, isEditing: $isEditing)
             
             Spacer(minLength: 26)
             

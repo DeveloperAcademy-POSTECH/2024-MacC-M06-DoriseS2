@@ -10,68 +10,74 @@ import SwiftUI
 struct HeaderForSaveBdayView: View {
 
     @Environment(\.managedObjectContext) var viewContext
-    @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
-    
-    var bFriend: BFriend? = nil
-    
+
+    var bFriend: BFriend? // 수정 대상
+
     @Binding var name: String
     @Binding var dateOfBday: Date
     @Binding var notiFrequency: [String]
     @Binding var imageData: Data?
+    @Binding var profileImage: Data? 
     @Binding var relationshipTag: [String]
-    @Binding var profilrImage: Data?
-    
     @Binding var isEditing: Bool
-    
+
     var body: some View {
         Text("")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    BackButton()
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .foregroundColor(.black)
+                    }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button {
-                        print("1")
-                        if let existingFriend = bFriend {
-
-                            print("Existing friend: \(existingFriend)")
-                            // 수정 로직
-                            print("2")
-//                            do {
-//                                if let bFriendUpdate = try viewContext.existingObject(with: existingFriend.objectID) as? BFriend {
-//                                    bFriendUpdate.name = name
-//                                    bFriendUpdate.birth = dateOfBday
-//                                    bFriendUpdate.calcBirthComponents()
-//                                    bFriendUpdate.noti = notiFrequency
-//                                    bFriendUpdate.profileImage = imageData
-//                                    bFriendUpdate.tags = relationshipTag
-//                                    
-//                                    saveData(viewContext: viewContext)
-//                                }
-//                                
-//                            } catch {
-//                                let nsError = error as NSError
-//                                fatalError("Error: \(nsError), \(nsError.userInfo)")
-//                            }
-                            
-                            updateBFriend(viewContext: viewContext, bFriend: existingFriend, name: name, dateOfBday: dateOfBday, notiFrequency: notiFrequency, relationshipTag: relationshipTag)
-                            
-                        } else {
-                            print("3")
-                            // 저장 로직
-                            saveBFriend(viewContext: viewContext, name: name, dateOfBday: dateOfBday, notiFrequency: notiFrequency, imageData: imageData, relationshipTag: relationshipTag)
-                        }
-                        print("4")
-                        dismiss()
-                        print("5")
-                    } label: {
+                    Button(action: saveOrUpdateFriend) {
                         Text("저장")
                             .foregroundColor(.black)
                             .font(.biRTH_bold_18)
                     }
                 }
             }
+    }
+
+    private func saveOrUpdateFriend() {
+        if let existingFriend = bFriend {
+            // 수정 로직
+            existingFriend.name = name
+            existingFriend.birth = dateOfBday
+            existingFriend.calcBirthComponents()
+            existingFriend.noti = notiFrequency
+            existingFriend.profileImage = imageData
+            existingFriend.tags = relationshipTag
+
+            do {
+                try viewContext.save()
+                print("Friend updated successfully!")
+            } catch {
+                print("Failed to update friend: \(error)")
+            }
+        } else {
+            // 새 데이터 저장 로직
+            let newFriend = BFriend(context: viewContext)
+            newFriend.id = UUID()
+            newFriend.name = name
+            newFriend.birth = dateOfBday
+            newFriend.calcBirthComponents()
+            newFriend.noti = notiFrequency
+            newFriend.profileImage = imageData
+            newFriend.tags = relationshipTag
+
+            do {
+                try viewContext.save()
+                print("New friend saved successfully!")
+            } catch {
+                print("Failed to save new friend: \(error)")
+            }
+        }
+        dismiss()
     }
 }
 
