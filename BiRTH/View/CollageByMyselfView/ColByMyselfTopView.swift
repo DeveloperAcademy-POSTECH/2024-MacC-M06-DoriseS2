@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ColByMyselfTopView: View {
 
     @ObservedObject var bFriend: BFriend
@@ -19,7 +20,9 @@ struct ColByMyselfTopView: View {
         HStack(spacing: 20) {
             NavigationLink {
                 // TODO: FriendDetailView 연결
+
                 TempFriendDetailView(bFriend: bFriend)
+
             } label: {
                 ZStack {
 

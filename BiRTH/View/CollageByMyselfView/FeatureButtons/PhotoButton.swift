@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 
+// PhotoPicker에서 가져온 이미지도 GestureImage에 속함 -> 배경 제거가 가능하도록 함 
 struct PhotoButton: View {
     @State var showingPhotoPicker = false
     @Binding var selectedPhotos: [PastedImage]

@@ -11,15 +11,14 @@ import SwiftUI
 struct BiRTHApp: App {
     let persistenceController = PersistenceController.shared
     @StateObject private var colorManager = ColorManager()
-
+    
     var body: some Scene {
         WindowGroup {
             FriendListView()
-
 //            CollageByMyselfView()
                 .environmentObject(colorManager)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-
+            
         }
     }
 }

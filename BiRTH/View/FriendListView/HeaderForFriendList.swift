@@ -21,6 +21,7 @@ struct HeaderForFriendList: View {
         HStack {
             Text("나의 친구")
                 .font(.system(size: 24, weight: .bold))
+                .foregroundStyle(.black)
             
             Spacer()
             

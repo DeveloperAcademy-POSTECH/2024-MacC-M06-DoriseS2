@@ -18,7 +18,7 @@ class PastedImage: ObservableObject, Identifiable {
     @Published var angle: Angle = .zero
     @Published var angleSum: Double = 0
     
-    var pastedImage: UIImage
+    var pastedImage: UIImage = UIImage()
     
     var rotateDotPosition: CGPoint {
         calcHandlePostion(offsetX: imageWidth / 2, offsetY: imageHeight / 2)

@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct RedoUndo: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    var undoManager = UndoManager()
+    
     var body: some View {
         HStack(spacing: 4) {
             Button {
-                print("arrow.uturn.left")
+                print("undo")
+                viewContext.undo()
             } label: {
                 Image(systemName: "arrow.uturn.left")
                     .foregroundStyle(.black)
             }
             
             Button {
-                print("arrow.uturn.forward")
+                print("redo")
+                viewContext.redo()
             } label: {
                 Image(systemName: "arrow.uturn.forward")
                     .foregroundStyle(.black)
