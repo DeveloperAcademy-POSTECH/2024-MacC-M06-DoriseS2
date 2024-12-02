@@ -53,5 +53,4 @@ class PastedImage: ObservableObject, Identifiable {
     static func == (lhs: PastedImage, rhs: PastedImage) -> Bool {
         lhs.id == rhs.id
     }
-    
 }

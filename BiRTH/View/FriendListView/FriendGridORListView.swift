@@ -66,7 +66,7 @@ struct FriendGridORListView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(filteredAndSortedFriends, id: \.self) { friend in
                         NavigationLink {
-                            SaveBdayView(bFriend: friend)
+                            CollageByMyselfView(bFriend: friend)
                         } label: {
                             VStack {
                                 if let imageData = friend.profileImage, let uiImage = UIImage(data: imageData) {
@@ -103,7 +103,7 @@ struct FriendGridORListView: View {
         } else {
             List(filteredAndSortedFriends, id: \.self) { friend in
                 NavigationLink {
-                    SaveBdayView(bFriend: friend)
+                    CollageByMyselfView(bFriend: friend)
                 } label: {
                     HStack {
                         Group {
