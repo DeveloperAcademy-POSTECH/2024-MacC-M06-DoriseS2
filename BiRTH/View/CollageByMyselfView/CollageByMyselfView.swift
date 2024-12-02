@@ -3,6 +3,13 @@ import CoreData
 
 //최상위뷰
 struct CollageByMyselfView: View {
+    
+    @Environment(\.managedObjectContext) private var viewContext
+//    var undoManager = UndoManager()
+
+    
+    @EnvironmentObject var colorManager: ColorManager
+    
 
     var bFriend: BFriend? = nil
 //    var bCollage: BCollage? = nil
@@ -14,63 +21,59 @@ struct CollageByMyselfView: View {
     @State var isCustomSheet: Bool = false
     @State var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.2
     
-    @Environment(\.managedObjectContext) private var viewContext
+    let rows = [GridItem(.flexible())]
 
     @State private var collage: BCollage? = nil
     @Environment(\.dismiss) var dismiss
 
 //    let collage: BCollage
 
+
     var body: some View {
         ZStack {
             // BackgroundColor
             Color.biRTH_mainColor.ignoresSafeArea()
             
+            
             VStack {
 //                ColByMyselfSaveView()
-                HStack(spacing: 0) {
-                    Spacer()
-
-                    Image(systemName: "arrow.uturn.left")
-                        .foregroundColor(.black)
-
-                    Image(systemName: "arrow.uturn.right")
-                        .foregroundColor(.black)
-
-                    Button {
-                        if let collage = collage {
-                                savePastedImages2(to: collage, pastedImages: pastedImages, context: viewContext)
-                            }
-                        dismiss()
-                    } label: {
-                        Text("임시저장")
-                            .foregroundColor(.black)
-                            .padding(5)
-                    }
-                }.padding(0)
+//                HStack(spacing: 0) {
+//                    Spacer()
+//
+//                    Image(systemName: "arrow.uturn.left")
+//                        .foregroundColor(.black)
+//
+//                    Image(systemName: "arrow.uturn.right")
+//                        .foregroundColor(.black)
+//
+//                    
+//                }.padding(0)
 
                 ColByMyselfTopView(bFriend: bFriend!)
                 
-                ZStack {
-                    EditMenuPresentView(pastedImages: $pastedImages)
-                    
-                    ForEach(pastedImages.indices, id: \.self) { index in
-                        GestureImageView(
-                            pastedImage: pastedImages[index],
-                            pastedImages: $pastedImages,
-                            selectedImageID: $selectedImageID,
-                            isCustomSheet: $isCustomSheet,
-                            sheetHeight: $sheetHeight
-                        )
-                    }
-                }
+//                ZStack {
+//                    EditMenuPresentView(pastedImages: $pastedImages)
+//                    
+//                    ForEach(pastedImages.indices, id: \.self) { index in
+//                        GestureImageView(
+//                            pastedImage: pastedImages[index],
+//                            pastedImages: $pastedImages,
+//                            selectedImageID: $selectedImageID,
+//                            isCustomSheet: $isCustomSheet,
+//                            sheetHeight: $sheetHeight
+//                        )
+//                    }
+//                    
+//                }
+                imageField
                 
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
-
+                
             }
             
             if isCustomSheet {
                 if let selectedIndex = pastedImages.firstIndex(where: { $0.id == selectedImageID }) {
+
                     CustomSheet(
                         image: $pastedImages[selectedIndex].pastedImage,
                         sheetHeight: $sheetHeight,
@@ -78,11 +81,11 @@ struct CollageByMyselfView: View {
                         pastedImages: $pastedImages,
                         selectedImageID: $selectedImageID
                     )
-//                    .transition(.move(edge: .bottom))
-//                    .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
+                  .transition(.move(edge: .bottom))
+                   .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
                 }
             }
-                
+            
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -95,14 +98,25 @@ struct CollageByMyselfView: View {
                 RedoUndo()
             }
             
+//            ToolbarItem(placement: .topBarTrailing) {
+//                Rectangle()
+//                    .frame(width: 16)
+//                    .foregroundStyle(.clear)
+//            }
+            
             ToolbarItem(placement: .topBarTrailing) {
-                Rectangle()
-                    .frame(width: 16)
-                    .foregroundStyle(.clear)
-            }
-  
-            ToolbarItem(placement: .topBarTrailing) {
-                SendAndShare()
+
+                Button {
+                    if let collage = collage {
+                            savePastedImages2(to: collage, pastedImages: pastedImages, context: viewContext)
+                        }
+                    dismiss()
+                } label: {
+                    Text("임시저장")
+                        .foregroundColor(.black)
+                }
+                
+                //                SendAndShare(view: imageField)
             }
             
         }
@@ -252,20 +266,26 @@ struct CollageByMyselfView: View {
 private extension CollageByMyselfView {
     var imageField: some View {
         
-        ForEach(pastedImages.indices, id: \.self) { index in
-            GestureImageView(
-                pastedImage: pastedImages[index],
-                pastedImages: $pastedImages,
-                selectedImageID: $selectedImageID,
-                isCustomSheet: $isCustomSheet,
-                sheetHeight: $sheetHeight
-            )
+        ZStack {
+            EditMenuPresentView(pastedImages: $pastedImages)
+                .environmentObject(colorManager)
+            
+            ForEach(pastedImages.indices, id: \.self) { index in
+                GestureImageView(
+                    pastedImage: pastedImages[index],
+                    pastedImages: $pastedImages,
+                    selectedImageID: $selectedImageID,
+                    isCustomSheet: $isCustomSheet,
+                    sheetHeight: $sheetHeight
+                )
+            }
+            
         }
     }
 }
 
-#Preview {
-    CollageByMyselfView()
-        .environmentObject(ColorManager())
-}
+//#Preview {
+//    CollageByMyselfView()
+//        .environmentObject(ColorManager())
+//}
 
