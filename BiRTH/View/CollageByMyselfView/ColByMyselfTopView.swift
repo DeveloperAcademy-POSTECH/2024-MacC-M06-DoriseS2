@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ColByMyselfTopView: View {
     
     var friendImage: String

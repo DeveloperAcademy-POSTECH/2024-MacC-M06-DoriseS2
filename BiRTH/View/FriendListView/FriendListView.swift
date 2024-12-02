@@ -8,12 +8,29 @@
 import SwiftUI
 
 struct FriendListView: View {
+
+
+    @State var viewMode: ListModeToggle.ViewMode = .grid
+    @State var sortingMethod = "생일 가까운 순"
+    @State var isGridView = true
+    @State var isDdaySort = true
+    @State private var relationshipTag = [""]
+
+    @FetchRequest(
+        entity: BCollage.entity(),
+        sortDescriptors: []
+    )
+    private var bCollage: FetchedResults<BCollage>
+
+    @State private var isshowingSheetForCreatingTag = false
     @Environment(\.managedObjectContext) var viewContext
+
     
     @State var text: String = ""
     @State var selectedViewMode: ViewMode = .grid
-    @State var isGridView = true
-    @State var sortingMethod = "생일 가까운 순"
+
+
+
     @State var tagName = [""]
     @State var tagColor = [""]
 
@@ -61,6 +78,3 @@ struct FriendListView: View {
 }
 
 
-#Preview {
-    FriendListView()
-}

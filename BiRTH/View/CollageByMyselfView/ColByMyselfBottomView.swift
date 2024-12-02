@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ColByMyselfBottomView: View {
+    
     @EnvironmentObject var colorManager: ColorManager
     @State var showingButtonSheet = false
     @Binding var selectedPhotos: [PastedImage]
+    
+   
     
     var body: some View {
         Button {

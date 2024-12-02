@@ -10,9 +10,9 @@ import Photos
 
 
 // TODO: EditMenuPresent 만큼만 캡쳐될 수 있도록 수정하기
-struct SendAndShare<Content: View>: View {
+struct SendAndShare: View {
     @State private var showingAlert: Bool = false
-    let view: Content
+    let view: any View
     
     
     var body: some View {
