@@ -73,48 +73,16 @@ struct CollageByMyselfView: View {
             
             if isCustomSheet {
                 if let selectedIndex = pastedImages.firstIndex(where: { $0.id == selectedImageID }) {
-                    
-                    ZStack(alignment: .bottom) {
-                        EmptyView()
-                            .opacity(0)
-                            .ignoresSafeArea()
-                        
-                        ZStack(alignment: .topLeading) {
-                            ScrollView(.horizontal) {
-                                HStack(spacing: 24) {
-                                    RemoveBackgroundButton(image: $pastedImages[selectedIndex].pastedImage)
-                                    DeleteButton()
-                                }
-                                .padding()
-                                Spacer()
-                            }
-                            
-                            HStack {
-                                Spacer()
-                                Button {
-                                    isCustomSheet = false
-                                    selectedImageID = nil
-                                    
-                                } label: {
-                                    Image(systemName: "xmark.circle")
-                                        .foregroundStyle(.white)
-                                        .font(.system(size: 24))
-                                }
-                                .padding(.vertical)
-                                .padding(.horizontal, 14)
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: sheetHeight)
-                        .background(.black)
-                        .cornerRadius(16, corners: .topLeft)
-                        .cornerRadius(16, corners: .topRight)
-                        
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                    .ignoresSafeArea()
-                    .transition(.move(edge: .bottom))
-                    .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
+
+                    CustomSheet(
+                        image: $pastedImages[selectedIndex].pastedImage,
+                        sheetHeight: $sheetHeight,
+                        isCustomSheet: $isCustomSheet,
+                        pastedImages: $pastedImages,
+                        selectedImageID: $selectedImageID
+                    )
+                  .transition(.move(edge: .bottom))
+                   .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
                 }
             }
             
@@ -186,57 +154,66 @@ struct CollageByMyselfView: View {
     }
 
 
-    func savePastedImages2(to collage: BCollage, pastedImages: [PastedImage], context: NSManagedObjectContext) {
-        // 기존 관계 데이터를 가져옵니다
-        guard let existingPhotos = collage.bPhotoForCollage as? Set<BPhotoForCollage> else {
-            print("Error: Unable to cast bPhotoForCollage to Set<BPhotoForCollage>")
-            return
-        }
+    /// 삭제된 이미지를 Core Data에서도 삭제하는 함수
+        func deleteImageFromCollage(id: UUID) {
+            guard let collage = collage,
+                  let existingPhotos = collage.bPhotoForCollage as? Set<BPhotoForCollage> else {
+                print("Error: Unable to access BPhotoForCollage")
+                return
+            }
 
-        // 기존 데이터 중 업데이트되지 않은 항목 삭제
-        let pastedImageIDs = Set(pastedImages.map { $0.id })
-        for existingPhoto in existingPhotos {
-            if !pastedImageIDs.contains(existingPhoto.id ?? UUID()) {
-                // 기존 데이터에서 더 이상 사용되지 않는 이미지를 삭제
-                context.delete(existingPhoto)
+            if let photoToDelete = existingPhotos.first(where: { $0.id == id }) {
+                viewContext.delete(photoToDelete)
+                do {
+                    try viewContext.save()
+                    print("Image deleted successfully from Core Data")
+                } catch {
+                    print("Error deleting image from Core Data: \(error)")
+                }
             }
         }
 
-        // 추가 및 업데이트 처리
-        for pastedImage in pastedImages {
-            if let existingPhoto = existingPhotos.first(where: { $0.id == pastedImage.id }) {
-                // 기존 객체 업데이트
-                existingPhoto.image = pastedImage.pastedImage.pngData()?.base64EncodedString()
-                existingPhoto.posX = NSNumber(value: pastedImage.imagePosition.x)
-                existingPhoto.posY = NSNumber(value: pastedImage.imagePosition.y)
-                existingPhoto.rotation = NSNumber(value: pastedImage.angleSum)
-                existingPhoto.scaleX = NSNumber(value: pastedImage.imageWidth)
-                existingPhoto.scaleY = NSNumber(value: pastedImage.imageHeight)
-            } else {
-                // 새 객체 생성
-                let newPhoto = BPhotoForCollage(context: context)
-                newPhoto.id = pastedImage.id
-                newPhoto.image = pastedImage.pastedImage.pngData()?.base64EncodedString()
-                newPhoto.posX = NSNumber(value: pastedImage.imagePosition.x)
-                newPhoto.posY = NSNumber(value: pastedImage.imagePosition.y)
-                newPhoto.rotation = NSNumber(value: pastedImage.angleSum)
-                newPhoto.scaleX = NSNumber(value: pastedImage.imageWidth)
-                newPhoto.scaleY = NSNumber(value: pastedImage.imageHeight)
+        func savePastedImages2(to collage: BCollage, pastedImages: [PastedImage], context: NSManagedObjectContext) {
+            guard let existingPhotos = collage.bPhotoForCollage as? Set<BPhotoForCollage> else {
+                print("Error: Unable to cast bPhotoForCollage to Set<BPhotoForCollage>")
+                return
+            }
 
-                // 새 사진을 collage에 추가
-                collage.addToBPhotoForCollage(newPhoto)
+            let pastedImageIDs = Set(pastedImages.map { $0.id })
+            for existingPhoto in existingPhotos {
+                if !pastedImageIDs.contains(existingPhoto.id ?? UUID()) {
+                    context.delete(existingPhoto)
+                }
+            }
+
+            for pastedImage in pastedImages {
+                if let existingPhoto = existingPhotos.first(where: { $0.id == pastedImage.id }) {
+                    existingPhoto.image = pastedImage.pastedImage.pngData()?.base64EncodedString()
+                    existingPhoto.posX = NSNumber(value: pastedImage.imagePosition.x)
+                    existingPhoto.posY = NSNumber(value: pastedImage.imagePosition.y)
+                    existingPhoto.rotation = NSNumber(value: pastedImage.angleSum)
+                    existingPhoto.scaleX = NSNumber(value: pastedImage.imageWidth)
+                    existingPhoto.scaleY = NSNumber(value: pastedImage.imageHeight)
+                } else {
+                    let newPhoto = BPhotoForCollage(context: context)
+                    newPhoto.id = pastedImage.id
+                    newPhoto.image = pastedImage.pastedImage.pngData()?.base64EncodedString()
+                    newPhoto.posX = NSNumber(value: pastedImage.imagePosition.x)
+                    newPhoto.posY = NSNumber(value: pastedImage.imagePosition.y)
+                    newPhoto.rotation = NSNumber(value: pastedImage.angleSum)
+                    newPhoto.scaleX = NSNumber(value: pastedImage.imageWidth)
+                    newPhoto.scaleY = NSNumber(value: pastedImage.imageHeight)
+                    collage.addToBPhotoForCollage(newPhoto)
+                }
+            }
+
+            do {
+                try context.save()
+                print("Pasted images saved successfully!")
+            } catch {
+                print("Error saving pasted images: \(error)")
             }
         }
-
-        // Core Data 저장
-        do {
-            try context.save()
-            print("Pasted images saved successfully!")
-        } catch {
-            print("Error saving pasted images: \(error)")
-        }
-    }
-
 
     func loadPastedImages(from collage: BCollage) -> [PastedImage] {
         guard let photos = collage.bPhotoForCollage as? Set<BPhotoForCollage> else {
