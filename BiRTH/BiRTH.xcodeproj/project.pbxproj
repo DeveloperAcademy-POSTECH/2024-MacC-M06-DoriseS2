@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		93AC00382CE740A600FCF402 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */; };
-		93AC00392CE740A600FCF402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AC002F2CE740A600FCF402 /* Assets.xcassets */; };
-		93AC003B2CE740A600FCF402 /* BiRTH.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */; };
-		93AC003C2CE740A600FCF402 /* BiRTHApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00322CE740A600FCF402 /* BiRTHApp.swift */; };
-		93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00332CE740A600FCF402 /* ContentView.swift */; };
-		93AC003E2CE740A600FCF402 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC00352CE740A600FCF402 /* Persistence.swift */; };
-		93AC00402CE740CB00FCF402 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC003F2CE740CB00FCF402 /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,14 +29,8 @@
 
 /* Begin PBXFileReference section */
 		93AC002D2CE740A600FCF402 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		93AC002F2CE740A600FCF402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93AC00302CE740A600FCF402 /* BiRTH.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BiRTH.entitlements; sourceTree = "<group>"; };
-		93AC00322CE740A600FCF402 /* BiRTHApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiRTHApp.swift; sourceTree = "<group>"; };
-		93AC00332CE740A600FCF402 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		93AC00342CE740A600FCF402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		93AC00352CE740A600FCF402 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BiRTH.xcdatamodel; sourceTree = "<group>"; };
-		93AC003F2CE740CB00FCF402 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		9E960C222CE7387600D40B10 /* BiRTH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BiRTH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C392CE7387800D40B10 /* BiRTHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E960C432CE7387800D40B10 /* BiRTHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BiRTHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +45,41 @@
 		9E960C462CE7387800D40B10 /* BiRTHUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BiRTHUITests;
+			sourceTree = "<group>";
+		};
+		F7A9007A2CE8B39600FDF7CE /* View */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = View;
+			sourceTree = "<group>";
+		};
+		F7A900802CE8B3D200FDF7CE /* Model */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F7A900812CE8B3F600FDF7CE /* Helper */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F7A900842CE8B40D00FDF7CE /* Extension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		F7A900872CE8B44700FDF7CE /* App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = App;
+			sourceTree = "<group>";
+		};
+		F7A900882CE8B46600FDF7CE /* Resource */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		F7A900892CE8B4CA00FDF7CE /* CoreData */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -97,15 +120,15 @@
 		93AC00362CE740A600FCF402 /* BiRTH */ = {
 			isa = PBXGroup;
 			children = (
+				F7A900892CE8B4CA00FDF7CE /* CoreData */,
+				F7A900872CE8B44700FDF7CE /* App */,
+				F7A900802CE8B3D200FDF7CE /* Model */,
+				F7A900812CE8B3F600FDF7CE /* Helper */,
+				F7A900842CE8B40D00FDF7CE /* Extension */,
+				F7A900882CE8B46600FDF7CE /* Resource */,
 				93AC002E2CE740A600FCF402 /* Preview Content */,
-				93AC002F2CE740A600FCF402 /* Assets.xcassets */,
 				93AC00302CE740A600FCF402 /* BiRTH.entitlements */,
-				93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */,
-				93AC00322CE740A600FCF402 /* BiRTHApp.swift */,
-				93AC00332CE740A600FCF402 /* ContentView.swift */,
 				93AC00342CE740A600FCF402 /* Info.plist */,
-				93AC00352CE740A600FCF402 /* Persistence.swift */,
-				93AC003F2CE740CB00FCF402 /* TestView.swift */,
 			);
 			path = BiRTH;
 			sourceTree = "<group>";
@@ -113,6 +136,7 @@
 		9E960C192CE7387600D40B10 = {
 			isa = PBXGroup;
 			children = (
+				F7A9007A2CE8B39600FDF7CE /* View */,
 				93AC00362CE740A600FCF402 /* BiRTH */,
 				9E960C3C2CE7387800D40B10 /* BiRTHTests */,
 				9E960C462CE7387800D40B10 /* BiRTHUITests */,
@@ -144,6 +168,15 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F7A9007A2CE8B39600FDF7CE /* View */,
+				F7A900802CE8B3D200FDF7CE /* Model */,
+				F7A900812CE8B3F600FDF7CE /* Helper */,
+				F7A900842CE8B40D00FDF7CE /* Extension */,
+				F7A900872CE8B44700FDF7CE /* App */,
+				F7A900882CE8B46600FDF7CE /* Resource */,
+				F7A900892CE8B4CA00FDF7CE /* CoreData */,
 			);
 			name = BiRTH;
 			packageProductDependencies = (
@@ -248,7 +281,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				93AC00382CE740A600FCF402 /* Preview Assets.xcassets in Resources */,
-				93AC00392CE740A600FCF402 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,11 +305,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93AC003B2CE740A600FCF402 /* BiRTH.xcdatamodeld in Sources */,
-				93AC00402CE740CB00FCF402 /* TestView.swift in Sources */,
-				93AC003C2CE740A600FCF402 /* BiRTHApp.swift in Sources */,
-				93AC003D2CE740A600FCF402 /* ContentView.swift in Sources */,
-				93AC003E2CE740A600FCF402 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,15 +347,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BiRTH/Preview Content\"";
-				DEVELOPMENT_TEAM = 56D5DRN4CX;
+				DEVELOPMENT_TEAM = 223UXY9RY6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BiRTH/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이미지 저장을 위해 갤러리를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -351,15 +380,17 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BiRTH/Preview Content\"";
-				DEVELOPMENT_TEAM = 56D5DRN4CX;
+				DEVELOPMENT_TEAM = 223UXY9RY6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BiRTH/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "이미지 저장을 위해 갤러리를 사용합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -604,19 +635,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		93AC00312CE740A600FCF402 /* BiRTH.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */,
-			);
-			currentVersion = 93AC00372CE740A600FCF402 /* BiRTH.xcdatamodel */;
-			path = BiRTH.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 9E960C1A2CE7387600D40B10 /* Project object */;
 }
