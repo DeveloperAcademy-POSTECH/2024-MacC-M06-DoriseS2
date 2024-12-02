@@ -12,37 +12,15 @@ struct CollageByMyselfView: View {
     
     var bFriend: BFriend? = nil
     //    var bCollage: BCollage? = nil
-
+    
     @State var pastedImages: [PastedImage] = []
     @State var selectedImageID: UUID? = nil
     @State var isCustomSheet: Bool = false
-    @State var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.2
+    @State var sheetHeight: CGFloat = 0.2
     @State private var collage: BCollage? = nil
-    @State private var isDragging = false
-    @State private var dragOffset: CGSize = .zero
-    
-    var drag: some Gesture {
-        DragGesture()
-            .onChanged { value in
-                self.isDragging = true
-                self.dragOffset = value.translation
-                withAnimation {
-                    if abs(value.translation.height) > 50 {
-                        sheetHeight = UIScreen.main.bounds.height * 0.1 // 드래그 중에는 Sheet를 줄임
-                    }
-                }
-            }
-            .onEnded { _ in
-                self.isDragging = false
-                self.dragOffset = .zero
-                withAnimation {
-                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 드래그가 끝나면 Sheet 높이 복원
-                }
-            }
-    }
-    
-    
-    
+    @State var dragOffset: CGSize = .zero
+
+   
     //    let collage: BCollage
     
     
@@ -53,25 +31,12 @@ struct CollageByMyselfView: View {
             
             
             VStack {
-                //                ColByMyselfSaveView()
-                //                HStack(spacing: 0) {
-                //                    Spacer()
-                //
-                //                    Image(systemName: "arrow.uturn.left")
-                //                        .foregroundColor(.black)
-                //
-                //                    Image(systemName: "arrow.uturn.right")
-                //                        .foregroundColor(.black)
-                //
-                //
-                //                }.padding(0)
+                
                 
                 ColByMyselfTopView(bFriend: bFriend!)
-
-                imageField
-                    .offset(dragOffset)
-                    .gesture(drag)
                 
+                imageField
+                            
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
                 
             }
@@ -83,7 +48,9 @@ struct CollageByMyselfView: View {
                         selectedImageID: $selectedImageID
                     )
                     .presentationBackground(.black)
-                    .presentationDetents([.fraction(0.2)])
+                    .interactiveDismissDisabled()
+                    .presentationDetents([.fraction(sheetHeight)])
+                    .presentationCornerRadius(16)
                     .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.2)))
                 }
             }
@@ -101,7 +68,7 @@ struct CollageByMyselfView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 RedoUndo()
             }
-
+            
             ToolbarItem(placement: .topBarTrailing) {
                 
                 Button {

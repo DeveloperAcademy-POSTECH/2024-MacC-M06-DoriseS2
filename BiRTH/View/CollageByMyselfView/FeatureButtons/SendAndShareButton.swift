@@ -81,6 +81,14 @@ extension SendAndShareButton {
         guard let rootVC = window.rootViewController else { return }
         rootVC.present(activityViewController, animated: true)
     }
+    
+//    @MainActor
+//    func snapshot() -> Image {
+//        let imagerenderer = ImageRenderer(
+//            content: view
+//        )
+//    }
+    
 }
 
 // UIView에 ScreenShot을 넣기 위함
@@ -103,63 +111,7 @@ extension View {
         window.addSubview(hosting.view)
         window.makeKeyAndVisible()
         return hosting.view.screenShot
-    }
-    
-//    @MainActor
-//    func captureView(
-//        of view: some View,
-//        scale: CGFloat = 1.0,
-//        size: CGSize? = nil,
-//        completion: @escaping (UIImage?) -> Void
-//    ) {
-//        let renderer = ImageRenderer(content: view)
-//        renderer.scale = scale
-//
-//        if let size = size {
-//            renderer.proposedSize = .init(size)
-//        }
-//
-//        completion(renderer.uiImage)
-//    }
-//
-//    @MainActor
-//    func captureAndSaveView(
-//        of view: some View,
-//        scale: CGFloat = 1.0,
-//        size: CGSize? = nil
-//    ) {
-//        // 캡처 수행
-//        let renderer = ImageRenderer(content: view)
-//        renderer.scale = scale
-//
-//        if let size = size {
-//            renderer.proposedSize = .init(size)
-//        }
-//
-//        guard let capturedImage = renderer.uiImage else {
-//            print("Failed to capture image.")
-//            return
-//        }
-//
-//        // 이미지 저장
-//        UIImageWriteToSavedPhotosAlbum(capturedImage, nil, nil, nil)
-//
-//        // 사진 권한 요청 및 상태에 따른 처리
-//        PHPhotoLibrary.requestAuthorization { status in
-//            DispatchQueue.main.async {
-//                switch status {
-//                case .authorized:
-//                    print("Image successfully saved!")
-//                case .denied, .restricted, .notDetermined:
-//                    print("Permission denied or not determined.")
-//                case .limited:
-//                    print("Image successfully saved with limited access.")
-//                @unknown default:
-//                    print("Unknown authorization status.")
-//                }
-//            }
-//        }
-//    }
+   }
 }
 
 

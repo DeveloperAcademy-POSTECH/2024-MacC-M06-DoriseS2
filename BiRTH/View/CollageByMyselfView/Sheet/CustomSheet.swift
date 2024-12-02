@@ -8,7 +8,7 @@ struct CustomSheet: View {
     let rows = [GridItem(.flexible())]
     @Environment(\.dismiss) var dismiss
     
-    
+//    @Binding var isCustomSheet: Bool
     @Binding var selectedImage: UIImage
     @Binding var pastedImages: [PastedImage]
     @Binding var selectedImageID: UUID?
@@ -18,7 +18,7 @@ struct CustomSheet: View {
     var body: some View {
         NavigationStack {
             ScrollView(.horizontal) {
-                HStack {
+                HStack(spacing: 24) {
                     RemoveBackgroundButton(image: $selectedImage)
                     DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID)
                 }
