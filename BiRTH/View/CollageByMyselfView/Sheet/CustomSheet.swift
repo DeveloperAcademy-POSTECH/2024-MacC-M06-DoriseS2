@@ -15,7 +15,10 @@ struct CustomSheet: View {
     @Binding var image: UIImage
     @Binding var sheetHeight: CGFloat
     @Binding var isCustomSheet: Bool
-    
+
+    @Binding var pastedImages: [PastedImage]
+    @Binding var selectedImageID: UUID?
+
     
     
     var body: some View {
@@ -32,7 +35,7 @@ struct CustomSheet: View {
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: rows, spacing: 24) {
                         RemoveBackgroundButton(image: $image)
-                        DeleteButton()
+                        DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID)
                     }
                     .padding()
                     Spacer()
@@ -70,22 +73,25 @@ struct CustomSheet: View {
 
 
 
-struct CustomSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack{
-            CustomSheetWrapper()
-        }
-    }
-}
+//struct CustomSheet_Previews: PreviewProvider {
+//    @Binding var selectedPhotos: [PastedImage]
+//    static var previews: some View {
+//        NavigationStack{
+//            CustomSheetWrapper()
+//        }
+//    }
+//}
 
 // 프리뷰에서 사용하는 래퍼 뷰
 struct CustomSheetWrapper: View {
+    @Binding var pastedImages: [PastedImage]
+    @Binding var selectedImageID: UUID?
     @State private var image: UIImage = UIImage(named: "exampleImage") ?? UIImage() // 기본 이미지를 설정하거나 빈 UIImage를 사용
     @State private var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.2
     @State private var isCustomSheet: Bool = true
-    
+
     var body: some View {
-        CustomSheet(image: $image, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet)
+        CustomSheet(image: $image, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet,pastedImages: $pastedImages, selectedImageID: $selectedImageID)
             .previewLayout(.sizeThatFits)
     }
 }
