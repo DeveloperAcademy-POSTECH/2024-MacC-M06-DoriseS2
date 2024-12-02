@@ -28,7 +28,7 @@ struct FeatureCircle: View {
             
             Text(featureName)
                 .font(.biRTH_regular_12)
-                .foregroundStyle(.black)
+                .foregroundStyle(.white)
         }
     }
 

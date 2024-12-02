@@ -37,26 +37,17 @@ struct CollageByMyselfView: View {
             
             VStack {
 //                ColByMyselfSaveView()
-                HStack(spacing: 0) {
-                    Spacer()
-
-                    Image(systemName: "arrow.uturn.left")
-                        .foregroundColor(.black)
-
-                    Image(systemName: "arrow.uturn.right")
-                        .foregroundColor(.black)
-
-                    Button {
-                        if let collage = collage {
-                                savePastedImages2(to: collage, pastedImages: pastedImages, context: viewContext)
-                            }
-                        dismiss()
-                    } label: {
-                        Text("임시저장")
-                            .foregroundColor(.black)
-                            .padding(5)
-                    }
-                }.padding(0)
+//                HStack(spacing: 0) {
+//                    Spacer()
+//
+//                    Image(systemName: "arrow.uturn.left")
+//                        .foregroundColor(.black)
+//
+//                    Image(systemName: "arrow.uturn.right")
+//                        .foregroundColor(.black)
+//
+//                    
+//                }.padding(0)
 
                 ColByMyselfTopView(bFriend: bFriend!)
                 
@@ -106,7 +97,7 @@ struct CollageByMyselfView: View {
                                     
                                 } label: {
                                     Image(systemName: "xmark.circle")
-                                        .foregroundStyle(.black)
+                                        .foregroundStyle(.white)
                                         .font(.system(size: 24))
                                 }
                                 .padding(.vertical)
@@ -115,7 +106,7 @@ struct CollageByMyselfView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .frame(maxHeight: sheetHeight)
-                        .background(.white)
+                        .background(.black)
                         .cornerRadius(16, corners: .topLeft)
                         .cornerRadius(16, corners: .topRight)
                         
@@ -139,14 +130,25 @@ struct CollageByMyselfView: View {
                 RedoUndo()
             }
             
-            ToolbarItem(placement: .topBarTrailing) {
-                Rectangle()
-                    .frame(width: 16)
-                    .foregroundStyle(.clear)
-            }
+//            ToolbarItem(placement: .topBarTrailing) {
+//                Rectangle()
+//                    .frame(width: 16)
+//                    .foregroundStyle(.clear)
+//            }
             
             ToolbarItem(placement: .topBarTrailing) {
-                SendAndShare(view: imageField)
+
+                Button {
+                    if let collage = collage {
+                            savePastedImages2(to: collage, pastedImages: pastedImages, context: viewContext)
+                        }
+                    dismiss()
+                } label: {
+                    Text("임시저장")
+                        .foregroundColor(.black)
+                }
+                
+                //                SendAndShare(view: imageField)
             }
             
         }
@@ -305,8 +307,8 @@ private extension CollageByMyselfView {
     }
 }
 
-#Preview {
-    CollageByMyselfView()
-        .environmentObject(ColorManager())
-}
+//#Preview {
+//    CollageByMyselfView()
+//        .environmentObject(ColorManager())
+//}
 

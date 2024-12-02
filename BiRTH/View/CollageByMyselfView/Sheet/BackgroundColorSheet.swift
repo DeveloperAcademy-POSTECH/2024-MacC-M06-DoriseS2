@@ -57,6 +57,7 @@ struct BackgroundColorSheet: View {
                         }
                 }
             }
+            .presentationBackground(.black)
             .interactiveDismissDisabled(!isAbleClosed)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

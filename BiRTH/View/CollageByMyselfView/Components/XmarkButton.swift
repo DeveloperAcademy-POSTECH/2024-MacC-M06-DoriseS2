@@ -15,7 +15,7 @@ struct XmarkButton: View {
             dismiss()
         } label: {
             Image(systemName: "xmark.circle")
-                .foregroundStyle(.black)
+                .foregroundStyle(.white)
         }
     }
 }

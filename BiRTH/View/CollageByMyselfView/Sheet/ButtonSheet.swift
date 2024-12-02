@@ -20,6 +20,8 @@ struct ButtonSheet: View {
                 LazyHGrid(rows: rows, spacing: 24) {
                     PhotoButton(selectedPhotos: $selectedPhotos)
                     ExportSafariButton()
+//                    SendAndShare()
+                    SendAndShareButton()
                     BackgroundColorButton()
                         .environmentObject(colorManager)
                 }
@@ -30,7 +32,7 @@ struct ButtonSheet: View {
                     XmarkButton()
                 }
             }
-            .background(.white)
+            .background(.black)
         }
     }
 }

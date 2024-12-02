@@ -27,6 +27,7 @@ struct ColByMyselfBottomView: View {
         .padding(.vertical, 5)
         .sheet(isPresented: $showingButtonSheet) {
             ButtonSheet(selectedPhotos: $selectedPhotos)
+                .presentationBackground(.black)
                 .environmentObject(colorManager)
                 .presentationDetents([.fraction(0.2)])
         }
