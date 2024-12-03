@@ -14,6 +14,7 @@ struct BiRTHApp: App {
     
     var body: some Scene {
         WindowGroup {
+            // 일단 가본다 버전1 출격
             FriendListView()
 //            CollageByMyselfView()
                 .environmentObject(colorManager)
