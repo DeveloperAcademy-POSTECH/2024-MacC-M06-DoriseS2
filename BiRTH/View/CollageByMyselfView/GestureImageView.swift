@@ -31,7 +31,7 @@ struct GestureImageView: View {
                 .gesture(resizeAndRotateGesture)
                 .onTapGesture {
                     withAnimation {
-                        isCustomSheet = true
+                        isCustomSheet.toggle()
                     }
                     
                     selectImage()
@@ -80,8 +80,8 @@ struct GestureImageView: View {
     private var dragGesture: some Gesture {
         DragGesture()
             .onChanged { value in
-                withAnimation {
-                    sheetHeight = UIScreen.main.bounds.height * 0.1 // 드래그 중 시트 내려가기
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    sheetHeight = 0.1 // 드래그 중 시트 내려가기
                 }
                 let newLocation = startLocation ?? pastedImage.imagePosition
                 pastedImage.imagePosition = CGPoint(
@@ -94,7 +94,7 @@ struct GestureImageView: View {
             }
             .onEnded { _ in
                 withAnimation(.easeInOut(duration: 0.5)) {
-                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 드래그 종료 후 시트 복원
+                    sheetHeight = 0.2 // 드래그 종료 후 시트 복원
                 }
             }
     }
@@ -103,8 +103,8 @@ struct GestureImageView: View {
     private var resizeAndRotateGesture: some Gesture {
         DragGesture()
             .onChanged { gesture in
-                withAnimation {
-                    sheetHeight = UIScreen.main.bounds.height * 0.1 // 제스처 중 시트 줄이기
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    sheetHeight = 0.1 // 제스처 중 시트 줄이기
                 }
                 let centerToNewPositionDistance = sqrt(pow(gesture.location.x - pastedImage.imagePosition.x, 2) + pow(gesture.location.y - pastedImage.imagePosition.y, 2))
                 let imageDiagonal = sqrt(pow(pastedImage.imageWidth, 2) + pow(pastedImage.imageHeight, 2))
@@ -126,7 +126,7 @@ struct GestureImageView: View {
             }
             .onEnded { _ in
                 withAnimation(.easeInOut(duration: 0.5)) {
-                    sheetHeight = UIScreen.main.bounds.height * 0.2 // 제스처 종료 후 시트 복원
+                    sheetHeight = 0.2 // 제스처 종료 후 시트 복원
                 }
             }
     }

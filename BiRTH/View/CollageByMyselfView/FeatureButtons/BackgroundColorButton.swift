@@ -19,7 +19,7 @@ struct BackgroundColorButton: View {
         }
         .sheet(isPresented: $showingBackgroundColorSheet) {
             BackgroundColorSheet()
-                .presentationDetents([.fraction(0.2)])
+                .presentationDetents([.height(180)])
         }
     }
 }

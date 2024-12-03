@@ -29,7 +29,7 @@ struct ColByMyselfBottomView: View {
             ButtonSheet(selectedPhotos: $selectedPhotos)
                 .presentationBackground(.black)
                 .environmentObject(colorManager)
-                .presentationDetents([.fraction(0.2)])
+                .presentationDetents([.height(180)])
         }
     }
 }

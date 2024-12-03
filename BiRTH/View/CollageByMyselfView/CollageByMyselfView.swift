@@ -5,26 +5,24 @@ import CoreData
 struct CollageByMyselfView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-    //    var undoManager = UndoManager()
-    
-    
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dismiss) var dismiss
     @EnvironmentObject var colorManager: ColorManager
     
     
     var bFriend: BFriend? = nil
     //    var bCollage: BCollage? = nil
     
-    @Environment(\.scenePhase) private var scenePhase
-    
     @State var pastedImages: [PastedImage] = []
     @State var selectedImageID: UUID? = nil
     @State var isCustomSheet: Bool = false
-    @State var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.2
-    
-    let rows = [GridItem(.flexible())]
-    
+    @State var sheetHeight: CGFloat = 0.2
     @State private var collage: BCollage? = nil
-    @Environment(\.dismiss) var dismiss
+    @State var dragOffset: CGSize = .zero
+    @State var isAbleClosed: Bool = false
+    @State private var capturedImage: UIImage?
+    
+    
     
     //    let collage: BCollage
     
@@ -36,97 +34,31 @@ struct CollageByMyselfView: View {
             
             
             VStack {
-                //                ColByMyselfSaveView()
-                //                HStack(spacing: 0) {
-                //                    Spacer()
-                //
-                //                    Image(systemName: "arrow.uturn.left")
-                //                        .foregroundColor(.black)
-                //
-                //                    Image(systemName: "arrow.uturn.right")
-                //                        .foregroundColor(.black)
-                //
-                //
-                //                }.padding(0)
+                
                 
                 ColByMyselfTopView(bFriend: bFriend!)
                 
-                //                ZStack {
-                //                    EditMenuPresentView(pastedImages: $pastedImages)
-                //
-                //                    ForEach(pastedImages.indices, id: \.self) { index in
-                //                        GestureImageView(
-                //                            pastedImage: pastedImages[index],
-                //                            pastedImages: $pastedImages,
-                //                            selectedImageID: $selectedImageID,
-                //                            isCustomSheet: $isCustomSheet,
-                //                            sheetHeight: $sheetHeight
-                //                        )
-                //                    }
-                //
-                //                }
                 imageField
+                
                 
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
                 
             }
-            
-            if isCustomSheet {
+            .sheet(isPresented: $isCustomSheet) {
                 if let selectedIndex = pastedImages.firstIndex(where: { $0.id == selectedImageID }) {
-                    
-                    //                    CustomSheet(
-                    //                        image: $pastedImages[selectedIndex].pastedImage,
-                    //                        sheetHeight: $sheetHeight,
-                    //                        isCustomSheet: $isCustomSheet,
-                    //                        pastedImages: $pastedImages,
-                    //                        selectedImageID: $selectedImageID
-                    //                    )
-                    //                  .transition(.move(edge: .bottom))
-                    //                   .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
-                    ZStack(alignment: .bottom) {
-                        EmptyView()
-                            .opacity(0)
-                            .ignoresSafeArea()
-                        
-                        ZStack(alignment: .topLeading) {
-                            ScrollView(.horizontal) {
-                                HStack(spacing: 24) {
-                                    RemoveBackgroundButton(image: $pastedImages[selectedIndex].pastedImage)
-                                    DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID)
-                                }
-                                .padding()
-                                Spacer()
-                            }
-                            
-                            HStack {
-                                Spacer()
-                                Button {
-                                    isCustomSheet = false
-                                    selectedImageID = nil
-                                    
-                                } label: {
-                                    Image(systemName: "xmark.circle")
-                                        .foregroundStyle(.white)
-                                        .font(.system(size: 24))
-                                }
-                                .padding(.vertical)
-                                .padding(.horizontal, 14)
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(maxHeight: sheetHeight)
-                        .background(.black)
-                        .cornerRadius(16, corners: .topLeft)
-                        .cornerRadius(16, corners: .topRight)
-                        
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                    .ignoresSafeArea()
-                    .transition(.move(edge: .bottom))
-                    .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
-                    
-                }
+                    CustomSheet(
+                        selectedImage: $pastedImages[selectedIndex].pastedImage,
+                        pastedImages: $pastedImages,
+                        selectedImageID: $selectedImageID
+                    )
+                    .presentationBackground(.black)
+                    .presentationCornerRadius(16)
+                    .interactiveDismissDisabled()
+                    .presentationDetents([.height(180)])
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(180)))
+                } 
             }
+            
         }
         
         
@@ -141,12 +73,6 @@ struct CollageByMyselfView: View {
                 RedoUndo()
             }
             
-            //            ToolbarItem(placement: .topBarTrailing) {
-            //                Rectangle()
-            //                    .frame(width: 16)
-            //                    .foregroundStyle(.clear)
-            //            }
-            
             ToolbarItem(placement: .topBarTrailing) {
                 
                 Button {
@@ -158,8 +84,6 @@ struct CollageByMyselfView: View {
                     Text("임시저장")
                         .foregroundColor(.black)
                 }
-                
-                //                SendAndShare(view: imageField)
             }
             
         }
@@ -313,6 +237,7 @@ private extension CollageByMyselfView {
             EditMenuPresentView(pastedImages: $pastedImages)
                 .environmentObject(colorManager)
             
+            
             ForEach(pastedImages.indices, id: \.self) { index in
                 GestureImageView(
                     pastedImage: pastedImages[index],
@@ -323,8 +248,7 @@ private extension CollageByMyselfView {
                 )
             }
             
-        }
-    }
+        }    }
 }
 
 //#Preview {

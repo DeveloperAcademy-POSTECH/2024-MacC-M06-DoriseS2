@@ -1,100 +1,42 @@
-//
-//  RemoveImageBackgroundSheet.swift
-//  BiRTH
-//
-//  Created by 이소현 on 11/23/24.
-//
 
-//import SwiftUI
-//import UIKit
-//
-//
-//struct CustomSheet: View {
-//    let rows = [GridItem(.flexible())]
-//    
-//    @Binding var selectedImage: UIImage
-//    @Binding var sheetHeight: CGFloat
+
+import SwiftUI
+import UIKit
+
+
+struct CustomSheet: View {
+    let rows = [GridItem(.flexible())]
+    @Environment(\.dismiss) var dismiss
+    
 //    @Binding var isCustomSheet: Bool
-//
-//    @Binding var pastedImages: [PastedImage]
-//    @Binding var selectedImageID: UUID?
-//
-//    
-//    
-//    var body: some View {
-//        ZStack(alignment: .bottom) {
-//            
-//            if isCustomSheet {
-//                EmptyView()
-//                    .opacity(0)
-//                    .ignoresSafeArea()
-//            }
-//            
-//            ZStack(alignment: .topTrailing) {
-//
-//                ScrollView(.horizontal) {
-//                    LazyHGrid(rows: rows, spacing: 24) {
-//
-//                        RemoveBackgroundButton(image: $image)
-//                        DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID)
-//
-//                    }
-//                    .padding()
-//                    Spacer()
-//                }
-//                
-//                HStack {
-//                    Spacer()
-//                    Button {
-//                        withAnimation(.easeInOut(duration: 0.5)) {
-//                            isCustomSheet = false
-//                        }
-//                    } label: {
-//                        Image(systemName: "xmark.circle")
-//                            .foregroundStyle(.black)
-//                            .font(.system(size: 24))
-//                    }
-//                    .padding(.vertical)
-//                    .padding(.horizontal, 14)
-//                }
-//            }
-//            .frame(maxWidth: .infinity)
-//            .frame(maxHeight: sheetHeight)
-//            .background(.white)
-//            .cornerRadius(16, corners: .topLeft)
-//            .cornerRadius(16, corners: .topRight)
-//            .transition(.move(edge: .bottom))
-//
-//        }
-//        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-//        .ignoresSafeArea()
-//        .animation(.easeInOut(duration: 0.5), value: isCustomSheet)
-//    }
-//}
-//
-//
-//
-//
-////struct CustomSheet_Previews: PreviewProvider {
-////    @Binding var selectedPhotos: [PastedImage]
-////    static var previews: some View {
-////        NavigationStack{
-////            CustomSheetWrapper()
-////        }
-////    }
-////}
-//
-//// 프리뷰에서 사용하는 래퍼 뷰
-//struct CustomSheetWrapper: View {
-//    @Binding var pastedImages: [PastedImage]
-//    @Binding var selectedImageID: UUID?
-//    @State private var image: UIImage = UIImage(named: "exampleImage") ?? UIImage() // 기본 이미지를 설정하거나 빈 UIImage를 사용
-//    @State private var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.2
-//    @State private var isCustomSheet: Bool = true
-//
-//    var body: some View {
-//        CustomSheet(image: $image, sheetHeight: $sheetHeight, isCustomSheet: $isCustomSheet,pastedImages: $pastedImages, selectedImageID: $selectedImageID)
-//
-//            .previewLayout(.sizeThatFits)
-//    }
+    @Binding var selectedImage: UIImage
+    @Binding var pastedImages: [PastedImage]
+    @Binding var selectedImageID: UUID?
+
+    
+    
+    var body: some View {
+        NavigationStack {
+            ScrollView(.horizontal) {
+                HStack(spacing: 24) {
+                    RemoveBackgroundButton(image: $selectedImage)
+                    DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID)
+                }
+                .padding()
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    XmarkButton()
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+//#Preview {
+//    CustomSheet(selectedImage: <#T##UIImage#>, sheetHeight: <#T##CGFloat#>, isCustomSheet: <#T##Bool#>, pastedImages: <#T##[PastedImage]#>, selectedImageID: <#T##UUID?#>)
 //}
