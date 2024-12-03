@@ -31,7 +31,7 @@ struct GestureImageView: View {
                 .gesture(resizeAndRotateGesture)
                 .onTapGesture {
                     withAnimation {
-                        isCustomSheet = true
+                        isCustomSheet.toggle()
                     }
                     
                     selectImage()

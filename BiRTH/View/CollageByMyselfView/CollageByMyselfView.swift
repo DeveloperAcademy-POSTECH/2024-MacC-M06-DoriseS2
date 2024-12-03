@@ -19,8 +19,11 @@ struct CollageByMyselfView: View {
     @State var sheetHeight: CGFloat = 0.2
     @State private var collage: BCollage? = nil
     @State var dragOffset: CGSize = .zero
-
-   
+    @State var isAbleClosed: Bool = false
+    @State private var capturedImage: UIImage?
+    
+    
+    
     //    let collage: BCollage
     
     
@@ -36,7 +39,8 @@ struct CollageByMyselfView: View {
                 ColByMyselfTopView(bFriend: bFriend!)
                 
                 imageField
-                            
+                
+                
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
                 
             }
@@ -48,11 +52,11 @@ struct CollageByMyselfView: View {
                         selectedImageID: $selectedImageID
                     )
                     .presentationBackground(.black)
-                    .interactiveDismissDisabled()
-                    .presentationDetents([.fraction(sheetHeight)])
                     .presentationCornerRadius(16)
-                    .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.2)))
-                }
+                    .interactiveDismissDisabled()
+                    .presentationDetents([.height(180)])
+                    .presentationBackgroundInteraction(.enabled(upThrough: .height(180)))
+                } 
             }
             
         }
@@ -233,6 +237,7 @@ private extension CollageByMyselfView {
             EditMenuPresentView(pastedImages: $pastedImages)
                 .environmentObject(colorManager)
             
+            
             ForEach(pastedImages.indices, id: \.self) { index in
                 GestureImageView(
                     pastedImage: pastedImages[index],
@@ -243,8 +248,7 @@ private extension CollageByMyselfView {
                 )
             }
             
-        }
-    }
+        }    }
 }
 
 //#Preview {

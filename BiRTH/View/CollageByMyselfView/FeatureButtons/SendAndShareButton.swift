@@ -10,7 +10,7 @@ import Photos
 
 struct SendAndShareButton: View {
     @State private var showingAlert: Bool = false
-    
+
     var body: some View {
         Button {
             showingAlert = true
@@ -36,6 +36,7 @@ struct SendAndShareButton: View {
 }
 
 extension SendAndShareButton {
+    
     /// 이미지 저장
     func screenShot() {
         guard let window = UIApplication.shared.connectedScenes
@@ -82,12 +83,6 @@ extension SendAndShareButton {
         rootVC.present(activityViewController, animated: true)
     }
     
-//    @MainActor
-//    func snapshot() -> Image {
-//        let imagerenderer = ImageRenderer(
-//            content: view
-//        )
-//    }
     
 }
 
@@ -103,7 +98,7 @@ extension UIView {
 
 // View에 ScreenShot을 넣기 위함
 
-extension View {
+public extension View {
     func takeScreenshot(origin: CGPoint, size: CGSize) -> UIImage {
         let window = UIWindow(frame: CGRect(origin: origin, size: size))
         let hosting = UIHostingController(rootView: self)
@@ -112,9 +107,26 @@ extension View {
         window.makeKeyAndVisible()
         return hosting.view.screenShot
    }
+    
+    @MainActor
+    func captureView(
+        of view: some View,
+        scale: CGFloat = 1.0,
+        size: CGSize? = nil,
+        completion: @escaping (UIImage?) -> Void
+    ) {
+        let renderer = ImageRenderer(content: view)
+        renderer.scale = scale
+        
+        if let size = size {
+            renderer.proposedSize = .init(size)
+        }
+        
+        completion(renderer.uiImage)
+    }
 }
 
 
-#Preview {
-    SendAndShareButton()
-}
+//#Preview {
+//    SendAndShareButton()
+//}
