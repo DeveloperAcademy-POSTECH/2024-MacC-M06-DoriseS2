@@ -80,6 +80,8 @@ struct SaveBdayView: View {
         }
         .background(Color.biRTH_mainColor)
         .navigationBarBackButtonHidden(true)
+        .toolbarBackground(Color.biRTH_mainColor, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {
                 if let bFriend = bFriend {
                     print("bFriend exists with ID: \(bFriend.objectID)")
