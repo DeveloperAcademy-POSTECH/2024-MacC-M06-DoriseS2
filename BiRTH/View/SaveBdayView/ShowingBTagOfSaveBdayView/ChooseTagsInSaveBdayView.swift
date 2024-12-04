@@ -33,7 +33,7 @@ struct ChooseTagsInSaveBdayView: View {
                             .foregroundColor(.black)
                             .padding(.horizontal, 11)
                             .padding(.vertical, 8)
-                            .frame(height: 48)
+                            .frame(height: 33)
                             .background(
                                     RoundedRectangle(cornerRadius: 90)
                                         .fill(Color.white)
@@ -49,7 +49,7 @@ struct ChooseTagsInSaveBdayView: View {
                                 .foregroundColor(.clear)
                                 .padding(.horizontal, 11)
                                 .padding(.vertical, 8)
-                                .frame(height: 48)
+                                .frame(height: 33)
                                 .background(.black)
                                 .cornerRadius(20)
                                 .opacity(0.15)

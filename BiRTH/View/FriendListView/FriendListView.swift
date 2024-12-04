@@ -72,7 +72,7 @@ struct FriendListView: View {
                             bTags: bTags,
                             tagName: $tagName,
                             tagColor: $tagColor
-                        )
+                        ).padding(.leading,10)
                         
                         
                         // MARK: - Grid Or ListView
