@@ -22,6 +22,7 @@ struct TempFriendDetailView: View {
             
             VStack(spacing: 0){
                 
+
                 if let imageData = bFriend.profileImage, let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)
                         .resizable()
@@ -86,6 +87,7 @@ struct TempFriendDetailView: View {
                         .fill(Color(hex: "EDEDED"))
                         .frame(width: 342, height:215)
                     
+
                     if memo == "" {
                         Text("친구의 사소한 취향을 적어보세요")
                             .font(.biRTH_semibold_16)

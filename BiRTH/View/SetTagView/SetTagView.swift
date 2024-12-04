@@ -24,6 +24,7 @@ struct SetTagView: View {
                     .foregroundStyle(.black)
                     .padding(.leading, 11)
 
+
                 Spacer()
             }.padding(.init(top: 5, leading: 0, bottom: 20, trailing: 0))
 
