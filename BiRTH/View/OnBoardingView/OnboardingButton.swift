@@ -18,12 +18,12 @@ import SwiftUI
 struct OnboardingButton: View {
     
     @Binding var tabSelection: Int
-    @AppStorage("firstLaunch") var firstLaunch: Bool = true
+    @AppStorage("isFirstOnboarding") var isFirstOnboarding: Bool = true
     
     var body: some View {
         Button {
             print("버튼 클릭. 온보딩 안뜸.")
-            firstLaunch = false
+            isFirstOnboarding = false
         } label: {
             HStack {
                 Spacer()
