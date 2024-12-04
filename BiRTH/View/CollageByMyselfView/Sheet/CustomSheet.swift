@@ -12,6 +12,7 @@ struct CustomSheet: View {
     @Binding var selectedImage: UIImage
     @Binding var pastedImages: [PastedImage]
     @Binding var selectedImageID: UUID?
+    @Binding var isCustomSheet: Bool
 
     
     
@@ -21,12 +22,23 @@ struct CustomSheet: View {
                 HStack(spacing: 24) {
                     RemoveBackgroundButton(image: $selectedImage)
                     DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID)
+                    
+                    Text("HI")
+                        .foregroundStyle(.black)
                 }
                 .padding()
+                
+                
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    XmarkButton()
+                    Button {
+                        selectedImageID = nil
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
         }

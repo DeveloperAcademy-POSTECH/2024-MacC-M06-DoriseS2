@@ -25,7 +25,7 @@ struct CollageByMyselfView: View {
     @State private var capturedImage: UIImage?
     @State var showingAlert = false
     
-    
+    var undoManager = UndoManager()
     
     //    let collage: BCollage
     
@@ -61,7 +61,7 @@ struct CollageByMyselfView: View {
                     CustomSheet(
                         selectedImage: $pastedImages[selectedIndex].pastedImage,
                         pastedImages: $pastedImages,
-                        selectedImageID: $selectedImageID
+                        selectedImageID: $selectedImageID, isCustomSheet: $isCustomSheet
                     )
                     .presentationBackground(.black)
                     .presentationCornerRadius(16)
@@ -91,7 +91,23 @@ struct CollageByMyselfView: View {
             
             
             ToolbarItem(placement: .topBarTrailing) {
-                RedoUndo()
+                HStack(spacing: 4) {
+                    Button {
+                        print("undo")
+                        viewContext.undo()
+                    } label: {
+                        Image(systemName: "arrow.uturn.left")
+                            .foregroundStyle(.black)
+                    }
+                    
+                    Button {
+                        print("redo")
+                        viewContext.redo()
+                    } label: {
+                        Image(systemName: "arrow.uturn.forward")
+                            .foregroundStyle(.black)
+                    }
+                }
             }
             
             ToolbarItem(placement: .topBarTrailing) {
