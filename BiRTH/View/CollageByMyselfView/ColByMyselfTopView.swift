@@ -29,7 +29,7 @@ struct ColByMyselfTopView: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 70)
+                            .frame(width: 50)
                             .mask {
                                 Circle()
                             }
@@ -37,7 +37,7 @@ struct ColByMyselfTopView: View {
                         Image("photo")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 70)
+                            .frame(width: 50)
                             .mask {
                                 Circle()
                             }
