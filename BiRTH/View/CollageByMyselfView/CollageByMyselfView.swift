@@ -6,6 +6,7 @@ import Photos
 //최상위뷰
 struct CollageByMyselfView: View {
     
+    @Environment(\.undoManager) private var undoManager
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) var dismiss
@@ -26,7 +27,6 @@ struct CollageByMyselfView: View {
     @State var showingAlert = false
     @State var showingCompletionMessage = false
     
-    var undoManager = UndoManager()
     
     //    let collage: BCollage
     
@@ -91,7 +91,7 @@ struct CollageByMyselfView: View {
                             }
                         }
                     }
-
+                    
                 }
             }
         }
@@ -110,26 +110,28 @@ struct CollageByMyselfView: View {
                 
             }
             
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: 4) {
-                    Button {
-                        print("undo")
-                        viewContext.undo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.left")
-                            .foregroundStyle(.black)
-                    }
-                    
-                    Button {
-                        print("redo")
-                        viewContext.redo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.forward")
-                            .foregroundStyle(.black)
-                    }
-                }
-            }
+//            
+//            ToolbarItem(placement: .topBarTrailing) {
+//                HStack(spacing: 4) {
+//                    Button {
+//                        print("undo")
+//                        viewContext.undo()
+//                        refreshPastedImages()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.left")
+//                            .foregroundStyle(.black)
+//                    }
+//                    
+//                    Button {
+//                        print("redo")
+//                        viewContext.redo()
+//                        refreshPastedImages()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.forward")
+//                            .foregroundStyle(.black)
+//                    }
+//                }
+//            }
             
             ToolbarItem(placement: .topBarTrailing) {
                 
@@ -207,6 +209,7 @@ struct CollageByMyselfView: View {
         
     }
     
+
     
     /// 삭제된 이미지를 Core Data에서도 삭제하는 함수
     func deleteImageFromCollage(id: UUID) {

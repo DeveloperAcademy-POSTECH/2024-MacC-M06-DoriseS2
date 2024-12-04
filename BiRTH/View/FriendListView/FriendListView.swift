@@ -87,10 +87,11 @@ struct FriendListView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical)
                     .background(Color.biRTH_mainColor)
-                    
+                    .toolbarBackground(Color.biRTH_mainColor, for: .automatic)
                 }
             }
         }
+            
     }
 }
 

@@ -25,7 +25,8 @@ struct CustomSheet: View {
                         pastedImages: $pastedImages,
                         selectedImageID: $selectedImageID
                     )
-                    DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID)
+                    
+                    DeleteButton(pastedImages: $pastedImages, selectedImageID: $selectedImageID, isCustomSheet: $isCustomSheet)
                     
                     Text("HI")
                         .foregroundStyle(.black)

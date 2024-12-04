@@ -12,24 +12,22 @@ struct TempFriendDetailView: View {
     //    @Binding var imageData: Data?
     @Environment(\.managedObjectContext) var viewContext
     @Environment(\.dismiss) var dismiss
-
+    
     @State var memo: String = ""
-
+    
     let colors: [String] = ["2364AA", "3DA5D9", "73BFB9", "FEC601", "EA7317", "FFC97F", "EB7777", "EB8291", "F0BBCD", "C9E7DB"]
-
+    
     var body: some View {
         ScrollView {
-            ZStack {
-                // BackgroundColor
-                Color.biRTH_mainColor
-                
+
                 VStack(spacing: 0){
                     
                     if let imageData = bFriend.profileImage, let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 45))
+                            .scaledToFill()
                             .frame(width: 166, height: 168)
+                            .clipShape(RoundedRectangle(cornerRadius: 45))
                             .padding(.init(top: 26, leading: 0, bottom: 0, trailing: 0))
                     } else {
                         Image("photo")
@@ -80,21 +78,9 @@ struct TempFriendDetailView: View {
                         
                         Spacer()
                         
-                        Button {
-                            //TODO: 저장 버튼 위치 수정
-                            bFriend.memo = memo
-                            do {
-                                try viewContext.save()
-                                print("Friend updated successfully!")
-                            } catch {
-                                print("Failed to update friend: \(error)")
-                            }
-                        } label: {
-                            Text("저장")
-                                .font(.biRTH_semibold_20)
-                                .foregroundColor(.blue)
-                        }
-                    }.padding(.init(top: 43, leading: 28, bottom: 10, trailing: 28))
+                        
+                    }
+                    .padding(.bottom, 10)
                     
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
@@ -115,14 +101,14 @@ struct TempFriendDetailView: View {
                             .font(.biRTH_semibold_16)
                             .lineSpacing(5) //줄 간격
                             .frame(width: 350, height: 220)
-                        
-                        
+//                            .padding(.bottom, 100)
                     }
-                    Spacer()
                 }
-            }
-            .ignoresSafeArea()
+            
         }
+        .background(
+            Color.biRTH_mainColor
+        )
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -165,76 +151,80 @@ struct TempFriendDetailView: View {
                 }
             }
         }
+        .toolbarBackground(Color.biRTH_mainColor, for: .navigationBar)
+        .toolbarBackground(Color.biRTH_mainColor, for: .bottomBar)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbarBackground(.visible, for: .bottomBar)
         .onAppear() {
-                memo = bFriend.memo ?? ""
+            memo = bFriend.memo ?? ""
         }
     }
-
-
-
-/// 날짜 MM.DD(E)로 바꿔주는 함수
+    
+    
+    
+    /// 날짜 MM.DD(E)로 바꿔주는 함수
     func formattedBirthday(friend: BFriend) -> String {
         // Calendar 및 오늘 날짜
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
         let currentYear = calendar.component(.year, from: today)
-
+        
         // birthMonth와 birthDay 확인
         let birthMonth = Int(friend.birthMonth) // Int16 -> Int로 변환
         let birthDay = Int(friend.birthDay)     // Int16 -> Int로 변환
-
+        
         guard birthMonth > 0, birthDay > 0 else {
             return "날짜 정보 없음"
         }
-
+        
         // 올해의 생일 생성
         guard let birthdayThisYear = calendar.date(from: DateComponents(year: currentYear, month: birthMonth, day: birthDay)) else {
             return "날짜 계산 오류"
         }
-
+        
         // 날짜 형식화 (MM.dd와 요일)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM.dd(E)" // E는 요일을 나타냄 (금, 토, ...)
         dateFormatter.locale = Locale(identifier: "ko_KR") // 한국어 요일 설정
-
+        
         return dateFormatter.string(from: birthdayThisYear)
     }
-
-
-
+    
+    
+    
     func dDaytextForDetail(friend: BFriend) -> String {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
-
+        
         let birthMonth = friend.birthMonth
         let birthDay = friend.birthDay
         let currentYear = calendar.component(.year, from: today)
-
+        
         print("birthMonth, birthDay: \(birthMonth), \(birthDay)")
-
+        
         // 생일이 설정되지 않았을 경우 처리
         guard birthMonth > 0, birthDay > 0 else {
             return "저장된 날짜가 없습니다."
         }
-
+        
         // 현재 연도의 생일 계산
         guard let birthDateThisYear = calendar.date(from: DateComponents(year: currentYear, month: Int(birthMonth), day: Int(birthDay))) else {
             return "날짜 계산 오류"
         }
-
+        
         let daysUntil = calendar.dateComponents([.day], from: today, to: birthDateThisYear).day!
-
+        
         if daysUntil == 0 { // 오늘이 생일인 경우
             return "D-day"
-
+            
         } else if daysUntil > 0 { // 생일이 아직 오지 않은 경우
-                print("\(daysUntil)")
-                return "D-\(daysUntil)"
-
+            print("\(daysUntil)")
+            return "D-\(daysUntil)"
+            
         } else {// 생일이 지났다면 다음 해 생일로 계산
             let absDaysUntil = abs(daysUntil)
-                print(absDaysUntil)
-                return "D+\(absDaysUntil)"
+            print(absDaysUntil)
+            return "D+\(absDaysUntil)"
         }
     }
 }

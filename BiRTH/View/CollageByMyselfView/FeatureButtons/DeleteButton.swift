@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct DeleteButton: View {
+    @Environment(\.dismiss) var dismiss
     @Binding var pastedImages: [PastedImage]
     @Binding var selectedImageID: UUID?
+    @Binding var isCustomSheet: Bool
 
     var body: some View {
         Button {
             print("Delete Button")
             deleteSelectedImage()
+            isCustomSheet = false
         } label: {
             FeatureCircle(colorHex: "F96E2A", featureImgName: "trash", featureName: "사진삭제")
         }
