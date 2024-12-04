@@ -21,6 +21,7 @@ struct SetTagView: View {
             HStack(alignment: .bottom) {
                 Text("태그 생성")
                     .font(.system(size: 30, weight: .bold))
+                    .foregroundStyle(.black)
 
                 Spacer()
             }.padding(.init(top: 5, leading: 0, bottom: 20, trailing: 0))
@@ -32,6 +33,7 @@ struct SetTagView: View {
 
             ButtonOfSavingBTagView(tagName: $tagName, tagColor: $tagColor, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
         }
+        .background(.white)
         .padding(.init(top: 40, leading: 20, bottom: 0, trailing: 20))
     }
 }

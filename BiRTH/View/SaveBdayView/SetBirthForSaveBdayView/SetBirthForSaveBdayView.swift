@@ -19,6 +19,7 @@ struct SetBirthForSaveBdayView: View {
                 .font(.biRTH_semibold_20)
                 .padding(.leading, 22)
                 .padding(.bottom, 16)
+                .foregroundStyle(.black)
 
             Spacer()
         }

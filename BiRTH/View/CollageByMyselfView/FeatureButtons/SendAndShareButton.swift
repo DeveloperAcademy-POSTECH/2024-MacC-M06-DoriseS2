@@ -10,6 +10,7 @@ import Photos
 
 struct SendAndShareButton: View {
     @State private var showingAlert: Bool = false
+    @Binding var showingCompletionMessage: Bool
 
     var body: some View {
         Button {
@@ -21,7 +22,7 @@ struct SendAndShareButton: View {
         }
         .alert(isPresented: $showingAlert) {
             let firstButton = Alert.Button.cancel(Text("완료")) {
-                
+                showingCompletionMessage = true
                 print("secondary button pressed")
             }
             let secondButton = Alert.Button.default(Text("공유하기")) {
@@ -108,22 +109,22 @@ public extension View {
         return hosting.view.screenShot
    }
     
-    @MainActor
-    func captureView(
-        of view: some View,
-        scale: CGFloat = 1.0,
-        size: CGSize? = nil,
-        completion: @escaping (UIImage?) -> Void
-    ) {
-        let renderer = ImageRenderer(content: view)
-        renderer.scale = scale
-        
-        if let size = size {
-            renderer.proposedSize = .init(size)
-        }
-        
-        completion(renderer.uiImage)
-    }
+//    @MainActor
+//    func captureView(
+//        of view: some View,
+//        scale: CGFloat = 1.0,
+//        size: CGSize? = nil,
+//        completion: @escaping (UIImage?) -> Void
+//    ) {
+//        let renderer = ImageRenderer(content: view)
+//        renderer.scale = scale
+//        
+//        if let size = size {
+//            renderer.proposedSize = .init(size)
+//        }
+//        
+//        completion(renderer.uiImage)
+//    }
 }
 
 

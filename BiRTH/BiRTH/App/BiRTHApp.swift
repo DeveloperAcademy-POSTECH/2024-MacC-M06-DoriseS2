@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct BiRTHApp: App {
     let persistenceController = PersistenceController.shared
+    @AppStorage("isFirstOnboarding") var isFirstOnboarding: Bool = true
     @StateObject private var colorManager = ColorManager()
     
     var body: some Scene {

@@ -20,8 +20,10 @@ struct PhotoPickerForSaveBdayView: View {
                 if let imageData = imageData, let uiImage = UIImage(data: imageData) {
                     Image(uiImage: uiImage)
                         .resizable()
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .scaledToFill()
                         .frame(width: 166, height: 168)
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        
                 } else {
                     ZStack {
                         Image("photo")
