@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct BiRTHApp: App {
     let persistenceController = PersistenceController.shared
+    @AppStorage("firstLaunch") var firstLaunch: Bool = true
     @StateObject private var colorManager = ColorManager()
     
     var body: some Scene {

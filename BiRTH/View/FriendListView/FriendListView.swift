@@ -39,41 +39,46 @@ struct FriendListView: View {
     @FetchRequest(entity: BTag.entity(), sortDescriptors: []) var bTags: FetchedResults<BTag>
     @FetchRequest(entity: BFriend.entity(), sortDescriptors: []) var bFriend: FetchedResults<BFriend>
     
+    @AppStorage("firstLaunch") private var firstLaunch: Bool = true
+    
     let gridShapes: [any Shape] = [CustomRectangle1(), CustomRectangle2()]
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                // MARK: - HeaderView
-                HeaderForFriendList(
-                    text: $text,
-                    sortingMethod: $sortingMethod,
-                    selectedViewMode: $selectedViewMode,
-                    isGridView: $isGridView
-                )
+        if firstLaunch {
+            OnBoardingView()
+        } else {
+            NavigationStack {
+                VStack {
+                    // MARK: - HeaderView
+                    HeaderForFriendList(
+                        text: $text,
+                        sortingMethod: $sortingMethod,
+                        selectedViewMode: $selectedViewMode,
+                        isGridView: $isGridView
+                    )
+                    
+                    TagsInFriendList(
+                        bTags: bTags,
+                        tagName: $tagName,
+                        tagColor: $tagColor
+                    )
+                    
+                    
+                    // MARK: - Grid Or ListView
+                    FriendGridORListView(
+                        isGridView: $isGridView,
+                        text: $text,
+                        tagName: $tagName,
+                        sortingMethod: $sortingMethod,
+                        bFriend: bFriend
+                    )
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical)
+                .background(Color.biRTH_mainColor)
                 
-                TagsInFriendList(
-                    bTags: bTags,
-                    tagName: $tagName,
-                    tagColor: $tagColor
-                )
-                
-            
-                // MARK: - Grid Or ListView
-                FriendGridORListView(
-                    isGridView: $isGridView,
-                    text: $text,
-                    tagName: $tagName,
-                    sortingMethod: $sortingMethod,
-                    bFriend: bFriend
-                )
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical)
-            .background(Color.biRTH_mainColor)
-            
         }
-        
     }
 }
 
