@@ -75,14 +75,14 @@ struct CollageByMyselfView: View {
             if showingCompletionMessage {
                 ZStack {
                     VStack {
-                        Text("친구의 취향이 담긴\n콜라주가 저장되었어요!")
-                            .font(.biRTH_semibold_20)
-                            .foregroundColor(.black)
-                            .padding(20)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
-                            .shadow(radius: 8)
+                        Text("친구의 취향이 담긴 콜라주가 저장되었어요!")
+                            .font(.biRTH_regular_14)
+                            .foregroundColor(.biRTH_text2)
+                            .padding(30)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                            
                     }
-                    .frame(maxWidth: 250) // 메시지 박스 크기 조정
+                    .frame(maxWidth: 350) // 메시지 박스 크기 조정
                     .transition(.opacity)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -111,25 +111,25 @@ struct CollageByMyselfView: View {
             }
             
             
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: 4) {
-                    Button {
-                        print("undo")
-                        viewContext.undo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.left")
-                            .foregroundStyle(.black)
-                    }
-                    
-                    Button {
-                        print("redo")
-                        viewContext.redo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.forward")
-                            .foregroundStyle(.black)
-                    }
-                }
-            }
+//            ToolbarItem(placement: .topBarTrailing) {
+//                HStack(spacing: 4) {
+//                    Button {
+//                        print("undo")
+//                        viewContext.undo()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.left")
+//                            .foregroundStyle(.black)
+//                    }
+//                    
+//                    Button {
+//                        print("redo")
+//                        viewContext.redo()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.forward")
+//                            .foregroundStyle(.black)
+//                    }
+//                }
+//            }
             
             ToolbarItem(placement: .topBarTrailing) {
                 
