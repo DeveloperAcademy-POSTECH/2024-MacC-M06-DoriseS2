@@ -32,7 +32,7 @@ struct SetBirthForSaveBdayView: View {
 
             Spacer()
 
-        } .padding(.leading, 21)
+        } .padding(.leading, 25)
     }
 }
 

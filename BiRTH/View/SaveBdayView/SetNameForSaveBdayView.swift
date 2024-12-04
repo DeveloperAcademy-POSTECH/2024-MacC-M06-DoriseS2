@@ -20,6 +20,7 @@ struct SetNameForSaveBdayView: View {
              TextField("이름 입력", text: $name)
                 .textFieldStyle(CommonTextfieldStyle())
                 .onAppear (perform : UIApplication.shared.hideKeyboard)
+            
         }
     }
 }

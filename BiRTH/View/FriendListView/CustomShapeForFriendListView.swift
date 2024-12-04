@@ -17,41 +17,72 @@ struct CustomShapeForFriendListView: View {
 
 // MARK: CustomRectangle1
 struct CustomRectangle1: Shape {
-    func path (in rect: CGRect) -> Path {
+    func path(in rect: CGRect) -> Path {
         Path { path in
-            // 시작점: 위쪽 가장자리 중간
-            path.move(to: CGPoint(x: rect.size.width*4/9, y: 0))
+            let width = rect.size.width
+            let height = rect.size.height
             
-            // 2
-            path.addQuadCurve(to: CGPoint(x: rect.size.width, y: rect.size.height/2), control: CGPoint(x: rect.size.width*8/9, y: rect.size.height/10))
+            path.move(to: CGPoint(x: width * 0.4, y: 0))
             
-            // 3
-            path.addQuadCurve(to: CGPoint(x: rect.size.width*4/9, y: rect.size.height), control: CGPoint(x: rect.size.width*8/9, y: rect.size.height*9/10))
+            path.addCurve(
+                to: CGPoint(x: width, y: height * 0.6),
+                control1: CGPoint(x: width * 0.8, y: 0),
+                control2: CGPoint(x: width, y: height * 0.3)
+            )
             
-            // 4
-            path.addQuadCurve(to: CGPoint(x: 0, y: rect.size.height/2), control: CGPoint(x: rect.size.width/9, y: rect.size.height*9/10))
+            path.addCurve(
+                to: CGPoint(x: width * 0.5, y: height),
+                control1: CGPoint(x: width, y: height * 0.9),
+                control2: CGPoint(x: width * 0.7, y: height)
+            )
             
-            path.addQuadCurve(to: CGPoint(x: rect.size.width*4/9, y: 0), control: CGPoint(x: rect.size.width/9, y: rect.size.height/10))
+            path.addCurve(
+                to: CGPoint(x: 0, y: height * 0.4),
+                control1: CGPoint(x: width * 0.3, y: height),
+                control2: CGPoint(x: 0, y: height * 0.7)
+            )
+            
+            path.addCurve(
+                to: CGPoint(x: width * 0.4, y: 0),
+                control1: CGPoint(x: 0, y: height * 0.1),
+                control2: CGPoint(x: width * 0.2, y: 0)
+            )
         }
     }
 }
+
 // MARK: CustomRectangle2
 struct CustomRectangle2: Shape {
-    func path (in rect: CGRect) -> Path {
+    func path(in rect: CGRect) -> Path {
         Path { path in
-            // 시작점: 위쪽 가장자리 중간
-            path.move(to: CGPoint(x: rect.size.width*13/20, y: 0))
+            let width = rect.size.width
+            let height = rect.size.height
             
-            // 2
-            path.addQuadCurve(to: CGPoint(x: rect.size.width, y: rect.size.height*13/20), control: CGPoint(x: rect.size.width*12/13, y: rect.size.height*2/40))
+            path.move(to: CGPoint(x: width * 0.7, y: 0))
             
-            // 3
-            path.addQuadCurve(to: CGPoint(x: rect.size.width/2, y: rect.size.height), control: CGPoint(x: rect.size.width*8/9, y: rect.size.height*19/20))
+            path.addCurve(
+                to: CGPoint(x: width, y: height * 0.7),
+                control1: CGPoint(x: width * 0.9, y: 0),
+                control2: CGPoint(x: width, y: height * 0.4)
+            )
             
-            // 4
-            path.addQuadCurve(to: CGPoint(x: 0, y: rect.size.height*3/5), control: CGPoint(x: rect.size.width*1/90, y: rect.size.height*19/20))
-        
-            path.addQuadCurve(to: CGPoint(x: rect.size.width*13/20, y: 0), control: CGPoint(x: rect.size.width/9, y: rect.size.height/15))
+            path.addCurve(
+                to: CGPoint(x: width * 0.4, y: height),
+                control1: CGPoint(x: width, y: height * 0.9),
+                control2: CGPoint(x: width * 0.7, y: height)
+            )
+            
+            path.addCurve(
+                to: CGPoint(x: 0, y: height * 0.5),
+                control1: CGPoint(x: width * 0.1, y: height),
+                control2: CGPoint(x: 0, y: height * 0.8)
+            )
+            
+            path.addCurve(
+                to: CGPoint(x: width * 0.7, y: 0),
+                control1: CGPoint(x: 0, y: height * 0.2),
+                control2: CGPoint(x: width * 0.5, y: 0)
+            )
         }
     }
 }

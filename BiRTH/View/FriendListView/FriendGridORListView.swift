@@ -126,6 +126,7 @@ struct FriendGridORListView: View {
                         Text(friend.name ?? "")
                             .font(.biRTH_semibold_14)
                             .foregroundColor(.black)
+                            .padding(.leading,3)
                         
                         Spacer()
                         
@@ -134,6 +135,7 @@ struct FriendGridORListView: View {
                             .foregroundColor(.biRTH_text1)
                         
                     } //: HSTACK
+                    .padding(.horizontal,-10)
                 }
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     Button {

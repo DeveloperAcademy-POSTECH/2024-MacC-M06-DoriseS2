@@ -22,6 +22,7 @@ struct HeaderForFriendList: View {
             Text("나의 친구")
                 .font(.system(size: 24, weight: .bold))
                 .foregroundStyle(.black)
+                .padding(.leading,10)
             
             Spacer()
             
@@ -75,9 +76,9 @@ struct HeaderForFriendList: View {
                     Image(systemName: "list.bullet")
                         .foregroundColor(selectedViewMode == .list ? .black : .gray.opacity(0.5))
                 }
-            }
+            }.padding(.trailing,10)
             .font(.system(size: 20))
-        }
+        }.padding(.top,15)
     }
 }
 
@@ -88,7 +89,7 @@ struct SearchBarForFriendListView: View {
     
     var body: some View {
         HStack(alignment: .center) {
-            TextField("친구를 찾아보세요", text: $text)
+            TextField("친구를 찾아보세요...", text: $text)
                 .textFieldStyle(SearchBarStyleForFriendListView())
                 .padding(.leading, 16)
             

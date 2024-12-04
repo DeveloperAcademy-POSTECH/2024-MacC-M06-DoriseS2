@@ -28,8 +28,9 @@ struct TempFriendDetailView: View {
                     if let imageData = bFriend.profileImage, let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
                             .resizable()
-                            .clipShape(RoundedRectangle(cornerRadius: 45))
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 166, height: 168)
+                            .clipShape(RoundedRectangle(cornerRadius: 45))
                             .padding(.init(top: 26, leading: 0, bottom: 0, trailing: 0))
                     } else {
                         Image("photo")
@@ -105,7 +106,7 @@ struct TempFriendDetailView: View {
                             Text("친구의 사소한 취향을 적어보세요")
                                 .font(.biRTH_semibold_16)
                                 .foregroundColor(.biRTH_text1)
-                                .offset(x:-80, y:-75)
+                                .offset(x:-55, y:-75)
                         }
                         TextEditor(text: $memo)
                             .scrollContentBackground(.hidden)
