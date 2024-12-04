@@ -16,9 +16,11 @@ struct SetNameForSaveBdayView: View {
                 .font(.biRTH_semibold_20)
                 .padding(.leading, 22)
                 .padding(.bottom, 13)
+                .foregroundStyle(.black)
              TextField("이름 입력", text: $name)
                 .textFieldStyle(CommonTextfieldStyle())
                 .onAppear (perform : UIApplication.shared.hideKeyboard)
+            
         }
     }
 }
@@ -29,6 +31,7 @@ struct CommonTextfieldStyle: TextFieldStyle {
             // 텍스트필드
             configuration
                 .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(.black)
                 .padding(.leading, 38)
             Rectangle()
                 .frame(width: 286, height: 1)

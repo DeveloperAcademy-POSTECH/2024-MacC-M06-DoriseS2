@@ -29,9 +29,12 @@ struct HistoryView: View {
             
                 AView
             
-            
-            
-            
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+            }
         }
     }
 }
@@ -62,16 +65,7 @@ extension HistoryView {
             
             
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    print("뒤로!")
-                }) {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.black)
-                }
-            }
-        }
+ 
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("히스토리")
         
@@ -173,16 +167,7 @@ extension HistoryView {
             Spacer()
             
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    print("뒤로!")
-                }) {
-                    Image(systemName: "chevron.left")
-                        .foregroundColor(.black)
-                }
-            }
-        }
+ 
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("히스토리")
     }

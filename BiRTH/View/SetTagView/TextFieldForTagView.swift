@@ -17,7 +17,8 @@ struct TextFieldForTagView: View {
                 .fill(Color.init(hex: "F0F0F0"))
                 .frame(width: 324, height: 48)
 
-            TextField("입력한 내용을 태그 목록에 추가됩니다.", text: $tagName)
+            TextField("입력한 내용이 태그 목록에 추가됩니다.", text: $tagName)
+                .foregroundStyle(.black)
                 .textFieldStyle(.plain)
                 .padding(.init(top: 0, leading: 25, bottom: 0, trailing: 25))
         }.padding(.init(top: 0, leading: 25, bottom: 20, trailing: 25))

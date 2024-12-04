@@ -49,35 +49,39 @@ struct SaveBdayView: View {
     }()
     
     var body: some View {
-        VStack {
-            
-            HeaderForSaveBdayView(bFriend: bFriend, name: $name, dateOfBday: $dateOfBday, notiFrequency: $notiFrequency, imageData: $imageData, profileImage: $profileImage, relationshipTag: $relationshipTag, isEditing: $isEditing)
-            
-            Spacer(minLength: 26)
-            
-            PhotoPickerForSaveBdayView(imageData: $imageData, selectedItem: $selectedItem)
-            
-            Spacer(minLength: 47)
-            
-            SetNameForSaveBdayView(name: $name)
-            
-            Spacer(minLength: 27.5)
-            
-            SetBirthForSaveBdayView(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
-            
-            Spacer(minLength: 29)
-            
-            
-            ShowingBTagOfSaveBdayView(bTags: bTags, relationshipTag: $relationshipTag, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
-            
-            Spacer(minLength: 28)
-            
-            SetAlarmInSaveBdayView(notiFrequency: $notiFrequency)
-            
-            Spacer(minLength: 82)
-        } //: VSTACK
+        ScrollView {
+            VStack {
+                
+                HeaderForSaveBdayView(bFriend: bFriend, name: $name, dateOfBday: $dateOfBday, notiFrequency: $notiFrequency, imageData: $imageData, profileImage: $profileImage, relationshipTag: $relationshipTag, isEditing: $isEditing)
+                
+                Spacer(minLength: 26)
+                
+                PhotoPickerForSaveBdayView(imageData: $imageData, selectedItem: $selectedItem)
+                
+                Spacer(minLength: 47)
+                
+                SetNameForSaveBdayView(name: $name)
+                
+                Spacer(minLength: 27.5)
+                
+                SetBirthForSaveBdayView(dateOfBday: $dateOfBday, isshowingSheetForSettingDate: $isshowingSheetForSettingDate)
+                
+                Spacer(minLength: 29)
+                
+                
+                ShowingBTagOfSaveBdayView(bTags: bTags, relationshipTag: $relationshipTag, isshowingSheetForCreatingTag: $isshowingSheetForCreatingTag)
+                
+                Spacer(minLength: 28)
+                
+                SetAlarmInSaveBdayView(notiFrequency: $notiFrequency)
+                
+                Spacer(minLength: 82)
+            } //: VSTACK
+        }
         .background(Color.biRTH_mainColor)
         .navigationBarBackButtonHidden(true)
+        .toolbarBackground(Color.biRTH_mainColor, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .onAppear {
                 if let bFriend = bFriend {
                     print("bFriend exists with ID: \(bFriend.objectID)")

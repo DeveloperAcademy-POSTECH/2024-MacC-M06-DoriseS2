@@ -1,9 +1,12 @@
 import SwiftUI
 import CoreData
+import Photos
+
 
 //최상위뷰
 struct CollageByMyselfView: View {
     
+    @Environment(\.undoManager) private var undoManager
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) var dismiss
@@ -21,7 +24,8 @@ struct CollageByMyselfView: View {
     @State var dragOffset: CGSize = .zero
     @State var isAbleClosed: Bool = false
     @State private var capturedImage: UIImage?
-    
+    @State var showingAlert = false
+    @State var showingCompletionMessage = false
     
     
     //    let collage: BCollage
@@ -40,6 +44,15 @@ struct CollageByMyselfView: View {
                 
                 imageField
                 
+                //                // 캡처된 이미지 표시
+                //                if let capturedImage = capturedImage {
+                //                    Image(uiImage: capturedImage)
+                //                        .resizable()
+                //                        .scaledToFit()
+                //                        .frame(height: 200)
+                //                        .border(Color.green, width: 2)
+                //                }
+                
                 
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
                 
@@ -49,40 +62,116 @@ struct CollageByMyselfView: View {
                     CustomSheet(
                         selectedImage: $pastedImages[selectedIndex].pastedImage,
                         pastedImages: $pastedImages,
-                        selectedImageID: $selectedImageID
+                        selectedImageID: $selectedImageID, isCustomSheet: $isCustomSheet
                     )
                     .presentationBackground(.black)
                     .presentationCornerRadius(16)
                     .interactiveDismissDisabled()
                     .presentationDetents([.height(180)])
                     .presentationBackgroundInteraction(.enabled(upThrough: .height(180)))
-                } 
+                }
             }
             
+            if showingCompletionMessage {
+                ZStack {
+                    VStack {
+                        Text("친구의 취향이 담긴 콜라주가 저장되었어요!")
+                            .font(.biRTH_regular_14)
+                            .foregroundColor(.biRTH_text2)
+                            .padding(30)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                            
+                    }
+                    .frame(maxWidth: 350) // 메시지 박스 크기 조정
+                    .transition(.opacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation {
+                                showingCompletionMessage = false // 2초 후 메시지 숨김
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
-        
-        
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                BackButton()
-            }
-            
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                RedoUndo()
-            }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                
                 Button {
                     if let collage = collage {
                         savePastedImages2(to: collage, pastedImages: pastedImages, context: viewContext)
                     }
                     dismiss()
                 } label: {
-                    Text("임시저장")
-                        .foregroundColor(.black)
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(.black)
+                }
+                
+            }
+            
+            
+//            ToolbarItem(placement: .topBarTrailing) {
+//                HStack(spacing: 4) {
+//                    Button {
+//                        print("undo")
+//                        viewContext.undo()
+//                        refreshPastedImages()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.left")
+//                            .foregroundStyle(.black)
+//                    }
+//                    
+//                    Button {
+//                        print("redo")
+//                        viewContext.redo()
+//                        refreshPastedImages()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.forward")
+//                            .foregroundStyle(.black)
+//                    }
+//                }
+//            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                
+                Button {
+                    showingAlert = true
+                    print("paperplane")
+                } label: {
+                    Image(systemName: "paperplane")
+                        .foregroundStyle(.black)
+                }
+                .alert(isPresented: $showingAlert) {
+                    let firstButton = Alert.Button.cancel(Text("캡쳐하기")) {
+                        // imageField 캡처
+                        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) // imageField의 크기와 동일
+                        capturedImage = imageField.snapshot(of: frame)
+                        
+                        if let capturedImage = capturedImage {
+                            saveImageToPhotosAlbum(capturedImage)
+                            
+                            showingCompletionMessage = true
+                        } else {
+                            print("no save")
+                        }
+                        print("secondary button pressed")
+                        
+                    }
+                    
+                    let secondButton = Alert.Button.default(Text("공유하기")) {
+                        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) // imageField의 크기와 동일
+                        capturedImage = imageField.snapshot(of: frame)
+                        if let capturedImage = capturedImage {
+                            shareImage(capturedImage)
+                        } else {
+                            print("not share")
+                        }
+                    }
+                    
+                    return Alert(title: Text("저장하기"),
+                                 message: Text("친구의 취향이 담긴 콜라주를 저장합니다."),
+                                 primaryButton: firstButton, secondaryButton: secondButton)
                 }
             }
             
@@ -120,6 +209,7 @@ struct CollageByMyselfView: View {
         
     }
     
+
     
     /// 삭제된 이미지를 Core Data에서도 삭제하는 함수
     func deleteImageFromCollage(id: UUID) {
@@ -227,6 +317,56 @@ struct CollageByMyselfView: View {
         return newCollage
     }
     
+    @MainActor func snapshot() -> Image? {
+        let imagerenderer = ImageRenderer(
+            content: imageField.frame(maxWidth: 100, maxHeight: 100)
+        )
+        
+        // 옵셔널 처리: uiImage가 nil인 경우 nil 반환
+        guard let uiImage = imagerenderer.uiImage else {
+            print("Failed to render image.")
+            return nil
+        }
+        
+        return Image(uiImage: uiImage)
+    }
+    
+    
+    /// 이미지 저장
+    func saveImageToPhotosAlbum(_ image: UIImage) {
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+        // 사진 권한 요청 및 상태에 따른 처리
+        PHPhotoLibrary.requestAuthorization { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    print("Image saved successfully!")
+                case .denied, .restricted, .notDetermined:
+                    print("Permission denied or not determined.")
+                case .limited:
+                    print("Image saved with limited access!")
+                @unknown default:
+                    break
+                }
+            }
+        }
+    }
+    
+    /// 이미지 공유
+    func shareImage(_ image: UIImage) {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first else {
+            print("Failed to fetch the key window.")
+            return
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        guard let rootVC = window.rootViewController else { return }
+        rootVC.present(activityViewController, animated: true)
+    }
 }
 
 
@@ -248,11 +388,35 @@ private extension CollageByMyselfView {
                 )
             }
             
-        }    }
+            
+        }
+    }
+}
+
+extension View {
+    // 특정 영역만 캡처하기 위한 Snapshot 함수
+    func snapshot(of rect: CGRect? = nil) -> UIImage? {
+        let hostingController = UIHostingController(rootView: self)
+        let targetView = hostingController.view
+        
+        // Ensure the view is laid out
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = hostingController
+        window.makeKeyAndVisible()
+        hostingController.view.layoutIfNeeded()
+        
+        let renderer = UIGraphicsImageRenderer(bounds: rect ?? targetView!.bounds)
+        return renderer.image { context in
+            targetView?.layer.render(in: context.cgContext)
+        }
+    }
 }
 
 //#Preview {
 //    CollageByMyselfView()
 //        .environmentObject(ColorManager())
 //}
+
+
+
 

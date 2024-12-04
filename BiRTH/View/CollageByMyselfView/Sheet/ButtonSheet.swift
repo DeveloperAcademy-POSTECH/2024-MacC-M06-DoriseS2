@@ -21,7 +21,7 @@ struct ButtonSheet: View {
                     PhotoButton(selectedPhotos: $selectedPhotos)
                     ExportSafariButton()
 //                    SendAndShare()
-                    SendAndShareButton()
+//                    SendAndShareButton()
                     BackgroundColorButton()
                         .environmentObject(colorManager)
                 }
