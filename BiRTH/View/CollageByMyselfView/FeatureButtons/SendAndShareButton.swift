@@ -10,6 +10,7 @@ import Photos
 
 struct SendAndShareButton: View {
     @State private var showingAlert: Bool = false
+    @Binding var showingCompletionMessage: Bool
 
     var body: some View {
         Button {
@@ -21,7 +22,7 @@ struct SendAndShareButton: View {
         }
         .alert(isPresented: $showingAlert) {
             let firstButton = Alert.Button.cancel(Text("완료")) {
-                
+                showingCompletionMessage = true
                 print("secondary button pressed")
             }
             let secondButton = Alert.Button.default(Text("공유하기")) {

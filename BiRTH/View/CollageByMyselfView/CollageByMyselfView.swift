@@ -24,6 +24,7 @@ struct CollageByMyselfView: View {
     @State var isAbleClosed: Bool = false
     @State private var capturedImage: UIImage?
     @State var showingAlert = false
+    @State var showingCompletionMessage = false
     
     var undoManager = UndoManager()
     
@@ -52,7 +53,7 @@ struct CollageByMyselfView: View {
                 //                        .border(Color.green, width: 2)
                 //                }
                 
-               
+                
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
                 
             }
@@ -71,9 +72,29 @@ struct CollageByMyselfView: View {
                 }
             }
             
+            if showingCompletionMessage {
+                ZStack {
+                    VStack {
+                        Text("친구의 취향이 담긴\n콜라주가 저장되었어요!")
+                            .font(.biRTH_semibold_20)
+                            .foregroundColor(.black)
+                            .padding(20)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
+                            .shadow(radius: 8)
+                    }
+                    .frame(maxWidth: 250) // 메시지 박스 크기 조정
+                    .transition(.opacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            withAnimation {
+                                showingCompletionMessage = false // 2초 후 메시지 숨김
+                            }
+                        }
+                    }
+
+                }
+            }
         }
-        
-        
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -127,10 +148,13 @@ struct CollageByMyselfView: View {
                         
                         if let capturedImage = capturedImage {
                             saveImageToPhotosAlbum(capturedImage)
+                            
+                            showingCompletionMessage = true
                         } else {
                             print("no save")
                         }
                         print("secondary button pressed")
+                        
                     }
                     
                     let secondButton = Alert.Button.default(Text("공유하기")) {
@@ -144,7 +168,7 @@ struct CollageByMyselfView: View {
                     }
                     
                     return Alert(title: Text("저장하기"),
-                                 message: Text("이미지를 저장합니다."),
+                                 message: Text("친구의 취향이 담긴 콜라주를 저장합니다."),
                                  primaryButton: firstButton, secondaryButton: secondButton)
                 }
             }
@@ -325,7 +349,7 @@ struct CollageByMyselfView: View {
             }
         }
     }
-
+    
     /// 이미지 공유
     func shareImage(_ image: UIImage) {
         guard let window = UIApplication.shared.connectedScenes

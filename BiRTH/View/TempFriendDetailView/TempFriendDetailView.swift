@@ -19,9 +19,9 @@ struct TempFriendDetailView: View {
 
     var body: some View {
         ScrollView {
-            ZStack{
+            ZStack {
                 // BackgroundColor
-                Color.biRTH_mainColor.ignoresSafeArea()
+                Color.biRTH_mainColor
                 
                 VStack(spacing: 0){
                     
@@ -121,6 +121,7 @@ struct TempFriendDetailView: View {
                     Spacer()
                 }
             }
+            .ignoresSafeArea()
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {
