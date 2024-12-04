@@ -10,33 +10,63 @@ struct GestureImageView: View {
     
     @State var isDragging = false
     
+    @StateObject var viewModel = RemoveBackgroundViewModel() // ViewModel 사용
+    
     
     var body: some View {
         ZStack {
-            // 이미지 뷰
-            Image(uiImage: pastedImage.pastedImage)
-                .resizable()
-                .scaledToFit()
-                .frame(width: pastedImage.imageWidth, height: pastedImage.imageHeight)
-                .overlay {
-                    if selectedImageID == pastedImage.id {
-                        Rectangle()
-                            .strokeBorder(Color.biRTH_pointColor, style: StrokeStyle(lineWidth: 5))
+            
+            if let processedImage = viewModel.processedImage {
+                // 이미지 뷰
+                Image(uiImage: pastedImage.pastedImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: viewModel.imageFrame.width, height: viewModel.imageFrame.height) 
+                    .overlay {
+                        if selectedImageID == pastedImage.id {
+                            Rectangle()
+                                .strokeBorder(Color.biRTH_pointColor, style: StrokeStyle(lineWidth: 5))
+                        }
                     }
-                }
-                .zIndex(Double(findIndex(id: pastedImage.id)))
-                .rotationEffect(pastedImage.angle)
-                .position(pastedImage.imagePosition)
-                .gesture(dragGesture)
-                .gesture(resizeAndRotateGesture)
-                .onTapGesture {
-                    withAnimation {
-                        isCustomSheet.toggle()
+                    .zIndex(Double(findIndex(id: pastedImage.id)))
+                    .rotationEffect(pastedImage.angle)
+                    .position(pastedImage.imagePosition)
+                    .gesture(dragGesture)
+                    .gesture(resizeAndRotateGesture)
+                    .onTapGesture {
+                        withAnimation {
+                            isCustomSheet.toggle()
+                        }
+                        
+                        selectImage()
+                        bringImageToFront()
                     }
-                    
-                    selectImage()
-                    bringImageToFront()
-                }
+            } else {
+                Image(uiImage: pastedImage.pastedImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: pastedImage.imageWidth, height: pastedImage.imageHeight)
+                    .overlay {
+                        if selectedImageID == pastedImage.id {
+                            Rectangle()
+                                .strokeBorder(Color.biRTH_pointColor, style: StrokeStyle(lineWidth: 5))
+                        }
+                    }
+                    .zIndex(Double(findIndex(id: pastedImage.id)))
+                    .rotationEffect(pastedImage.angle)
+                    .position(pastedImage.imagePosition)
+                    .gesture(dragGesture)
+                    .gesture(resizeAndRotateGesture)
+                    .onTapGesture {
+                        withAnimation {
+                            isCustomSheet.toggle()
+                        }
+                        
+                        selectImage()
+                        bringImageToFront()
+                    }
+
+            }
             
             if isSelected {
                 // 회전 및 크기 조절 핸들

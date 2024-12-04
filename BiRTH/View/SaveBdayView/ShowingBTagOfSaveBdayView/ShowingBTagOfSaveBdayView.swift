@@ -22,6 +22,7 @@ struct ShowingBTagOfSaveBdayView: View {
                 .font(.biRTH_semibold_20)
                 .padding(.leading, 22)
                 .padding(.bottom, 13)
+                .foregroundStyle(.black)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack (spacing: 12) {
