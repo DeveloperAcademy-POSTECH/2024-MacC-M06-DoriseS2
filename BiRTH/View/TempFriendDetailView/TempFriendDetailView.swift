@@ -142,15 +142,15 @@ struct TempFriendDetailView: View {
                 .padding(.trailing)
             }
             
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    SaveBdayView(bFriend: bFriend)
-                } label: {
-                    Text("편집")
-                        .font(.biRTH_bold_18)
-                        .foregroundColor(.black)
-                }
-            }
+//            ToolbarItem(placement: .topBarTrailing) {
+//                NavigationLink {
+//                    SaveBdayView(bFriend: bFriend)
+//                } label: {
+//                    Text("편집")
+//                        .font(.biRTH_bold_18)
+//                        .foregroundColor(.black)
+//                }
+//            }
         }
         .toolbarBackground(Color.biRTH_mainColor, for: .navigationBar) // 네비게이션 바 배경색 설정
         .toolbarBackground(Color.biRTH_mainColor, for: .bottomBar) // 바텀 바 배경색 설정
