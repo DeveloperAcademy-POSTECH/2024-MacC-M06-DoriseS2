@@ -40,6 +40,20 @@ struct CollageByMyselfView: View {
                 
                 imageField
                 
+                // 캡처된 이미지 표시
+                if let capturedImage = capturedImage {
+                    Image(uiImage: capturedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 200)
+                        .border(Color.green, width: 2)
+                }
+                
+                Button("Capture ImageField") {
+                    // imageField 캡처
+                    let frame = CGRect(x: 0, y: 0, width: 300, height: 400) // imageField의 크기와 동일
+                    capturedImage = imageField.snapshot(of: frame)
+                }
                 
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
                 
@@ -56,7 +70,7 @@ struct CollageByMyselfView: View {
                     .interactiveDismissDisabled()
                     .presentationDetents([.height(180)])
                     .presentationBackgroundInteraction(.enabled(upThrough: .height(180)))
-                } 
+                }
             }
             
         }
@@ -227,6 +241,20 @@ struct CollageByMyselfView: View {
         return newCollage
     }
     
+    @MainActor func snapshot() -> Image? {
+        let imagerenderer = ImageRenderer(
+            content: imageField.frame(maxWidth: 100, maxHeight: 100)
+        )
+        
+        // 옵셔널 처리: uiImage가 nil인 경우 nil 반환
+        guard let uiImage = imagerenderer.uiImage else {
+            print("Failed to render image.")
+            return nil
+        }
+        
+        return Image(uiImage: uiImage)
+    }
+    
 }
 
 
@@ -248,11 +276,35 @@ private extension CollageByMyselfView {
                 )
             }
             
-        }    }
+            
+        }
+    }
+}
+
+extension View {
+    // 특정 영역만 캡처하기 위한 Snapshot 함수
+    func snapshot(of rect: CGRect? = nil) -> UIImage? {
+        let hostingController = UIHostingController(rootView: self)
+        let targetView = hostingController.view
+        
+        // Ensure the view is laid out
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = hostingController
+        window.makeKeyAndVisible()
+        hostingController.view.layoutIfNeeded()
+        
+        let renderer = UIGraphicsImageRenderer(bounds: rect ?? targetView!.bounds)
+        return renderer.image { context in
+            targetView?.layer.render(in: context.cgContext)
+        }
+    }
 }
 
 //#Preview {
 //    CollageByMyselfView()
 //        .environmentObject(ColorManager())
 //}
+
+
+
 

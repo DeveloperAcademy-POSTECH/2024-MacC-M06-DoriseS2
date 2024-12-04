@@ -64,3 +64,4 @@ extension RemoveBackgroundButton {
         return UIImage(cgImage: cgImage)
     }
 }
+
