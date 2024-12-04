@@ -23,7 +23,8 @@ struct SetAlarmInSaveBdayView: View {
         HStack {
             Text("해당 날짜의 오전 9시에 생일 알림을 보내드려요!")
                 .font(.biRTH_regular_12)
-                .foregroundColor(.biRTH_text2)
+
+                .foregroundStyle(Color.biRTH_text2)
 
             Spacer()
         }.padding(.init(top: 0, leading: 25, bottom: 22, trailing: 45))

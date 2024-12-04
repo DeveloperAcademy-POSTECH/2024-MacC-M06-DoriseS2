@@ -18,7 +18,7 @@ struct GestureImageView: View {
             
             if let processedImage = viewModel.processedImage {
                 // 이미지 뷰
-                Image(uiImage: pastedImage.pastedImage)
+                Image(uiImage: processedImage)
                     .resizable()
                     .scaledToFit()
                     .frame(width: viewModel.imageFrame.width, height: viewModel.imageFrame.height) 

@@ -127,12 +127,13 @@ struct FriendGridORListView: View {
                             .font(.biRTH_semibold_14)
                             .foregroundColor(.black)
                             .padding(.leading,3)
-                        
+     
                         Spacer()
                         
                         Text(dDaytext(friend: friend))
                             .font(.biRTH_bold_12)
                             .foregroundColor(.biRTH_text1)
+                            .padding(.horizontal,-10)
                         
                     } //: HSTACK
                     .padding(.horizontal,-10)

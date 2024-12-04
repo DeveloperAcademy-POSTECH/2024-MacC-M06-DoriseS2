@@ -6,6 +6,7 @@ import Photos
 //최상위뷰
 struct CollageByMyselfView: View {
     
+    @Environment(\.undoManager) private var undoManager
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss) var dismiss
@@ -26,7 +27,6 @@ struct CollageByMyselfView: View {
     @State var showingAlert = false
     @State var showingCompletionMessage = false
     
-    var undoManager = UndoManager()
     
     //    let collage: BCollage
     
@@ -75,14 +75,14 @@ struct CollageByMyselfView: View {
             if showingCompletionMessage {
                 ZStack {
                     VStack {
-                        Text("친구의 취향이 담긴\n콜라주가 저장되었어요!")
-                            .font(.biRTH_semibold_20)
-                            .foregroundColor(.black)
-                            .padding(20)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white.opacity(0.8)))
-                            .shadow(radius: 8)
+                        Text("친구의 취향이 담긴 콜라주가 저장되었어요!")
+                            .font(.biRTH_regular_14)
+                            .foregroundColor(.biRTH_text2)
+                            .padding(30)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                            
                     }
-                    .frame(maxWidth: 250) // 메시지 박스 크기 조정
+                    .frame(maxWidth: 350) // 메시지 박스 크기 조정
                     .transition(.opacity)
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -91,7 +91,7 @@ struct CollageByMyselfView: View {
                             }
                         }
                     }
-
+                    
                 }
             }
         }
@@ -111,25 +111,27 @@ struct CollageByMyselfView: View {
             }
             
             
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: 4) {
-                    Button {
-                        print("undo")
-                        viewContext.undo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.left")
-                            .foregroundStyle(.black)
-                    }
-                    
-                    Button {
-                        print("redo")
-                        viewContext.redo()
-                    } label: {
-                        Image(systemName: "arrow.uturn.forward")
-                            .foregroundStyle(.black)
-                    }
-                }
-            }
+//            ToolbarItem(placement: .topBarTrailing) {
+//                HStack(spacing: 4) {
+//                    Button {
+//                        print("undo")
+//                        viewContext.undo()
+//                        refreshPastedImages()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.left")
+//                            .foregroundStyle(.black)
+//                    }
+//                    
+//                    Button {
+//                        print("redo")
+//                        viewContext.redo()
+//                        refreshPastedImages()
+//                    } label: {
+//                        Image(systemName: "arrow.uturn.forward")
+//                            .foregroundStyle(.black)
+//                    }
+//                }
+//            }
             
             ToolbarItem(placement: .topBarTrailing) {
                 
@@ -207,6 +209,7 @@ struct CollageByMyselfView: View {
         
     }
     
+
     
     /// 삭제된 이미지를 Core Data에서도 삭제하는 함수
     func deleteImageFromCollage(id: UUID) {

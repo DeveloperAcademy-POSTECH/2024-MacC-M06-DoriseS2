@@ -72,8 +72,10 @@ struct FriendListView: View {
                             bTags: bTags,
                             tagName: $tagName,
                             tagColor: $tagColor
-                        ).padding(.leading,10)
-                        
+
+                        )
+                        .padding(.leading, 10)
+
                         
                         // MARK: - Grid Or ListView
                         FriendGridORListView(
@@ -87,10 +89,11 @@ struct FriendListView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical)
                     .background(Color.biRTH_mainColor)
-                    
+                    .toolbarBackground(Color.biRTH_mainColor, for: .automatic)
                 }
             }
         }
+            
     }
 }
 
