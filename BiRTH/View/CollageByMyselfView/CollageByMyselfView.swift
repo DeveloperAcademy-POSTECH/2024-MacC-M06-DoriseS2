@@ -1,5 +1,7 @@
 import SwiftUI
 import CoreData
+import Photos
+
 
 //최상위뷰
 struct CollageByMyselfView: View {
@@ -21,6 +23,7 @@ struct CollageByMyselfView: View {
     @State var dragOffset: CGSize = .zero
     @State var isAbleClosed: Bool = false
     @State private var capturedImage: UIImage?
+    @State var showingAlert = false
     
     
     
@@ -40,21 +43,16 @@ struct CollageByMyselfView: View {
                 
                 imageField
                 
-                // 캡처된 이미지 표시
-                if let capturedImage = capturedImage {
-                    Image(uiImage: capturedImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .border(Color.green, width: 2)
-                }
+                //                // 캡처된 이미지 표시
+                //                if let capturedImage = capturedImage {
+                //                    Image(uiImage: capturedImage)
+                //                        .resizable()
+                //                        .scaledToFit()
+                //                        .frame(height: 200)
+                //                        .border(Color.green, width: 2)
+                //                }
                 
-                Button("Capture ImageField") {
-                    // imageField 캡처
-                    let frame = CGRect(x: 0, y: 0, width: 300, height: 400) // imageField의 크기와 동일
-                    capturedImage = imageField.snapshot(of: frame)
-                }
-                
+               
                 ColByMyselfBottomView(selectedPhotos: $pastedImages)
                 
             }
@@ -79,7 +77,16 @@ struct CollageByMyselfView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                BackButton()
+                Button {
+                    if let collage = collage {
+                        savePastedImages2(to: collage, pastedImages: pastedImages, context: viewContext)
+                    }
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(.black)
+                }
+                
             }
             
             
@@ -90,13 +97,39 @@ struct CollageByMyselfView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 
                 Button {
-                    if let collage = collage {
-                        savePastedImages2(to: collage, pastedImages: pastedImages, context: viewContext)
-                    }
-                    dismiss()
+                    showingAlert = true
+                    print("paperplane")
                 } label: {
-                    Text("임시저장")
-                        .foregroundColor(.black)
+                    Image(systemName: "paperplane")
+                        .foregroundStyle(.black)
+                }
+                .alert(isPresented: $showingAlert) {
+                    let firstButton = Alert.Button.cancel(Text("캡쳐하기")) {
+                        // imageField 캡처
+                        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) // imageField의 크기와 동일
+                        capturedImage = imageField.snapshot(of: frame)
+                        
+                        if let capturedImage = capturedImage {
+                            saveImageToPhotosAlbum(capturedImage)
+                        } else {
+                            print("no save")
+                        }
+                        print("secondary button pressed")
+                    }
+                    
+                    let secondButton = Alert.Button.default(Text("공유하기")) {
+                        let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) // imageField의 크기와 동일
+                        capturedImage = imageField.snapshot(of: frame)
+                        if let capturedImage = capturedImage {
+                            shareImage(capturedImage)
+                        } else {
+                            print("not share")
+                        }
+                    }
+                    
+                    return Alert(title: Text("저장하기"),
+                                 message: Text("이미지를 저장합니다."),
+                                 primaryButton: firstButton, secondaryButton: secondButton)
                 }
             }
             
@@ -255,6 +288,42 @@ struct CollageByMyselfView: View {
         return Image(uiImage: uiImage)
     }
     
+    
+    /// 이미지 저장
+    func saveImageToPhotosAlbum(_ image: UIImage) {
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+        // 사진 권한 요청 및 상태에 따른 처리
+        PHPhotoLibrary.requestAuthorization { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    print("Image saved successfully!")
+                case .denied, .restricted, .notDetermined:
+                    print("Permission denied or not determined.")
+                case .limited:
+                    print("Image saved with limited access!")
+                @unknown default:
+                    break
+                }
+            }
+        }
+    }
+
+    /// 이미지 공유
+    func shareImage(_ image: UIImage) {
+        guard let window = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first?.windows
+            .first else {
+            print("Failed to fetch the key window.")
+            return
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        guard let rootVC = window.rootViewController else { return }
+        rootVC.present(activityViewController, animated: true)
+    }
 }
 
 
