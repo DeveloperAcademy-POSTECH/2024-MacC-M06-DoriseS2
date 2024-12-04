@@ -105,7 +105,7 @@ struct TempFriendDetailView: View {
                             Text("친구의 사소한 취향을 적어보세요")
                                 .font(.biRTH_semibold_16)
                                 .foregroundColor(.biRTH_text1)
-                                .offset(x:-80, y:-75)
+                                .offset(x:-55, y:-75)
                         }
                         TextEditor(text: $memo)
                             .scrollContentBackground(.hidden)

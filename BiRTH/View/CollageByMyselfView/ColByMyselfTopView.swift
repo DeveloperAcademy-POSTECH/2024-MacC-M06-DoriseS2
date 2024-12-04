@@ -29,7 +29,7 @@ struct ColByMyselfTopView: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 50)
+                            .frame(width: 45)
                             .mask {
                                 Circle()
                             }
@@ -37,7 +37,7 @@ struct ColByMyselfTopView: View {
                         Image("photo")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 50)
+                            .frame(width: 45)
                             .mask {
                                 Circle()
                             }
@@ -50,14 +50,15 @@ struct ColByMyselfTopView: View {
             
             
             if let name = bFriend.name {
-                Text("TO.\(name)")
-                    .font(.biRTH_semibold_18)
+                Text("TO. \(name)")
+                    .font(.biRTH_semibold_16)
                     .foregroundStyle(.black)
+                    .padding(.leading,5)
             }
             Spacer()
             
             Text(dDaytext(friend: bFriend))
-                .font(.biRTH_semibold_16)
+                .font(.biRTH_bold_12)
                 .foregroundStyle(Color.biRTH_text2)
                 .padding(.trailing, 10)
         }
