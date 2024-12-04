@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DeleteButton: View {
+    @Environment(\.dismiss) var dismiss
     @Binding var pastedImages: [PastedImage]
     @Binding var selectedImageID: UUID?
     @Binding var isCustomSheet: Bool
